@@ -25,11 +25,26 @@ public class ShuttleLive {
         daouser.insertAutista(user);
         return user;
     }
-    public void inserisciNuovoUtente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
+    public Utente inserisciNuovoUtente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
         Utente user = new Utente(username,email,password,nome,cognome,telefono,data_nascita);
         System.out.println(user);
         UtenteDAO daouser = new UtenteDAO();
         daouser.insertUtente(user);
+        return user;
+    }
+
+    public Autista loginAutista(String email,String password) {
+        AutistaDAO daouser = new AutistaDAO();
+        Autista user = new Autista();
+        user = daouser.selectAutista(email,password);
+        return user;
+    }
+
+    public Utente loginUtente(String email,String password) {
+        UtenteDAO daouser = new UtenteDAO();
+        Utente user = new Utente();
+        user = daouser.selectUtente(email,password);
+        return user;
     }
 
 

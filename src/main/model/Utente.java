@@ -23,6 +23,10 @@ public class Utente {
         this.data_nascita = data_nascita;
     }
 
+    public Utente() {
+
+    }
+
     public String getUsername() {
         return username;
     }

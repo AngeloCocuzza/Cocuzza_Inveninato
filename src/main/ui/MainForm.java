@@ -29,19 +29,23 @@ public class MainForm extends javax.swing.JFrame {
         registratiUtente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new RegistratiUtenteForm(shuttlelive);
+                setVisible(false);
 
             }
         });
         loginUtente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new LoginUtenteForm(shuttlelive);
+                setVisible(false);
             }
         });
         loginAutista.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new LoginAutistaForm(shuttlelive);
+                setVisible(false);
             }
         });
     }

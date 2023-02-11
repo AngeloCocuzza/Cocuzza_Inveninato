@@ -1,6 +1,7 @@
 package ui;
 
 import model.ShuttleLive;
+import model.Utente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,8 @@ import java.sql.Date;
 public class RegistratiUtenteForm extends javax.swing.JFrame{
 
     private ShuttleLive shuttlelive;
+
+    private Utente utente;
 
 
     public RegistratiUtenteForm(ShuttleLive sl) {
@@ -23,7 +26,7 @@ public class RegistratiUtenteForm extends javax.swing.JFrame{
         inviabutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shuttlelive.inserisciNuovoUtente(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
+                utente = shuttlelive.inserisciNuovoUtente(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
                 setVisible(false);
             }
         });

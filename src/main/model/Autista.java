@@ -8,6 +8,10 @@ public class Autista extends Utente{
         super(username, email, password, nome, cognome, telefono, data_nascita);
     }
 
+    public Autista() {
+
+    }
+
     @Override
     public String toString() {
         return "Autista{" +

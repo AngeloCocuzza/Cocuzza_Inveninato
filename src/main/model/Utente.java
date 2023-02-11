@@ -1,5 +1,7 @@
 package model;
 
+import SL_db.UtenteDAO;
+
 import java.util.Date;
 
 public class Utente {
@@ -8,10 +10,10 @@ public class Utente {
     private String password;
     private String nome;
     private String cognome;
-    private Integer telefono;
+    private String telefono;
     private Date data_nascita;
 
-    public Utente(String username, String email, String password, String nome, String cognome, Integer telefono, Date data_nascita) {
+    public Utente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -61,11 +63,11 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

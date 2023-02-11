@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBConnect {
     public static Connection getConnection() throws SQLException {
-        String jdbcURL= "jdbc:mysql://127.0.0.1:3306/?user=root";
+        String jdbcURL= "jdbc:mysql://localhost:3306/shuttlelive?user=root";
         return DriverManager.getConnection(jdbcURL);
     }
 }

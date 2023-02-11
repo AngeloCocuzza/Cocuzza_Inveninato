@@ -3,6 +3,9 @@ package ui;
 import model.ShuttleLive;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
 
 public class RegistratiAutistaForm extends javax.swing.JFrame {
 
@@ -17,14 +20,21 @@ public class RegistratiAutistaForm extends javax.swing.JFrame {
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        inviabutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shuttlelive.inserisciNuovoAutista(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
+            }
+        });
     }
 
     private JPanel registrazionePanel;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JPasswordField passwordField1;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
+    private JTextField username;
+    private JTextField email;
+    private JPasswordField password;
+    private JTextField nome;
+    private JTextField cognome;
+    private JTextField telefono;
+    private JTextField data;
+    private JButton inviabutton;
 }

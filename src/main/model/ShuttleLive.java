@@ -1,7 +1,10 @@
 package model;
 
 import SL_db.AutistaDAO;
+import SL_db.PatenteDao;
+import SL_db.VeicoloDao;
 import SL_db.UtenteDAO;
+import SL_db.VeicoloDao;
 import ui.MainForm;
 
 import javax.swing.*;
@@ -45,6 +48,22 @@ public class ShuttleLive {
         Utente user = new Utente();
         user = daouser.selectUtente(email,password);
         return user;
+    }
+    public boolean inserisciPatente(String codice,String autista, Date data_conseguimento,Date data_scadenza,String livello) {
+        Patente patent = new Patente(codice,autista,data_conseguimento,data_scadenza,livello);
+        System.out.println(patent);
+        PatenteDao daopatent = new PatenteDao();
+        daopatent.insertPatente(patent);
+
+        return false;}
+        public boolean inserisciVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) {
+            Veicolo veicol = new Veicolo(targa,autista,marca,modello,colore,n_posti);
+            System.out.println(veicol);
+            VeicoloDao daoveicol = new VeicoloDao();
+            daoveicol.insertVeicolo(veicol);
+
+            return false;
+
     }
 
 

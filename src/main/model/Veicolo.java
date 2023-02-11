@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 public class Veicolo {
     private String targa;
     private String autista;
@@ -41,7 +39,7 @@ public class Veicolo {
         return colore;
     }
 
-    public int getN_posti() {
+    public String getN_posti() {
         return n_posti;
     }
 

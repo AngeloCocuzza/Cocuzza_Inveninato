@@ -42,7 +42,7 @@ public class UtenteDAO {
                 ResultSet rs = statement.executeQuery();
                 System.out.println("ciao");
                 while (rs.next()) {
-                    Utente user = new Utente(rs.getString("nomeutente"), rs.getString("email"), rs.getString("password"), rs.getString("name"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
+                    Utente user = new Utente(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
                     utente=user;
                 }
                 System.out.println(utente);

@@ -18,7 +18,7 @@ public class RegistraVeicolo extends javax.swing.JFrame {
     private JPanel veicoloPanel;
     public RegistraVeicolo(ShuttleLive sl, Autista autista) {
         this.shuttlelive=sl;
-        setTitle("RegVeicol");
+        setTitle("RegVeicolo");
         setContentPane(veicoloPanel);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -26,7 +26,7 @@ public class RegistraVeicolo extends javax.swing.JFrame {
         registraVeicoloButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shuttlelive.inserisciVeicolo(targa.getText(),autista.getUsername(), marca.getText(),modello.getText(),colore.getText(), Integer.valueOf(n_posti.getText()));
+                shuttlelive.inserisciVeicolo(targa.getText(),autista, marca.getText(),modello.getText(),colore.getText(), Integer.valueOf(n_posti.getText()));
                 setVisible(false);
             }
         });

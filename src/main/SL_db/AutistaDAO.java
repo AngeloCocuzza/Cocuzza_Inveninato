@@ -48,7 +48,7 @@ public class AutistaDAO {
                 ResultSet rs = statement.executeQuery();
                 //System.out.println("ciao");
                 while (rs.next()) {
-                    Autista user = new Autista(rs.getString("nomeutente"), rs.getString("email"), rs.getString("password"), rs.getString("name"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
+                    Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
                     autista=user;
                 }
                 //System.out.println(autista);

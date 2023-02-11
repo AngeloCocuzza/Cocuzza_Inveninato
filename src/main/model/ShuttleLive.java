@@ -49,14 +49,14 @@ public class ShuttleLive {
         user = daouser.selectUtente(email,password);
         return user;
     }
-    public boolean inserisciPatente(String codice,String autista, Date data_conseguimento,Date data_scadenza,String livello) {
+    public boolean inserisciPatente(String codice,Autista autista, Date data_conseguimento,Date data_scadenza,String livello) {
         Patente patent = new Patente(codice,autista,data_conseguimento,data_scadenza,livello);
         System.out.println(patent);
         PatenteDao daopatent = new PatenteDao();
         daopatent.insertPatente(patent);
 
         return false;}
-        public boolean inserisciVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) {
+        public boolean inserisciVeicolo(String targa,Autista autista, String marca,String modello,String colore,Integer n_posti) {
             Veicolo veicol = new Veicolo(targa,autista,marca,modello,colore,n_posti);
             System.out.println(veicol);
             VeicoloDao daoveicol = new VeicoloDao();

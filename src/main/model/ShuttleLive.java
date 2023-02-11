@@ -1,6 +1,7 @@
 package model;
 
 import SL_db.AutistaDAO;
+import SL_db.PatenteDao;
 import SL_db.UtenteDAO;
 import ui.MainForm;
 
@@ -30,6 +31,15 @@ public class ShuttleLive {
         System.out.println(user);
         UtenteDAO daouser = new UtenteDAO();
         daouser.insertUtente(user);
+    }
+    public boolean inserisciPatente(String codice,String autista, Date data_conseguimento,Date data_scadenza,String livello) {
+        Patente patent = new Patente(codice,autista,data_conseguimento,data_scadenza,livello);
+        System.out.println(patent);
+        PatenteDao daopatent = new PatenteDao();
+        daopatent.insertPatente(patent);
+
+        return false;
+
     }
 
 

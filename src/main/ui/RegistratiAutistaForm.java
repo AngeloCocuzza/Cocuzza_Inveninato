@@ -27,6 +27,8 @@ public class RegistratiAutistaForm extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 autista = shuttlelive.inserisciNuovoAutista(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
+
+                new RegistraPatente(shuttlelive,autista);
                 setVisible(false);
             }
         });

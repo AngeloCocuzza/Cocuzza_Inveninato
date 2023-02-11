@@ -19,7 +19,7 @@ public class AutistaDAO {
                 System.out.println("connessione con successo");
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setString(1, user.getUsername());
-                statement.setString(2, user.getUsername());
+                statement.setString(2, user.getEmail());
                 statement.setString(3, user.getPassword());
                 statement.setString(4, user.getNome());
                 statement.setString(5, user.getCognome());

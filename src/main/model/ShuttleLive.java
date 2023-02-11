@@ -18,14 +18,22 @@ public class ShuttleLive {
         return shuttlelive;
     }
 
-    public boolean inserisciNuovoAutista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
+    public Autista inserisciNuovoAutista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
         Autista user = new Autista(username,email,password,nome,cognome,telefono,data_nascita);
         System.out.println(user);
         AutistaDAO daouser = new AutistaDAO();
         daouser.insertAutista(user);
-
-        return false;
-
+        return user;
     }
+    public void inserisciNuovoUtente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
+        Utente user = new Utente(username,email,password,nome,cognome,telefono,data_nascita);
+        System.out.println(user);
+        UtenteDAO daouser = new UtenteDAO();
+        daouser.insertUtente(user);
+    }
+
+
+
+
 
 }

@@ -1,6 +1,5 @@
 package ui;
 
-import model.Autista;
 import model.ShuttleLive;
 
 import javax.swing.*;
@@ -8,17 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 
-public class RegistratiAutistaForm extends javax.swing.JFrame {
+public class RegistratiUtenteForm extends javax.swing.JFrame{
 
     private ShuttleLive shuttlelive;
 
-    private Autista autista;
 
-
-    public RegistratiAutistaForm(ShuttleLive sl) {
+    public RegistratiUtenteForm(ShuttleLive sl) {
         this.shuttlelive=sl;
 
-        setTitle("RegAutista");
+        setTitle("RegUtente");
         setContentPane(registrazionePanel);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -26,12 +23,11 @@ public class RegistratiAutistaForm extends javax.swing.JFrame {
         inviabutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                autista = shuttlelive.inserisciNuovoAutista(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
+                shuttlelive.inserisciNuovoUtente(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
                 setVisible(false);
             }
         });
     }
-
     private JPanel registrazionePanel;
     private JTextField username;
     private JTextField email;

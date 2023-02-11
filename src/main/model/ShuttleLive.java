@@ -1,19 +1,20 @@
 package model;
 
+import ui.MainForm;
+
 import javax.swing.*;
 
 public class ShuttleLive {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
-        System.out.println("Hello world!");
-        System.out.println("Hello world!");
-        System.out.println("Hello world!");
-        System.out.println("Hello world!");
+    public static ShuttleLive shuttlelive;
 
-        JFrame finestra = new JFrame();
-        finestra.setSize(600,480);
-        finestra.setTitle("ShuttleLiveLogin");
-        finestra.setVisible(true);
-
+    public static ShuttleLive getInstance() {
+        if(shuttlelive == null)
+            shuttlelive = new ShuttleLive();
+        else
+            System.out.println("Istanza già creata");
+        return shuttlelive;
     }
+
+
+
 }

@@ -2,6 +2,7 @@ package SL_db;
 import model.*;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UtenteDAO {
@@ -28,6 +29,27 @@ public class UtenteDAO {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public List<Utente> allUtente() {
+        List<Utente> allUsers = new ArrayList<Utente>();
+        String sql = "select * from utenti";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    Utente user = new Utente(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
+                    allUsers.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return allUsers;
     }
     public Utente selectUtente(String email, String password) {
         Utente utente = new Utente();

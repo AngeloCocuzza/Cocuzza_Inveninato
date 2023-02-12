@@ -8,7 +8,9 @@ import SL_db.VeicoloDao;
 import ui.MainForm;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ShuttleLive {
     public static ShuttleLive shuttlelive;
@@ -28,12 +30,27 @@ public class ShuttleLive {
         daouser.insertAutista(user);
         return user;
     }
-    public Utente inserisciNuovoUtente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
-        Utente user = new Utente(username,email,password,nome,cognome,telefono,data_nascita);
-        System.out.println(user);
+    public Utente inserisciNuovoUtente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) throws Exception {
         UtenteDAO daouser = new UtenteDAO();
-        daouser.insertUtente(user);
-        return user;
+        List<Utente> allUsers = new ArrayList<Utente>();
+        allUsers = daouser.allUtente();
+        if (password.length() <= 7) {
+            System.out.println("la password deve avere almeno 8 caratteri");
+            throw new Exception("password troppo corta");
+        } else {
+            for (Utente utente : allUsers) {
+                if (utente.getUsername().equals(username) == true || utente.getEmail().equals(email) == true) {
+                    System.out.println("email o username già presenti");
+                    throw new Exception("email o username già in uso");
+
+                }
+            }
+            Utente user = new Utente(username, email, password, nome, cognome, telefono, data_nascita);
+            System.out.println(user);
+            daouser.insertUtente(user);
+            return user;
+
+        }
     }
 
     public Autista loginAutista(String email,String password) {
@@ -49,25 +66,19 @@ public class ShuttleLive {
         user = daouser.selectUtente(email,password);
         return user;
     }
-    public boolean inserisciPatente(String codice,Autista autista, Date data_conseguimento,Date data_scadenza,String livello) {
+    public void inserisciPatente(String codice,Autista autista, Date data_conseguimento,Date data_scadenza,String livello) {
         Patente patent = new Patente(codice,autista,data_conseguimento,data_scadenza,livello);
         System.out.println(patent);
         PatenteDao daopatent = new PatenteDao();
         daopatent.insertPatente(patent);
 
-        return false;}
-        public boolean inserisciVeicolo(String targa,Autista autista, String marca,String modello,String colore,Integer n_posti) {
-            Veicolo veicol = new Veicolo(targa,autista,marca,modello,colore,n_posti);
-            System.out.println(veicol);
-            VeicoloDao daoveicol = new VeicoloDao();
-            daoveicol.insertVeicolo(veicol);
-
-            return false;
+    }
+    public void inserisciVeicolo(String targa,Autista autista, String marca,String modello,String colore,Integer n_posti) {
+        Veicolo veicol = new Veicolo(targa,autista,marca,modello,colore,n_posti);
+        System.out.println(veicol);
+        VeicoloDao daoveicol = new VeicoloDao();
+        daoveicol.insertVeicolo(veicol);
 
     }
-
-
-
-
 
 }

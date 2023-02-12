@@ -19,7 +19,7 @@ public class PatenteDao {
                 System.out.println("connessione con successo");
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setString(1, patent.getCodice());
-                statement.setString(2, patent.getAutista().getUsername());
+                statement.setString(2, patent.getAutista());
                 statement.setDate(3, (Date) patent.getData_conseguimento());
                 statement.setDate(4, (Date) patent.getData_scadenza());
                 statement.setString(5, patent.getLivello());

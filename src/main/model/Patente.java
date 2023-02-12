@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class Patente {
     private String codice;
-    private Autista autista;
+    private String autista;
 
     private Date data_conseguimento;
     private Date data_scadenza;
     private String livello;
 
-    public Patente(String codice, Autista autista, Date data_conseguimento, Date data_scadenza, String livello) {
+    public Patente(String codice, String autista, Date data_conseguimento, Date data_scadenza, String livello) {
         this.codice = codice;
         this.autista = autista;
         this.data_conseguimento = data_conseguimento;
@@ -22,7 +22,7 @@ public class Patente {
         return codice;
     }
 
-    public Autista getAutista() {
+    public String getAutista() {
         return autista;
     }
 
@@ -42,7 +42,7 @@ public class Patente {
         this.codice = codice;
     }
 
-    public void setAutista(Autista autista) {
+    public void setAutista(String autista) {
         this.autista = autista;
     }
 
@@ -56,6 +56,17 @@ public class Patente {
 
     public void setLivello(String livello) {
         this.livello = livello;
+    }
+
+    @Override
+    public String toString() {
+        return "Patente{" +
+                "codice='" + codice + '\'' +
+                ", autista='" + autista + '\'' +
+                ", data_conseguimento=" + data_conseguimento +
+                ", data_scadenza=" + data_scadenza +
+                ", livello='" + livello + '\'' +
+                '}';
     }
 }
 

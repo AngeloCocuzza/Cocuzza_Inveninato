@@ -29,11 +29,12 @@ public class RegistratiAutistaForm extends javax.swing.JFrame {
                try {
                    autista = shuttlelive.inserisciNuovoAutista(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
                    new RegistraPatente(shuttlelive,autista);
-                   setVisible(false);
                } catch (Exception ex) {
                    System.out.println(ex.getMessage());
                    new RegistratiAutistaForm(shuttlelive);
+
                }
+               setVisible(false);
 
 
             }

@@ -26,10 +26,16 @@ public class RegistratiAutistaForm extends javax.swing.JFrame {
         inviabutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                autista = shuttlelive.inserisciNuovoAutista(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
+               try {
+                   autista = shuttlelive.inserisciNuovoAutista(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
+                   new RegistraPatente(shuttlelive,autista);
+                   setVisible(false);
+               } catch (Exception ex) {
+                   System.out.println(ex.getMessage());
+                   new RegistratiAutistaForm(shuttlelive);
+               }
 
-                new RegistraPatente(shuttlelive,autista);
-                setVisible(false);
+
             }
         });
     }

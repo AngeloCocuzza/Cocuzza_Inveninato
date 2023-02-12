@@ -20,12 +20,27 @@ public class ShuttleLive {
         return shuttlelive;
     }
 
-    public Autista inserisciNuovoAutista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
-        Autista user = new Autista(username,email,password,nome,cognome,telefono,data_nascita);
-        System.out.println(user);
-        AutistaDAO daouser = new AutistaDAO();
-        daouser.insertAutista(user);
-        return user;
+    public Autista inserisciNuovoAutista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) throws Exception {
+        AutistaDAO daoautista = new AutistaDAO();
+        List<Autista> allAutisti = new ArrayList<Autista>();
+        allAutisti = daoautista.allAutisti();
+        if (password.length() <= 7) {
+            System.out.println("la password deve avere almeno 8 caratteri");
+            throw new Exception("password troppo corta");
+        } else {
+            for (Autista autista : allAutisti) {
+                if (autista.getUsername().equals(username) == true || autista.getEmail().equals(email) == true) {
+                    System.out.println("email o username già presenti");
+                    throw new Exception("email o username già in uso");
+
+                }
+            }
+            Autista autista = new Autista(username, email, password, nome, cognome, telefono, data_nascita);
+            System.out.println(autista);
+            daoautista.insertAutista(autista);
+            return autista;
+
+        }
     }
     public Utente inserisciNuovoUtente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) throws Exception {
         UtenteDAO daouser = new UtenteDAO();

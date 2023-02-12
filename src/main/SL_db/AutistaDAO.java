@@ -4,6 +4,8 @@ import model.Autista;
 import model.Utente;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutistaDAO {
     public void insertAutista(Autista user) {
@@ -31,6 +33,26 @@ public class AutistaDAO {
             throw new RuntimeException(e);
         }
 
+    }
+    public List<Autista> allAutisti() {
+        List<Autista> allAutisti = new ArrayList<Autista>();
+        String sql = "select * from autisti";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    Autista autista = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
+                    allAutisti.add(autista);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return allAutisti;
     }
 
 

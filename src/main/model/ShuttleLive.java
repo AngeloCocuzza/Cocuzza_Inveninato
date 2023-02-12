@@ -4,10 +4,7 @@ import SL_db.AutistaDAO;
 import SL_db.PatenteDao;
 import SL_db.VeicoloDao;
 import SL_db.UtenteDAO;
-import SL_db.VeicoloDao;
-import ui.MainForm;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,19 +78,32 @@ public class ShuttleLive {
         user = daouser.selectUtente(email,password);
         return user;
     }
-    public void inserisciPatente(String codice,Autista autista, Date data_conseguimento,Date data_scadenza,String livello) {
+    public void inserisciPatente(String codice, String autista, Date data_conseguimento, Date data_scadenza, String livello) {
         Patente patent = new Patente(codice,autista,data_conseguimento,data_scadenza,livello);
         System.out.println(patent);
         PatenteDao daopatent = new PatenteDao();
         daopatent.insertPatente(patent);
 
     }
-    public void inserisciVeicolo(String targa,Autista autista, String marca,String modello,String colore,Integer n_posti) {
-        Veicolo veicol = new Veicolo(targa,autista,marca,modello,colore,n_posti);
-        System.out.println(veicol);
+    public void inserisciVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) throws Exception {
+
         VeicoloDao daoveicol = new VeicoloDao();
-        daoveicol.insertVeicolo(veicol);
+        daoveicol.allVeicolo();
+        List<Veicolo> allveicolo = new ArrayList<Veicolo>();
+        if (targa.length() != 7) {
+            System.out.println("la targa deve essere di 7 caratteri");
+            throw new Exception("targa non valida");
+        } else {
+            for (Veicolo veicolo : allveicolo) {
+                if (veicolo.getTarga().equals(targa) == true) {
+                    System.out.println("targa già presente");
+                    throw new Exception("veicolo già registrato");
 
+                }
+            }
+            Veicolo veicol = new Veicolo(targa,autista,marca,modello,colore,n_posti);
+            System.out.println(veicol);
+            daoveicol.insertVeicolo(veicol);
+        }
     }
-
 }

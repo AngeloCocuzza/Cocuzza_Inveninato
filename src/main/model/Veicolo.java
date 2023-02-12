@@ -2,7 +2,7 @@ package model;
 
 public class Veicolo {
     private String targa;
-    private Autista autista;
+    private String autista;
 
 
     private String marca;
@@ -10,7 +10,7 @@ public class Veicolo {
     private String colore;
     private Integer n_posti;
 
-    public Veicolo(String targa, Autista autista, String marca, String modello, String colore, Integer n_posti) {
+    public Veicolo(String targa, String autista, String marca, String modello, String colore, Integer n_posti) {
         this.targa = targa;
         this.autista = autista;
         this.marca = marca;
@@ -23,7 +23,7 @@ public class Veicolo {
         return targa;
     }
 
-    public Autista getAutista() {
+    public String getAutista() {
         return autista;
     }
 
@@ -47,7 +47,7 @@ public class Veicolo {
         this.targa = targa;
     }
 
-    public void setAutista(Autista autista) {
+    public void setAutista(String autista) {
         this.autista = autista;
     }
 
@@ -65,5 +65,17 @@ public class Veicolo {
 
     public void setN_posti(Integer n_posti) {
         this.n_posti = n_posti;
+    }
+
+    @Override
+    public String toString() {
+        return "Veicolo{" +
+                "targa='" + targa + '\'' +
+                ", autista='" + autista + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modello='" + modello + '\'' +
+                ", colore='" + colore + '\'' +
+                ", n_posti=" + n_posti +
+                '}';
     }
 }

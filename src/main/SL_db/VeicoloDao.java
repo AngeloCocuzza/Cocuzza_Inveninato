@@ -1,12 +1,12 @@
 package SL_db;
 
 import model.Autista;
+import model.Utente;
 import model.Veicolo;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VeicoloDao {
     public void insertVeicolo(Veicolo veicol) {
@@ -19,7 +19,7 @@ public class VeicoloDao {
                 System.out.println("connessione con successo");
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setString(1, veicol.getTarga());
-                statement.setString(2, veicol.getAutista().getUsername());
+                statement.setString(2, veicol.getAutista());
                 statement.setString(3, veicol.getMarca());
                 statement.setString(4, veicol.getModello());
                 statement.setString(5, veicol.getColore());
@@ -35,4 +35,26 @@ public class VeicoloDao {
         }
 
     }
+
+    public List<Veicolo> allVeicolo() {
+        List<Veicolo> allveicolo = new ArrayList<Veicolo>();
+        String sql = "select * from veicolo";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    Veicolo veicolo = new Veicolo(rs.getString("targa"), rs.getString("autista"), rs.getString("marca"), rs.getString("modello"),rs.getString("colore"), rs.getInt("n_posti"));
+                    allveicolo.add(veicolo);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return allveicolo;
+    }
+
 }

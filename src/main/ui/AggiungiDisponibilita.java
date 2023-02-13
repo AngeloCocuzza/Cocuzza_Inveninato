@@ -6,6 +6,8 @@ import model.ShuttleLive;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalTime;
 
 public class AggiungiDisponibilita extends javax.swing.JFrame {
 
@@ -15,6 +17,7 @@ public class AggiungiDisponibilita extends javax.swing.JFrame {
     private JTextField orafine;
     private JButton inserisciDisponibilitàButton;
     private JPanel disponibilitaPanel;
+    private JTextField cittapart;
 
     public AggiungiDisponibilita(ShuttleLive sl, Autista autista) {
     this.shuttlelive=sl;
@@ -26,7 +29,7 @@ public class AggiungiDisponibilita extends javax.swing.JFrame {
     inserisciDisponibilitàButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            shuttlelive.inserisciNuovaDisponibilita(autista.getUsername(),Date.valueOf(datadispo.getText()),LocalTime.parse(orainizio.getText()), LocalTime.parse(orafine.getText()));
         }
     });
 }

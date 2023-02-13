@@ -1,10 +1,8 @@
 package model;
 
-import SL_db.AutistaDAO;
-import SL_db.PatenteDao;
-import SL_db.VeicoloDao;
-import SL_db.UtenteDAO;
+import SL_db.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +15,8 @@ public class ShuttleLive {
     Veicolo veicoloCorrente;
 
     Patente patenteCorrente;
+
+    Disponibilita disponibilitaCorrente;
 
     public static ShuttleLive getInstance() {
         if(shuttlelive == null)
@@ -56,6 +56,11 @@ public class ShuttleLive {
     public Veicolo inserisciVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) throws Exception {
         veicoloCorrente= verificaCampiVeicolo(targa, autista, marca, modello, colore, n_posti);
         return veicoloCorrente;
+    }
+
+    public Disponibilita inserisciNuovaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) {
+        disponibilitaCorrente = verificaDisponibilita(autista,giorno_disponibilita,ora_inizio,ora_fine,citta_partenza);
+        return disponibilitaCorrente;
     }
 
     public Utente verificaCampiUtente(String username, String email, String password,String nome, String cognome, String telefono, Date data_nascita) throws Exception {
@@ -131,8 +136,7 @@ public class ShuttleLive {
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
-
-            if (user.getEmail() == null||user.getPassword()==null) {
+            if (user == null) {
                 throw new Exception("autista non trovato");
             }
             return user;
@@ -142,16 +146,21 @@ public class ShuttleLive {
     public Utente verificaLoginUtente(String email, String password) throws Exception {
         UtenteDAO daouser = new UtenteDAO();
         Utente user = new Utente();
-        user = daouser.selectUtente(email, password);
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
-
-            if (user.getEmail() == null||user.getPassword()==null) {
+            user = daouser.selectUtente(email, password);
+            if (user == null) {
                 throw new Exception("utente non trovato");
             }
             return user;
         }
+    }
+
+    public Disponibilita verificaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) {
+        DisponibilitaDAO dispdao = new DisponibilitaDAO();
+        List<Disponibilita> alldisp = new ArrayList<>();
+        alldisp = dispdao.allDisponibilita();
     }
 
     public Utente getUtenteCorrente() {return utenteCorrente;}
@@ -159,4 +168,6 @@ public class ShuttleLive {
 
     public Patente getPatenteCorrente() {return patenteCorrente;}
     public Veicolo getVeicoloCorrente() {return veicoloCorrente;}
+
+    public Disponibilita getDisponibilitaCorrente() {return disponibilitaCorrente;}
 }

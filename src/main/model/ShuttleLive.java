@@ -16,6 +16,8 @@ public class ShuttleLive {
     Autista autistaCorrente;
     Veicolo veicoloCorrente;
 
+    Patente patenteCorrente;
+
     public static ShuttleLive getInstance() {
         if(shuttlelive == null)
             shuttlelive = new ShuttleLive();
@@ -47,11 +49,12 @@ public class ShuttleLive {
         utenteCorrente = daouser.selectUtente(email,password);
         return utenteCorrente;
     }
-    public void inserisciPatente(String codice, String autista, Date data_conseguimento, Date data_scadenza, String livello) {
+    public Patente inserisciPatente(String codice, String autista, Date data_conseguimento, Date data_scadenza, String livello) {
         Patente patent = new Patente(codice,autista,data_conseguimento,data_scadenza,livello);
         System.out.println(patent);
         PatenteDao daopatent = new PatenteDao();
-        daopatent.insertPatente(patent);
+        patenteCorrente = daopatent.insertPatente(patent);
+        return patenteCorrente;
 
     }
     public Veicolo inserisciVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) throws Exception {
@@ -129,5 +132,7 @@ public class ShuttleLive {
 
     public Utente getUtenteCorrente() {return utenteCorrente;}
     public Autista getAutistaCorrente() {return autistaCorrente;}
+
+    public Patente getPatenteCorrente() {return patenteCorrente;}
     public Veicolo getVeicoloCorrente() {return veicoloCorrente;}
 }

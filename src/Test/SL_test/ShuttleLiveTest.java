@@ -53,4 +53,11 @@ class ShuttleLiveTest {
             fail("Unexpected exception");
         }
     }
-}
+
+    @Test
+    void testInserisciPatente() {    ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        try {        shuttlelive.inserisciPatente("12345cd",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM");
+            System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
+            assertNotNull(shuttlelive.getAutistaCorrente());    }
+        catch (Exception e) {        fail("Unexpected exception");    }
+    }}

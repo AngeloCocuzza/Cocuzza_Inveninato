@@ -25,7 +25,12 @@ public class LoginUtenteForm extends javax.swing.JFrame {
         accediButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                utente = shuttlelive.loginUtente(email.getText(), String.copyValueOf(password.getPassword()));
+                try {
+                    utente = shuttlelive.loginUtente(email.getText(), String.copyValueOf(password.getPassword()));
+                    //new MenuUtente(shuttlelive,utente);
+                } catch (Exception ex) {
+                    new LoginUtenteForm(shuttlelive);
+                }
                 setVisible(false);
                 //System.out.println(utente);
             }

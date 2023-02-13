@@ -24,7 +24,13 @@ public class LoginAutistaForm extends javax.swing.JFrame{
         accediButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                autista = shuttlelive.loginAutista(email.getText(),String.copyValueOf(password.getPassword()));
+                try {
+                    autista = shuttlelive.loginAutista(email.getText(),String.copyValueOf(password.getPassword()));
+                    new MenuAutista(shuttlelive,autista);
+                } catch (Exception ex) {
+                    new LoginAutistaForm(shuttlelive);
+                }
+
                 setVisible(false);
             }
         });

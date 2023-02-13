@@ -28,6 +28,7 @@ public class RegistraVeicolo extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     shuttlelive.inserisciVeicolo(targa.getText(),autista.getUsername(), marca.getText(),modello.getText(),colore.getText(), Integer.valueOf(n_posti.getText()));
+                    new MenuAutista(shuttlelive,autista);
                 } catch (Exception ex) {
                     new RegistraVeicolo(shuttlelive,autista);
                 }

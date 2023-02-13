@@ -41,4 +41,16 @@ class ShuttleLiveTest {
             fail("Unexpected exception");
         }
     }
+
+    @Test
+    void testInserisciVeicolo() {
+        ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        try {
+            shuttlelive.inserisciVeicolo("xy325fj",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6"));
+            System.out.println(shuttlelive.getVeicoloCorrente() + "ciao");
+            assertNotNull(shuttlelive.getVeicoloCorrente());
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+    }
 }

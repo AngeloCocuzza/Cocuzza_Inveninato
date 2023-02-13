@@ -74,7 +74,6 @@ public class ShuttleLive {
                 if (utente.getUsername().equals(username) == true || utente.getEmail().equals(email) == true) {
                     System.out.println("email o username già presenti");
                     throw new Exception("email o username già in uso");
-
                 }
             }
             Utente user = new Utente(username, email, password, nome, cognome, telefono, data_nascita);
@@ -104,14 +103,14 @@ public class ShuttleLive {
             System.out.println(autista);
             daoautista.insertAutista(autista);
             return autista;
-
         }
     }
 
     public Veicolo verificaCampiVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) throws Exception {
         VeicoloDao daoveicol = new VeicoloDao();
-        daoveicol.allVeicolo();
+
         List<Veicolo> allveicolo = new ArrayList<Veicolo>();
+        allveicolo = daoveicol.allVeicolo();
         if (targa.length() != 7) {
             System.out.println("la targa deve essere di 7 caratteri");
             throw new Exception("targa non valida");
@@ -120,7 +119,6 @@ public class ShuttleLive {
                 if (veicolo.getTarga().equals(targa) == true) {
                     System.out.println("targa già presente");
                     throw new Exception("veicolo già registrato");
-
                 }
             }
             Veicolo veicol = new Veicolo(targa,autista,marca,modello,colore,n_posti);

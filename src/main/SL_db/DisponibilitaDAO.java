@@ -32,6 +32,35 @@ public class DisponibilitaDAO {
         }
 
     }
+    public List<String> selectNomeAutistiDisponibili(String partenza,Date data_partenza, LocalTime ora) {
+        String sql = "select autista from disponibilita  where citta_partenza=? AND giorno_disponibilita=? AND TIMEDIFF(?,ora_inizio)>=0 AND TIMEDIFF(?,ora_fine)<=0";
+        List<String> autistiDisp=new ArrayList<>();
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1,partenza );
+                statement.setDate(2, (Date) data_partenza);
+                statement.setTime(3, Time.valueOf(ora));
+                statement.setTime(4, Time.valueOf(ora));
+
+                ResultSet rs=statement.executeQuery();
+                while(rs.next()){
+                    String autista=new String(rs.getString("autista"));
+                    autistiDisp.add(autista);
+                }
+            } else {
+                System.out.println("connessione fallita");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return autistiDisp;
+
+    }
 
     public List<Disponibilita> allDisponibilita() {
         List<Disponibilita> alldisp = new ArrayList<>();

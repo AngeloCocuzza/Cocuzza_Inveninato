@@ -17,6 +17,7 @@ public class ShuttleLive {
     Patente patenteCorrente;
 
     Disponibilita disponibilitaCorrente;
+    List<Autista> autistiDisponibiliCorrente;
 
     public static ShuttleLive getInstance() {
         if(shuttlelive == null)
@@ -61,6 +62,15 @@ public class ShuttleLive {
     public Disponibilita inserisciNuovaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) throws Exception {
         disponibilitaCorrente = verificaDisponibilita(autista,giorno_disponibilita,ora_inizio,ora_fine,citta_partenza);
         return disponibilitaCorrente;
+    }
+    public List<Autista> cercaAutistiDisponibili(String partenza, String arrivo, java.sql.Date data_partenza, LocalTime ora){
+        DisponibilitaDAO daodisponibilita=new DisponibilitaDAO();
+        List<String> str = new ArrayList<>();
+        str=daodisponibilita.selectNomeAutistiDisponibili(partenza,data_partenza,ora);
+        AutistaDAO autdao =new AutistaDAO();
+        autistiDisponibiliCorrente=autdao.selectAutistaByName(str);
+        return autistiDisponibiliCorrente;
+
     }
 
     public Utente verificaCampiUtente(String username, String email, String password,String nome, String cognome, String telefono, Date data_nascita) throws Exception {
@@ -136,7 +146,7 @@ public class ShuttleLive {
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
-            if (user.getEmail() == null || user.getPassword() == null) {
+            if (user.getPassword() == null || user.getEmail()==null) {
                 throw new Exception("autista non trovato");
             }
             return user;
@@ -150,7 +160,7 @@ public class ShuttleLive {
             throw new Exception("password troppo breve");
         } else {
             user = daouser.selectUtente(email, password);
-            if (user.getPassword() == null || user.getEmail() == null) {
+            if (user.getPassword() == null || user.getEmail()==null) {
                 throw new Exception("utente non trovato");
             }
             return user;

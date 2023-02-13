@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ui.CercaCorsa">
-  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="cercaCorsaPanel" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -8,55 +8,59 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="51098" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="51098" class="javax.swing.JButton" binding="trovaCorsaButton">
         <constraints>
           <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Button"/>
+          <text value="Trova Corsa"/>
         </properties>
       </component>
       <component id="e26bc" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="inserisci il luogo di partenza "/>
+          <text value="Inserisci il luogo di partenza "/>
         </properties>
       </component>
-      <component id="5707" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="5707" class="javax.swing.JTextField" binding="partenza">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
-      </component>
-      <component id="d43e9" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
         <properties>
-          <text value="inserisci il luogo di arrivo"/>
+          <text value=""/>
         </properties>
       </component>
-      <component id="b56e8" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+      <component id="d43e9" class="javax.swing.JLabel" binding="si">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Inserisci il luogo di arrivo"/>
+        </properties>
+      </component>
+      <component id="b56e8" class="javax.swing.JTextField" binding="arrivo">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
-      </component>
-      <component id="62262" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
         <properties>
-          <text value="inserisci la data di partenza"/>
+          <text value=""/>
         </properties>
       </component>
-      <component id="8ef6d" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+      <component id="62262" class="javax.swing.JLabel" binding="giornoPartenza">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Inserisci la data di partenza"/>
+        </properties>
+      </component>
+      <component id="8ef6d" class="javax.swing.JTextField" binding="dataPartenza">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -64,21 +68,23 @@
         </constraints>
         <properties/>
       </component>
-      <component id="cfecc" class="javax.swing.JLabel">
+      <component id="cfecc" class="javax.swing.JLabel" binding="ora">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="inserisci l'ora di partenza"/>
+          <text value="Inserisci l'ora di partenza"/>
         </properties>
       </component>
-      <component id="9f7dc" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+      <component id="9f7dc" class="javax.swing.JTextField" binding="oraPartenza">
         <constraints>
           <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
     </children>
   </grid>

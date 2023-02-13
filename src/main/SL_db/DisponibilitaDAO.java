@@ -1,8 +1,12 @@
 package SL_db;
 
 import model.Disponibilita;
+import model.Veicolo;
 
 import java.sql.*;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DisponibilitaDAO {
     public void insertDisponibilita(Disponibilita disp) {
@@ -27,5 +31,26 @@ public class DisponibilitaDAO {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public List<Disponibilita> allDisponibilita() {
+        List<Disponibilita> alldisp = new ArrayList<>();
+        String sql = "select * from disponibilita";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    Disponibilita dispo = new Disponibilita(rs.getString("autista"), rs.getDate("giorno_disponibilita"), LocalTime.parse(rs.getString("ora_inizio")), LocalTime.parse(rs.getString("ora_fine")),rs.getString("citta_partenza"));
+                    alldisp.add(dispo);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return alldisp;
     }
 }

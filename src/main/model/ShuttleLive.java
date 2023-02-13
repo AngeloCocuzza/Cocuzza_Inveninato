@@ -58,7 +58,7 @@ public class ShuttleLive {
         return veicoloCorrente;
     }
 
-    public Disponibilita inserisciNuovaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) {
+    public Disponibilita inserisciNuovaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) throws Exception {
         disponibilitaCorrente = verificaDisponibilita(autista,giorno_disponibilita,ora_inizio,ora_fine,citta_partenza);
         return disponibilitaCorrente;
     }
@@ -136,7 +136,7 @@ public class ShuttleLive {
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
-            if (user == null) {
+            if (user.getEmail() == null || user.getPassword() == null) {
                 throw new Exception("autista non trovato");
             }
             return user;
@@ -150,17 +150,30 @@ public class ShuttleLive {
             throw new Exception("password troppo breve");
         } else {
             user = daouser.selectUtente(email, password);
-            if (user == null) {
+            if (user.getPassword() == null || user.getEmail() == null) {
                 throw new Exception("utente non trovato");
             }
             return user;
         }
     }
 
-    public Disponibilita verificaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) {
+    public Disponibilita verificaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) throws Exception {
         DisponibilitaDAO dispdao = new DisponibilitaDAO();
         List<Disponibilita> alldisp = new ArrayList<>();
         alldisp = dispdao.allDisponibilita();
+        if(giorno_disponibilita.before(new Date())) {
+            throw new Exception("data non valida");
+        } else {
+            for (Disponibilita disp : alldisp) {
+                if(disp.getGiorno_disponibilita().equals(giorno_disponibilita) == true && disp.getAutista().equals(autista) == true) {
+                    System.out.println("è già presente una messa a disposizione per la data inserita");
+                    throw new Exception("data già occupata");
+                }
+            }
+            Disponibilita dispo = new Disponibilita(autista, giorno_disponibilita, ora_inizio, ora_fine, citta_partenza);
+            dispdao.insertDisponibilita(dispo);
+            return dispo;
+        }
     }
 
     public Utente getUtenteCorrente() {return utenteCorrente;}

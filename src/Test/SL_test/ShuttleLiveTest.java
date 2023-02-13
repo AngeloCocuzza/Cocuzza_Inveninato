@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 import static org.junit.Assert.assertNotNull;
@@ -144,6 +145,30 @@ class ShuttleLiveTest {
             } catch (Exception e){
                 assertEquals(e.getMessage(), "utente non trovato");
             }
+    }
+
+    @Test
+    void testInserisciNuovaDisponibilita() {
+        ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        try {
+            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2023-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            assertNotNull(shuttlelive.getDisponibilitaCorrente());
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+        try {
+            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2022-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"data non valida");
+        }
+        try{
+            assertNull(shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2023-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania"));
+            fail("Expected exception");
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"data già occupata");
+        }
     }
 
 }

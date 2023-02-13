@@ -29,7 +29,13 @@ public class AggiungiDisponibilita extends javax.swing.JFrame {
     inserisciDisponibilitàButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            shuttlelive.inserisciNuovaDisponibilita(autista.getUsername(),Date.valueOf(datadispo.getText()),LocalTime.parse(orainizio.getText()), LocalTime.parse(orafine.getText()));
+            try {
+                shuttlelive.inserisciNuovaDisponibilita(autista.getUsername(),Date.valueOf(datadispo.getText()),LocalTime.parse(orainizio.getText()), LocalTime.parse(orafine.getText()),datadispo.getText());
+                new MenuAutista(shuttlelive,autista);
+            } catch (Exception ex) {
+                new AggiungiDisponibilita(shuttlelive,autista);
+            }
+            setVisible(false);
         }
     });
 }

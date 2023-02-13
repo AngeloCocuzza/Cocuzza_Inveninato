@@ -35,10 +35,21 @@ class ShuttleLiveTest {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         try {
             shuttlelive.inserisciNuovoAutista("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456", java.sql.Date.valueOf("1999-05-30"));
-            System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
             assertNotNull(shuttlelive.getAutistaCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
         }
     }
+
+    @Test
+    void testInserisciPatente() {
+        ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        try {
+            shuttlelive.inserisciPatente("1234",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2028-05-30"),"AM");
+            assertNotNull(shuttlelive.getPatenteCorrente());
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+    }
+
 }

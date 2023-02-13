@@ -1,6 +1,5 @@
 package SL_db;
 
-import model.Autista;
 import model.Patente;
 
 import java.sql.Connection;
@@ -9,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class PatenteDao {
-    public void insertPatente(Patente patent) {
+    public Patente insertPatente(Patente patent) {
         //Utente user = new Utente();
         String sql = "insert into patente values (?,?,?,?,?)";
 
@@ -33,5 +32,6 @@ public class PatenteDao {
             throw new RuntimeException(e);
         }
 
+        return patent;
     }
 }

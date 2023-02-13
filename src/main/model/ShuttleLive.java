@@ -127,11 +127,12 @@ public class ShuttleLive {
     public Autista verificaLoginAutista(String email, String password) throws Exception {
         AutistaDAO daouser = new AutistaDAO();
         Autista user = new Autista();
+        user = daouser.selectAutista(email, password);
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
-            user = daouser.selectAutista(email, password);
-            if (user == null) {
+
+            if (user.getEmail() == null||user.getPassword()==null) {
                 throw new Exception("autista non trovato");
             }
             return user;
@@ -141,11 +142,12 @@ public class ShuttleLive {
     public Utente verificaLoginUtente(String email, String password) throws Exception {
         UtenteDAO daouser = new UtenteDAO();
         Utente user = new Utente();
+        user = daouser.selectUtente(email, password);
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
-            user = daouser.selectUtente(email, password);
-            if (user == null) {
+
+            if (user.getEmail() == null||user.getPassword()==null) {
                 throw new Exception("utente non trovato");
             }
             return user;

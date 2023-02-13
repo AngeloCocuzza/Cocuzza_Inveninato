@@ -27,7 +27,7 @@ public class LoginUtenteForm extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     utente = shuttlelive.loginUtente(email.getText(), String.copyValueOf(password.getPassword()));
-                    //new MenuUtente(shuttlelive,utente);
+                    new MenuUtente(shuttlelive,utente);
                 } catch (Exception ex) {
                     new LoginUtenteForm(shuttlelive);
                 }

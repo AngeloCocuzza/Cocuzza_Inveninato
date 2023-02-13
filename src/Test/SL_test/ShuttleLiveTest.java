@@ -100,4 +100,50 @@ class ShuttleLiveTest {
             assertNotNull(shuttlelive.getAutistaCorrente());    }
         catch (Exception e) {
             fail("Unexpected exception");    }
-    }}
+    }
+    @Test
+    void testLoginAutista() {
+        ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        try {
+            shuttlelive.loginAutista("antonio@hotmail.it","antonio99");
+            assertNotNull(shuttlelive.getAutistaCorrente());
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+        try {
+            assertNull(shuttlelive.loginAutista("antonio@hotmail.it","anto"));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "password troppo breve");
+        }
+        try {
+
+            assertNull(shuttlelive.loginAutista("antoni@hotmail.it","antonio98"));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "autista non trovato");
+        }}
+        @Test
+        void testLoginUtente() {
+            ShuttleLive shuttlelive=ShuttleLive.getInstance();
+            try {
+                shuttlelive.loginUtente("antonio@hotmail.it","antonio99");
+                assertNotNull(shuttlelive.getUtenteCorrente());
+            } catch (Exception e) {
+                fail("Unexpected exception");
+            }
+            try {
+                assertNull(shuttlelive.loginUtente("antonio@hotmail.it","anto"));
+                fail("Expected exception");
+            } catch (Exception e){
+                assertEquals(e.getMessage(), "password troppo breve");
+            }
+            try {
+                assertNull(shuttlelive.loginUtente("antoni@hotmail.it","antonio98"));
+                fail("Expected exception");
+            } catch (Exception e){
+                assertEquals(e.getMessage(), "utente non trovato");
+            }
+    }
+
+}

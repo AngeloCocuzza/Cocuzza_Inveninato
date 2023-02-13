@@ -62,12 +62,11 @@ public class UtenteDAO {
                 statement.setString(1, email);
                 statement.setString(2, password);
                 ResultSet rs = statement.executeQuery();
-                System.out.println("ciao");
                 while (rs.next()) {
                     Utente user = new Utente(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
                     utente=user;
                 }
-                System.out.println(utente);
+
             }
 
         } catch (SQLException e) {

@@ -28,6 +28,7 @@ public class RegistratiUtenteForm extends javax.swing.JFrame{
             public void actionPerformed(ActionEvent e) {
                 try {
                     utente = shuttlelive.inserisciNuovoUtente(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
+                    new MenuUtente(sl,utente);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                     new RegistratiUtenteForm(shuttlelive); // forse

@@ -43,12 +43,12 @@ class ShuttleLiveTest {
     }
 
     @Test
-    void testInserisciPatente() {
+    void testInserisciVeicolo() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         try {
-            shuttlelive.inserisciPatente("12345cd",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM");
-            System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
-            assertNotNull(shuttlelive.getAutistaCorrente());
+            shuttlelive.inserisciVeicolo("xy325fj",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6"));
+            System.out.println(shuttlelive.getVeicoloCorrente() + "ciao");
+            assertNotNull(shuttlelive.getVeicoloCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
         }

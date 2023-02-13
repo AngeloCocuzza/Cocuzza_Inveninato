@@ -76,6 +76,18 @@ class ShuttleLiveTest {
         } catch (Exception e) {
             fail("Unexpected exception");
         }
+        try {
+            assertNull(shuttlelive.inserisciVeicolo("xy32g",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6")));
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"targa non valida");
+        }
+        try{assertNull(shuttlelive.inserisciVeicolo("xy325fj",shuttlelive.getAutistaCorrente().getUsername(), "audi","a4","nero", Integer.valueOf("6")));
+            fail("Expected exception");
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"veicolo già registrato");
+        }
     }
 
     @Test

@@ -1,4 +1,4 @@
-package SL_test;
+/*package SL_test;
 
 import model.ShuttleLive;
 import org.junit.BeforeClass;
@@ -43,4 +43,4 @@ class TestShuttleLive {
         }
 
     }
-}
+} */

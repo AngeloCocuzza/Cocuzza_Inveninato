@@ -23,8 +23,9 @@ public class ShuttleLive {
         return shuttlelive;
     }
 
-    public Autista inserisciNuovoAutista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) throws Exception {
+    public Autista inserisciNuovoAutista(String username, String email, String password, String nome, String cognome, String telefono, java.sql.Date data_nascita) throws Exception {
         autistaCorrente = verificaCampiAutista(username, email, password, nome, cognome, telefono, data_nascita);
+        System.out.println(autistaCorrente);
         return autistaCorrente;
     }
     public Utente inserisciNuovoUtente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) throws Exception {

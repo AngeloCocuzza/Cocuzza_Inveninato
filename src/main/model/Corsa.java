@@ -1,7 +1,12 @@
 package model;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
+
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 
 public class Corsa implements Discount {
     private Autista autista;
@@ -165,6 +170,7 @@ public class Corsa implements Discount {
         return prezzotot;
     }
 
+
     @Override
     public String toString() {
         return "Corsa{" +
@@ -182,12 +188,38 @@ public class Corsa implements Discount {
     }
 
     @Override
-    public void setDiscount() {
-
-    }
-
-    @Override
     public float getDiscount() {
-        return 0;
+        float discount=0;
+        float prezzobase = getFee();
+        //float maggiorazione=0;
+        if((this.ora_partenza).isAfter(LocalTime.parse("23:00:00")) && (this.ora_partenza).isBefore(LocalTime.parse("04:59:59"))) {
+            discount=-25;
+            prezzobase-=prezzobase*(discount/100);
+
+        }
+        if(LocalDate.parse(String.valueOf(this.data_partenza)).getDayOfWeek().equals(SATURDAY) || LocalDate.parse(String.valueOf(this.data_partenza)).getDayOfWeek().equals(SUNDAY)) {
+            discount=-15;
+            prezzobase-=prezzobase*(discount/100);
+        }
+        if(this.citta_partenza.equals(this.citta_destinazione) != true){
+            if(getKm_corsa() >= 100) {
+                int km = getKm_corsa()-100;
+                discount=15;
+                float prezzokm = (float) (km * 1.5*(discount/100));
+                prezzobase=prezzobase-prezzokm;
+            }
+        }
+        if(this.citta_partenza.equals(this.citta_destinazione)) {
+            if(getKm_corsa() >= 10) {
+                int km = getKm_corsa()-10;
+                discount=20;
+                float prezzokm = (float) (km * 3*(discount/100));
+                prezzobase=prezzobase-prezzokm;
+            }
+        }
+        if(this.veicolo.getN_posti()>4) {
+            prezzobase = (float) (prezzobase*1.25+0.25*(this.veicolo.getN_posti()-1));
+        }
+        return prezzobase;
     }
 }

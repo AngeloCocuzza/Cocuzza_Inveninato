@@ -18,6 +18,7 @@ public class AggiungiDisponibilita extends javax.swing.JFrame {
     private JButton inserisciDisponibilitàButton;
     private JPanel disponibilitaPanel;
     private JTextField cittapart;
+    private JButton tornaAlMenuPrincipaleButton;
 
     public AggiungiDisponibilita(ShuttleLive sl, Autista autista) {
     this.shuttlelive=sl;
@@ -38,5 +39,14 @@ public class AggiungiDisponibilita extends javax.swing.JFrame {
             setVisible(false);
         }
     });
+        tornaAlMenuPrincipaleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                new MenuAutista(shuttlelive,autista);
+                setVisible(false);
+
+            }
+        });
 }
 }

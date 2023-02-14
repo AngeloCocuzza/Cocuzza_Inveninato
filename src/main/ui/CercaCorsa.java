@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CercaCorsa extends javax.swing.JFrame {
@@ -38,7 +37,17 @@ public class CercaCorsa extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-    }
+
+        tornaAlMenuPricipaleButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+                new MenuUtente(shuttlelive,utente);
+                setVisible(false);
+
+        }
+    });
+}
     private JButton trovaCorsaButton;
     private JTextField partenza;
     private JTextField arrivo;
@@ -48,4 +57,5 @@ public class CercaCorsa extends javax.swing.JFrame {
     private JLabel giornoPartenza;
     private JLabel ora;
     private JPanel cercaCorsaPanel;
+    private JButton tornaAlMenuPricipaleButton;
 }

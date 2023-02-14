@@ -143,6 +143,7 @@ public class Corsa implements Discount {
     }
 
     public float getPrezzo() {
+        getFee();
         return prezzo;
     }
 
@@ -161,12 +162,11 @@ public class Corsa implements Discount {
         float prezzotot=0;
         if(this.citta_partenza.equals(this.citta_destinazione)) {
             prezzotot=3*km_corsa;
-        } else if(this.km_corsa<1){
-            prezzotot = 2;
         }
         else {
             prezzotot= (float) (1.5*this.km_corsa);
         }
+        prezzotot=getDiscount(prezzotot);
         return prezzotot;
     }
 
@@ -188,9 +188,9 @@ public class Corsa implements Discount {
     }
 
     @Override
-    public float getDiscount() {
+    public float getDiscount(float prezzotot) {
         float discount=0;
-        float prezzobase = getFee();
+        float prezzobase = prezzotot;
         //float maggiorazione=0;
         if((this.ora_partenza).isAfter(LocalTime.parse("23:00:00")) && (this.ora_partenza).isBefore(LocalTime.parse("04:59:59"))) {
             discount=-25;
@@ -220,6 +220,8 @@ public class Corsa implements Discount {
         if(this.veicolo.getN_posti()>4) {
             prezzobase = (float) (prezzobase*1.25+0.25*(this.veicolo.getN_posti()-1));
         }
+        if(this.km_corsa<1){
+            prezzobase = 2;}
         return prezzobase;
     }
 }

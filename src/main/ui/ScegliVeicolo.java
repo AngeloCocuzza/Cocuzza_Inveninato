@@ -51,7 +51,8 @@ public class ScegliVeicolo {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     corsa.setVeicolo(veicolo);
-                    //new MostraPrezzo(shuttlelive,corsa);
+                    corsa.setPrezzo(corsa.getPrezzo());
+                    new MostraCorsaFinale(shuttlelive,corsa);
                 }
             });
 

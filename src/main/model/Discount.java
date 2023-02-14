@@ -1,6 +1,6 @@
 package model;
 
 public interface Discount {
-    public float getDiscount();
+    public float getDiscount(float prezzo);
 
 }

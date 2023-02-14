@@ -1,27 +1,25 @@
 package ui;
 
-import model.*;
+import model.Autista;
+import model.Corsa;
+import model.ShuttleLive;
+import model.Veicolo;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
-public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
-
+public class ScegliVeicolo {
     private ShuttleLive shuttlelive;
-    private List<Autista> autistiDisponibili;
-    private List<Veicolo> veicoli;
+    private List<Veicolo> veicoliDisp;
     private Corsa corsa;
     private JPanel elencoautistiPanel;
 
-    public AutistiDispCorsaCorrente(ShuttleLive sl, List<Autista> autisti, Corsa cor) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
+    public ScegliVeicolo(ShuttleLive sl, List<Veicolo> veicoli, Corsa cor) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
         this.shuttlelive=sl;
-        this.autistiDisponibili = autisti;
+        this.veicoliDisp = veicoli;
         this.corsa = cor;
 
         //JTable tbautisti = new JTable(0,5);
@@ -30,7 +28,7 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         JPanel cont = new JPanel();
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
-        JLabel s = new JLabel("Scegli autista");
+        JLabel s = new JLabel("Scegli veicolo");
         JLabel l = new JLabel("partenza = " + corsa.getCitta_partenza() + " arrivo = " + corsa.getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + " ora partenza = " + corsa.getOra_partenza());
         //JButton j = new JButton("Scegli");
 
@@ -43,18 +41,17 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         cont.add(scegli);
         cont.add(panel);
 
-        for(Autista autista : autistiDisponibili) {
+        for(Veicolo veicolo : veicoliDisp) {
             //modelautisti.addRow(autista.toArray());
-            JButton j = new JButton(autista.getUsername() + "  " + autista.getTelefono() + "  " + autista.getEmail());
+            JButton j = new JButton(veicolo.getTarga() + "  " + veicolo.getMarca() + "  " + veicolo.getModello()+ veicolo.getN_posti() + "  "+ veicolo.getColore()+ "  " );
             JPanel bottoni = new JPanel();
             bottoni.add(j);
             panel.add(bottoni);
             j.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    corsa.setAutista(autista);
-                    veicoli= shuttlelive.allveicoloAutista(autista.getUsername());
-                    new ScegliVeicolo(shuttlelive,veicoli,corsa);
+                    corsa.setVeicolo(veicolo);
+                    new MostraPrezzo(shuttlelive,corsa);
                 }
             });
 
@@ -67,7 +64,7 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         //JLabel l = new JLabel();
         //l.setSize(150,150);
         //f.setLayout(new BorderLayout());
-        f.setTitle("Scegli Autista");
+        f.setTitle("Scegli Veicolo");
         //f.setContentPane(elencoautistiPanel);
         //f.getContentPane().add(new JScrollPane(tbautisti));
         f.add(cont);
@@ -76,4 +73,6 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
     }
+}
+
 }

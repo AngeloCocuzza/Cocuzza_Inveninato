@@ -49,12 +49,12 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
             j.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    shuttlelive.registraCorsa(corsa);
+                    //shuttlelive.registraCorsa(corsa);
                     new MenuUtente(shuttlelive,corsa.getUtente());
                 }
             });
 
-        }
+
 
 
         //panel.add(new JScrollPane(tbautisti));
@@ -63,7 +63,7 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
         //JLabel l = new JLabel();
         //l.setSize(150,150);
         //f.setLayout(new BorderLayout());
-        f.setTitle("Scegli Veicolo");
+        f.setTitle("registraCorsa");
         //f.setContentPane(elencoautistiPanel);
         //f.getContentPane().add(new JScrollPane(tbautisti));
         f.add(cont);
@@ -71,5 +71,5 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
         f.setSize(550,400);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
-    }
+    }}
 

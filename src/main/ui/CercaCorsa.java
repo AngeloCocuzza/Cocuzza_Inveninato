@@ -1,6 +1,7 @@
 package ui;
 
 import model.Autista;
+import model.Corsa;
 import model.ShuttleLive;
 import model.Utente;
 
@@ -16,6 +17,7 @@ public class CercaCorsa extends javax.swing.JFrame {
 
     private Utente utente;
     private List<Autista> autistiDisponibili;
+    private Corsa corsa;
 
     public CercaCorsa(ShuttleLive sl,Utente user) {
         this.shuttlelive=sl;
@@ -33,7 +35,13 @@ public class CercaCorsa extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 autistiDisponibili = shuttlelive.cercaAutistiDisponibili(partenza.getText(),arrivo.getText(), Date.valueOf(dataPartenza.getText()), LocalTime.parse(oraPartenza.getText()));
                 System.out.println(autistiDisponibili);
-                new AutistiDispCorsaCorrente(shuttlelive,autistiDisponibili,partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()));
+                corsa.setCitta_partenza(partenza.getText());
+                corsa.setCitta_destinazione(arrivo.getText());
+                corsa.setData_partenza(Date.valueOf(dataPartenza.getText()));
+                corsa.setInidirizzo_partenza(indirizzopart.getText());
+                corsa.setIndirizzo_destinazione(indirizzodest.getText());
+                corsa.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
+                new AutistiDispCorsaCorrente(shuttlelive,autistiDisponibili,corsa);//partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()));
                 setVisible(false);
             }
         });
@@ -58,4 +66,6 @@ public class CercaCorsa extends javax.swing.JFrame {
     private JLabel ora;
     private JPanel cercaCorsaPanel;
     private JButton tornaAlMenuPricipaleButton;
+    private JTextField indirizzopart;
+    private JTextField indirizzodest;
 }

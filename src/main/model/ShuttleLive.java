@@ -16,6 +16,8 @@ public class ShuttleLive {
 
     Patente patenteCorrente;
 
+    Corsa corsaCorrente;
+
     Disponibilita disponibilitaCorrente;
     List<Autista> autistiDisponibiliCorrente;
 
@@ -193,4 +195,6 @@ public class ShuttleLive {
     public Veicolo getVeicoloCorrente() {return veicoloCorrente;}
 
     public Disponibilita getDisponibilitaCorrente() {return disponibilitaCorrente;}
+
+    public Corsa getCorsaCorrente() {return corsaCorrente;}
 }

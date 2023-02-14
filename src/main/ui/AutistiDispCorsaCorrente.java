@@ -1,6 +1,7 @@
 package ui;
 
 import model.Autista;
+import model.Corsa;
 import model.ShuttleLive;
 import model.Utente;
 
@@ -17,11 +18,13 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
 
     private ShuttleLive shuttlelive;
     private List<Autista> autistiDisponibili;
+    private Corsa corsa;
     private JPanel elencoautistiPanel;
 
-    public AutistiDispCorsaCorrente(ShuttleLive sl, List<Autista> autisti, String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
+    public AutistiDispCorsaCorrente(ShuttleLive sl, List<Autista> autisti, Corsa cor) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
         this.shuttlelive=sl;
         this.autistiDisponibili = autisti;
+        this.corsa = cor;
 
         //JTable tbautisti = new JTable(0,5);
         //DefaultTableModel modelautisti = (DefaultTableModel) tbautisti.getModel();
@@ -30,7 +33,7 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
         JLabel s = new JLabel("Scegli autista");
-        JLabel l = new JLabel("partenza = " + partenza + " arrivo = " + arrivo + " data partenza = " + data_partenza + " ora partenza = " + ora_partenza);
+        JLabel l = new JLabel("partenza = " + corsa.getCitta_partenza() + " arrivo = " + corsa.getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + " ora partenza = " + corsa.getOra_partenza());
         //JButton j = new JButton("Scegli");
 
         //bottoni.setSize(10,5);
@@ -51,7 +54,8 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
             j.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new ScegliVeicolo(shuttlelive,autista,)
+                    corsa.setAutista(autista);
+                    new ScegliVeicolo(shuttlelive,corsa);
                 }
             });
 

@@ -3,7 +3,7 @@ package model;
 import java.time.LocalTime;
 import java.util.Date;
 
-public class Corsa {
+public class Corsa implements Discount {
     private Autista autista;
     private Utente utente;
     private Veicolo veicolo;
@@ -14,6 +14,7 @@ public class Corsa {
     private String indirizzo_destinazione;
     private LocalTime ora_partenza;
     private float prezzo;
+    private Integer km_corsa;
 
     public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, float prezzo) {
         this.autista = autista;
@@ -37,6 +38,9 @@ public class Corsa {
         this.inidirizzo_partenza = inidirizzo_partenza;
         this.indirizzo_destinazione = indirizzo_destinazione;
         this.ora_partenza = ora_partenza;
+    }
+
+    public Corsa() {
     }
 
     public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza) {
@@ -137,8 +141,28 @@ public class Corsa {
         return prezzo;
     }
 
+    public Integer getKm_corsa() {
+        return km_corsa;
+    }
+
+    public void setKm_corsa(Integer km_corsa) {
+        this.km_corsa = km_corsa;
+    }
+
     public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
+    }
+    public float getFee(){
+        float prezzotot=0;
+        if(this.citta_partenza.equals(this.citta_destinazione)) {
+            prezzotot=3*km_corsa;
+        } else if(this.km_corsa<1){
+            prezzotot = 2;
+        }
+        else {
+            prezzotot= (float) (1.5*this.km_corsa);
+        }
+        return prezzotot;
     }
 
     @Override
@@ -155,5 +179,15 @@ public class Corsa {
                 ", ora_partenza=" + ora_partenza +
                 ", prezzo=" + prezzo +
                 '}';
+    }
+
+    @Override
+    public void setDiscount() {
+
+    }
+
+    @Override
+    public float getDiscount() {
+        return 0;
     }
 }

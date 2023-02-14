@@ -43,7 +43,7 @@ public class ScegliVeicolo {
 
         for(Veicolo veicolo : veicoliDisp) {
             //modelautisti.addRow(autista.toArray());
-            JButton j = new JButton(veicolo.getTarga() + "  " + veicolo.getMarca() + "  " + veicolo.getModello()+ veicolo.getN_posti() + "  "+ veicolo.getColore()+ "  " );
+            JButton j = new JButton(" Targa : "+veicolo.getTarga() + " Marca :  " + veicolo.getMarca() + " Modello :  " + veicolo.getModello()+ " N. Posti : "+ veicolo.getN_posti() + "Colore :   "+ veicolo.getColore()+ "  " );
             JPanel bottoni = new JPanel();
             bottoni.add(j);
             panel.add(bottoni);
@@ -51,7 +51,7 @@ public class ScegliVeicolo {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     corsa.setVeicolo(veicolo);
-                    new MostraPrezzo(shuttlelive,corsa);
+                    //new MostraPrezzo(shuttlelive,corsa);
                 }
             });
 
@@ -75,4 +75,4 @@ public class ScegliVeicolo {
     }
 }
 
-}
+

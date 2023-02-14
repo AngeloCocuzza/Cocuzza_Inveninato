@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Random;
 
 public class CercaCorsa extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
@@ -22,7 +23,7 @@ public class CercaCorsa extends javax.swing.JFrame {
     public CercaCorsa(ShuttleLive sl,Utente user) {
         this.shuttlelive=sl;
         this.utente=user;
-
+         corsa=new Corsa();
 
         setTitle("CercaCorsa");
         setContentPane(cercaCorsaPanel);
@@ -41,6 +42,9 @@ public class CercaCorsa extends javax.swing.JFrame {
                 corsa.setInidirizzo_partenza(indirizzopart.getText());
                 corsa.setIndirizzo_destinazione(indirizzodest.getText());
                 corsa.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
+                Random rand=new Random();
+                int km=(int)Math.floor(Math.random()*(100)+1);
+                corsa.setKm_corsa(km);
                 new AutistiDispCorsaCorrente(shuttlelive,autistiDisponibili,corsa);//partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()));
                 setVisible(false);
             }

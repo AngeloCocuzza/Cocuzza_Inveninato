@@ -38,14 +38,14 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
 
         p.add(l);
         scegli.add(s);
-
-        cont.add(p);
         cont.add(scegli);
+        cont.add(p);
+
         cont.add(panel);
 
         for(Autista autista : autistiDisponibili) {
             //modelautisti.addRow(autista.toArray());
-            JButton j = new JButton(autista.getUsername() + "  " + autista.getTelefono() + "  " + autista.getEmail());
+            JButton j = new JButton("username : " + autista.getUsername() + " telefono : " + autista.getTelefono() + " email : " + autista.getEmail());
             JPanel bottoni = new JPanel();
             bottoni.add(j);
             panel.add(bottoni);
@@ -53,8 +53,9 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     corsa.setAutista(autista);
-                    veicoli= shuttlelive.allveicoloAutista(autista.getUsername());
+                    veicoli= shuttlelive.veicoliAutista(autista.getUsername());
                     new ScegliVeicolo(shuttlelive,veicoli,corsa);
+                    setVisible(false);
                 }
             });
 

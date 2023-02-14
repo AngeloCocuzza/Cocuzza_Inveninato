@@ -20,6 +20,7 @@ public class ShuttleLive {
 
     Disponibilita disponibilitaCorrente;
     List<Autista> autistiDisponibiliCorrente;
+    List<Veicolo> veicoliAutistaCorrente;
 
     public static ShuttleLive getInstance() {
         if(shuttlelive == null)
@@ -72,6 +73,14 @@ public class ShuttleLive {
         AutistaDAO autdao =new AutistaDAO();
         autistiDisponibiliCorrente=autdao.selectAutistaByName(str);
         return autistiDisponibiliCorrente;
+
+    }
+    public List<Veicolo> veicoliAutista(String autista){
+        VeicoloDao daoveicoli=new VeicoloDao();
+
+        veicoliAutistaCorrente=daoveicoli.allVeicoloAutista(autista);
+
+        return veicoliAutistaCorrente;
 
     }
 

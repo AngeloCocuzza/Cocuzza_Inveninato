@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class MenuAutista extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
     private JButton renditiDisponibileButton;
-    private JButton button2;
+    private JButton aggiungiVeicoloButton;
     private JButton button3;
     private JPanel menuautistaPanel;
     private JButton button1;
@@ -29,5 +29,11 @@ public class MenuAutista extends javax.swing.JFrame {
             setVisible(false);
         }
     });
+        aggiungiVeicoloButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 }

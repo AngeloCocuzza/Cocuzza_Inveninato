@@ -27,7 +27,7 @@ public class MenuUtente extends javax.swing.JFrame{
         cercaCorsaButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //new CercaCorsa(sl,utente);
+            new CercaCorsa(shuttlelive,utente);
             setVisible(false);
             //System.out.println(utente);
         }

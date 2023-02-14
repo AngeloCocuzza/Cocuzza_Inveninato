@@ -2,6 +2,7 @@ package model;
 import model.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Autista extends Utente{
     public Autista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) {
@@ -10,6 +11,17 @@ public class Autista extends Utente{
 
     public Autista() {
 
+    }
+
+    public Object[] toArray() {
+        Object[] a = new Object[] {
+                getUsername(),
+                getEmail(),
+                getNome(),
+                getCognome(),
+                getTelefono()
+        };
+        return a;
     }
 
     @Override

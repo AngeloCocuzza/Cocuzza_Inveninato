@@ -32,13 +32,9 @@ public class CercaCorsa extends javax.swing.JFrame {
         trovaCorsaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    autistiDisponibili = shuttlelive.cercaAutistiDisponibili(partenza.getText(),arrivo.getText(), Date.valueOf(dataPartenza.getText()), LocalTime.parse(oraPartenza.getText()));
-                    //new AutistiDisp(shuttlelive,autistiDisponibili);
-                } catch (Exception ex) {
-                    new CercaCorsa(sl,user);
-                }
-
+                autistiDisponibili = shuttlelive.cercaAutistiDisponibili(partenza.getText(),arrivo.getText(), Date.valueOf(dataPartenza.getText()), LocalTime.parse(oraPartenza.getText()));
+                System.out.println(autistiDisponibili);
+                new AutistiDispCorsaCorrente(shuttlelive,autistiDisponibili,partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()));
                 setVisible(false);
             }
         });

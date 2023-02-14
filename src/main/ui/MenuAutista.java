@@ -29,5 +29,5 @@ public class MenuAutista extends javax.swing.JFrame {
             setVisible(false);
         }
     });
-}
+    }
 }

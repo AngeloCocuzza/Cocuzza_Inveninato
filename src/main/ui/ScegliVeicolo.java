@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ScegliVeicolo {
+public class ScegliVeicolo extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
     private List<Veicolo> veicoliDisp;
     private Corsa corsa;
@@ -53,6 +53,7 @@ public class ScegliVeicolo {
                     corsa.setVeicolo(veicolo);
                     corsa.setPrezzo(corsa.getPrezzo());
                     new MostraCorsaFinale(shuttlelive,corsa);
+                    setVisible(false);
                 }
             });
 

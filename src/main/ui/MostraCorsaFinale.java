@@ -51,6 +51,7 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     //shuttlelive.registraCorsa(corsa);
                     new MenuUtente(shuttlelive,corsa.getUtente());
+                    setVisible(false);
                 }
             });
 

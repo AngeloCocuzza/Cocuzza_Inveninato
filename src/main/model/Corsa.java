@@ -18,8 +18,10 @@ public class Corsa implements Discount {
     private String inidirizzo_partenza;
     private String indirizzo_destinazione;
     private LocalTime ora_partenza;
-    private float prezzo;
+
     private Integer km_corsa;
+    private float prezzo;
+
 
     public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, float prezzo) {
         this.autista = autista;
@@ -31,6 +33,20 @@ public class Corsa implements Discount {
         this.inidirizzo_partenza = inidirizzo_partenza;
         this.indirizzo_destinazione = indirizzo_destinazione;
         this.ora_partenza = ora_partenza;
+        this.prezzo = prezzo;
+    }
+
+    public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, Integer km_corsa, float prezzo) {
+        this.autista = autista;
+        this.utente = utente;
+        this.veicolo = veicolo;
+        this.citta_partenza = citta_partenza;
+        this.citta_destinazione = citta_destinazione;
+        this.data_partenza = data_partenza;
+        this.inidirizzo_partenza = inidirizzo_partenza;
+        this.indirizzo_destinazione = indirizzo_destinazione;
+        this.ora_partenza = ora_partenza;
+        this.km_corsa = km_corsa;
         this.prezzo = prezzo;
     }
 
@@ -59,6 +75,8 @@ public class Corsa implements Discount {
         this.indirizzo_destinazione = indirizzo_destinazione;
         this.ora_partenza = ora_partenza;
     }
+
+
 
     public Corsa(Utente utente, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza) {
         this.utente = utente;

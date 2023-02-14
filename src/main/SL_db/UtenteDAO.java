@@ -75,4 +75,30 @@ public class UtenteDAO {
         return utente;
     }
 
+    public List<Utente> selectUtentiByName(String utente) {
+        List<Utente> utentibyname =new ArrayList<>();
+        String sql = "select * from utenti where username= ?";
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                    statement.setString(1, utente);
+                    ResultSet rs = statement.executeQuery();
+                    //System.out.println("ciao");
+                    while (rs.next()) {
+                        Utente user = new Utente(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
+                        utentibyname.add(user);
+                    }
+
+                }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return utentibyname;
+    }
+
 }

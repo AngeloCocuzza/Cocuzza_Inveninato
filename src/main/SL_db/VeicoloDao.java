@@ -78,4 +78,26 @@ public class VeicoloDao {
         }
         return veicoliauti;
     }
+
+    public List<Veicolo> allVeicoloTarga(String targa) {
+        List<Veicolo> veicolitarga = new ArrayList<Veicolo>();
+        String sql = "select * from veicolo where targa = ?";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1,targa);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    Veicolo veicolo = new Veicolo(rs.getString("targa"), rs.getString("autista"), rs.getString("marca"), rs.getString("modello"),rs.getString("colore"), rs.getInt("n_posti"));
+                    veicolitarga.add(veicolo);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return veicolitarga;
+    }
 }

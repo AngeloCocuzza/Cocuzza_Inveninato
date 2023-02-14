@@ -111,4 +111,31 @@ public class AutistaDAO {
         return autistiDisponib;
     }
 
+    public List<Autista> selectSingAutistaByName(String autista) {
+        List<Autista> autistibyname =new ArrayList<>();
+        String sql = "select * from autisti where username= ?";
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1, autista);
+                ResultSet rs = statement.executeQuery();
+                //System.out.println("ciao");
+                while (rs.next()) {
+                    Autista autist = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
+                    autistibyname.add(autist);
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return autistibyname;
+    }
+
+
 }

@@ -75,8 +75,8 @@ public class UtenteDAO {
         return utente;
     }
 
-    public List<Utente> selectUtentiByName(String utente) {
-        List<Utente> utentibyname =new ArrayList<>();
+    public Utente selectUtenteSingoloByName(String utente) {
+        Utente utentibyname =new Utente();
         String sql = "select * from utenti where username= ?";
         try {
             Connection conn = DBConnect.getConnection();
@@ -88,7 +88,7 @@ public class UtenteDAO {
                     //System.out.println("ciao");
                     while (rs.next()) {
                         Utente user = new Utente(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
-                        utentibyname.add(user);
+                        utentibyname=user;
                     }
 
                 }

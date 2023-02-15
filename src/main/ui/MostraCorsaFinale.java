@@ -28,37 +28,11 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
         JLabel s = new JLabel("Ecco i dati della tua corsa");
-        JLabel l = new JLabel( corsa.toString());
+        JLabel l = new JLabel( "Autista : " + corsa.getAutista().getUsername() + " Utente : " + corsa.getUtente().getUsername() + " Veicolo : " + corsa.getVeicolo().getTarga() + " Partenza : " + corsa.getCitta_partenza() + " Arrivo = " + corsa.getCitta_destinazione() + " Data partenza = " + corsa.getData_partenza() + " Indirizzo di partenza : " + corsa.getInidirizzo_partenza() + " Indirizzo di destinazione : " + corsa.getIndirizzo_destinazione() + " Ora partenza : " + corsa.getOra_partenza()+ " KM : " + corsa.getKm_corsa() + " Prezzo : " + corsa.getPrezzo() + "");
                 //"partenza = " + corsa.getCitta_partenza() + " arrivo = " + corsa.getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + "Indirizzo di partenza : " + corsa.getInidirizzo_partenza() + "Indirizzo di destinazione : " + corsa.getIndirizzo_destinazione() +" ora partenza = " + corsa.getOra_partenza()+"autista : " + corsa.getAutista() + "veicolo : " + corsa.getVeicolo().getTarga() +);
         //JButton j = new JButton("Scegli");
 
         //bottoni.setSize(10,5);
-
-        p.add(l);
-        scegli.add(s);
-
-        cont.add(p);
-        cont.add(scegli);
-        cont.add(panel);
-
-
-            JButton j = new JButton(" conferma il pagamento  " );
-            JPanel bottoni = new JPanel();
-            bottoni.add(j);
-            panel.add(bottoni);
-            j.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    //shuttlelive.registraCorsa(corsa);
-                    new MenuUtente(shuttlelive,corsa.getUtente());
-                }
-            });
-
-
-
-
-        //panel.add(new JScrollPane(tbautisti));
-
         JFrame f = new JFrame();
         //JLabel l = new JLabel();
         //l.setSize(150,150);
@@ -71,5 +45,34 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
         f.setSize(550,400);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
+
+        p.add(l);
+        scegli.add(s);
+
+        cont.add(p);
+        cont.add(scegli);
+        cont.add(panel);
+
+
+
+            JButton j = new JButton(" conferma il pagamento  " );
+            JPanel bottoni = new JPanel();
+            bottoni.add(j);
+            panel.add(bottoni);
+            j.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    shuttlelive.inserisciCorsa(corsa);
+                    new MenuUtente(shuttlelive,corsa.getUtente());
+                    f.setVisible(false);
+                }
+            });
+
+
+
+
+        //panel.add(new JScrollPane(tbautisti));
+
+
     }}
 

@@ -111,8 +111,8 @@ public class AutistaDAO {
         return autistiDisponib;
     }
 
-    public List<Autista> selectSingAutistaByName(String autista) {
-        List<Autista> autistibyname =new ArrayList<>();
+    public Autista selectAutistaSingoloByName(String autista) {
+        Autista autistibyname =new Autista();
         String sql = "select * from autisti where username= ?";
         try {
             Connection conn = DBConnect.getConnection();
@@ -124,7 +124,7 @@ public class AutistaDAO {
                 //System.out.println("ciao");
                 while (rs.next()) {
                     Autista autist = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
-                    autistibyname.add(autist);
+                    autistibyname=autist;
                 }
 
             }

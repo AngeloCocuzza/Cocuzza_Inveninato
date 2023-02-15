@@ -41,26 +41,6 @@ public class ScegliVeicolo {
         cont.add(scegli);
         cont.add(panel);
 
-        for(Veicolo veicolo : veicoliDisp) {
-            //modelautisti.addRow(autista.toArray());
-            JButton j = new JButton(" Targa : "+veicolo.getTarga() + " Marca :  " + veicolo.getMarca() + " Modello :  " + veicolo.getModello()+ " N. Posti : "+ veicolo.getN_posti() + "Colore :   "+ veicolo.getColore()+ "  " );
-            JPanel bottoni = new JPanel();
-            bottoni.add(j);
-            panel.add(bottoni);
-            j.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    corsa.setVeicolo(veicolo);
-                    corsa.setPrezzo(corsa.getPrezzo());
-                    new MostraCorsaFinale(shuttlelive,corsa);
-                }
-            });
-
-        }
-
-
-        //panel.add(new JScrollPane(tbautisti));
-
         JFrame f = new JFrame();
         //JLabel l = new JLabel();
         //l.setSize(150,150);
@@ -73,6 +53,29 @@ public class ScegliVeicolo {
         f.setSize(550,400);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
+
+        for(Veicolo veicolo : veicoliDisp) {
+            //modelautisti.addRow(autista.toArray());
+            JButton j = new JButton(" Targa : "+veicolo.getTarga() + " Marca :  " + veicolo.getMarca() + " Modello :  " + veicolo.getModello()+ " N. Posti : "+ veicolo.getN_posti() + " Colore :   "+ veicolo.getColore()+ "  " );
+            JPanel bottoni = new JPanel();
+            bottoni.add(j);
+            panel.add(bottoni);
+            j.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    corsa.setVeicolo(veicolo);
+                    corsa.setPrezzo(corsa.getFee());
+                    new MostraCorsaFinale(shuttlelive,corsa);
+                    f.setVisible(false);
+                }
+            });
+
+        }
+
+
+        //panel.add(new JScrollPane(tbautisti));
+
+
     }
 }
 

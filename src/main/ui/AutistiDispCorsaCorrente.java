@@ -24,6 +24,19 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         this.autistiDisponibili = autisti;
         this.corsa = cor;
 
+        JFrame f = new JFrame();
+        //JLabel l = new JLabel();
+        //l.setSize(150,150);
+        //f.setLayout(new BorderLayout());
+        f.setTitle("Scegli Autista");
+        //f.setContentPane(elencoautistiPanel);
+        //f.getContentPane().add(new JScrollPane(tbautisti));
+
+
+        f.setSize(550,400);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        f.setVisible(true);
+
         //JTable tbautisti = new JTable(0,5);
         //DefaultTableModel modelautisti = (DefaultTableModel) tbautisti.getModel();
         JPanel panel = new JPanel(new GridLayout(0,1));
@@ -35,7 +48,7 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         //JButton j = new JButton("Scegli");
 
         //bottoni.setSize(10,5);
-
+        f.add(cont);
         p.add(l);
         scegli.add(s);
         cont.add(scegli);
@@ -55,7 +68,7 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
                     corsa.setAutista(autista);
                     veicoli= shuttlelive.veicoliAutista(autista.getUsername());
                     new ScegliVeicolo(shuttlelive,veicoli,corsa);
-                    setVisible(false);
+                    f.setVisible(false);
                 }
             });
 
@@ -64,17 +77,6 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
 
         //panel.add(new JScrollPane(tbautisti));
 
-        JFrame f = new JFrame();
-        //JLabel l = new JLabel();
-        //l.setSize(150,150);
-        //f.setLayout(new BorderLayout());
-        f.setTitle("Scegli Autista");
-        //f.setContentPane(elencoautistiPanel);
-        //f.getContentPane().add(new JScrollPane(tbautisti));
-        f.add(cont);
 
-        f.setSize(550,400);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.setVisible(true);
     }
 }

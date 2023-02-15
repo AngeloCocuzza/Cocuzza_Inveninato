@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Random;
 
 import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
@@ -88,6 +89,30 @@ public class Corsa implements Discount {
         this.ora_partenza = ora_partenza;
     }
 
+    public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, Integer km_corsa) {
+        this.autista = autista;
+        this.utente = utente;
+        this.veicolo = veicolo;
+        this.citta_partenza = citta_partenza;
+        this.citta_destinazione = citta_destinazione;
+        this.data_partenza = data_partenza;
+        this.inidirizzo_partenza = inidirizzo_partenza;
+        this.indirizzo_destinazione = indirizzo_destinazione;
+        this.ora_partenza = ora_partenza;
+        this.km_corsa = km_corsa;
+    }
+
+    public Corsa(Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, Integer km_corsa) {
+        this.veicolo = veicolo;
+        this.citta_partenza = citta_partenza;
+        this.citta_destinazione = citta_destinazione;
+        this.data_partenza = data_partenza;
+        this.inidirizzo_partenza = inidirizzo_partenza;
+        this.indirizzo_destinazione = indirizzo_destinazione;
+        this.ora_partenza = ora_partenza;
+        this.km_corsa = km_corsa;
+    }
+
     public Autista getAutista() {
         return autista;
     }
@@ -161,7 +186,6 @@ public class Corsa implements Discount {
     }
 
     public float getPrezzo() {
-        getFee();
         return prezzo;
     }
 

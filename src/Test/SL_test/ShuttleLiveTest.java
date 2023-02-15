@@ -1,5 +1,6 @@
 package SL_test;
 
+import model.Corsa;
 import model.ShuttleLive;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
@@ -170,5 +171,8 @@ class ShuttleLiveTest {
             assertEquals(e.getMessage(),"data già occupata");
         }
     }
+
+
+
 
 }

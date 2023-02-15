@@ -75,6 +75,13 @@ public class ShuttleLive {
         return autistiDisponibiliCorrente;
 
     }
+
+    public Corsa inserisciCorsa(Corsa corsa) {
+        CorsaDAO corsadao = new CorsaDAO();
+        corsaCorrente=corsa;
+        corsadao.insertCorsa(corsaCorrente);
+        return corsaCorrente;
+    }
     public List<Veicolo> veicoliAutista(String autista){
         VeicoloDao daoveicoli=new VeicoloDao();
 

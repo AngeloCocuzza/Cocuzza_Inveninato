@@ -79,8 +79,8 @@ public class VeicoloDao {
         return veicoliauti;
     }
 
-    public List<Veicolo> allVeicoloTarga(String targa) {
-        List<Veicolo> veicolitarga = new ArrayList<Veicolo>();
+    public Veicolo allvVeicoloTarga(String targa) {
+        Veicolo veicolitarga = new Veicolo();
         String sql = "select * from veicolo where targa = ?";
 
         try {
@@ -92,7 +92,7 @@ public class VeicoloDao {
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     Veicolo veicolo = new Veicolo(rs.getString("targa"), rs.getString("autista"), rs.getString("marca"), rs.getString("modello"),rs.getString("colore"), rs.getInt("n_posti"));
-                    veicolitarga.add(veicolo);
+                    veicolitarga=veicolo;
                 }
             }
         } catch (SQLException e) {

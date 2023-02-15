@@ -19,6 +19,9 @@ public class Veicolo {
         this.n_posti = n_posti;
     }
 
+    public Veicolo() {
+    }
+
     public String getTarga() {
         return targa;
     }

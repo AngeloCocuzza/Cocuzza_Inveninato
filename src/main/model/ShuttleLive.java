@@ -95,7 +95,7 @@ public class ShuttleLive {
     }
     public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
         if(corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("")|| corsa.getAddress().getKm_corsa().equals("")|| corsa.getAddress().getIndirizzo_destinazione().equals("")|| corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza()==null || corsa.getOra_partenza()==null)
-            throw new Exception("Compilare tutti i campi");
+            throw new Exception("riempire tutti i campi");
         CorsaDAO corsadao = new CorsaDAO();
         corsaCorrente=corsa;
         corsadao.insertCorsa(corsaCorrente);

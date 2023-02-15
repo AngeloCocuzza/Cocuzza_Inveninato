@@ -1,5 +1,6 @@
 package SL_test;
 
+import model.Address;
 import model.Corsa;
 import model.ShuttleLive;
 import org.junit.BeforeClass;
@@ -228,8 +229,49 @@ class ShuttleLiveTest {
             assertEquals(e.getMessage(),"data già occupata");
         }
     }
+    @Test
+    void testInserisciCorsa() {
+        ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        Address indirizzo=new Address("Catania","Pisa","via Gabriele d'annunzio","via ortdegli ulivi 7",300);
+        Corsa corsa=new Corsa(shuttlelive.getAutistaCorrente(),shuttlelive.getUtenteCorrente(),shuttlelive.getVeicoloCorrente(),java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"),indirizzo,300);
+        try {
+            shuttlelive.inserisciCorsa(corsa);
+            assertNotNull(shuttlelive.getCorsaCorrente());
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+        indirizzo.setIndirizzo_destinazione("");
+        corsa.setAddress(indirizzo);
+        try {
+            shuttlelive.inserisciCorsa(corsa);
+            assertNull(shuttlelive.getCorsaCorrente());
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
+        }
+
+    }
+    @Test
+    void testCercaAutistiDisponibili() {
+        ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        try {
+            shuttlelive.cercaAutistiDisponibili("Catania","Pisa", java.sql.Date.valueOf("2023-04-04"), LocalTime.parse("16:00:00"));
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+        try {
+            assertNull(shuttlelive.cercaAutistiDisponibili("Catania","Pisa", java.sql.Date.valueOf("2023-02-02"), LocalTime.parse("16:00:00")));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "data non valida");
+        }
+
+    }
+    }
 
 
 
 
-}
+
+

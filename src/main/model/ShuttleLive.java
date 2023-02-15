@@ -66,9 +66,12 @@ public class ShuttleLive {
         disponibilitaCorrente = verificaDisponibilita(autista,giorno_disponibilita,ora_inizio,ora_fine,citta_partenza);
         return disponibilitaCorrente;
     }
-    public List<Autista> cercaAutistiDisponibili(String partenza, String arrivo, java.sql.Date data_partenza, LocalTime ora){
+    public List<Autista> cercaAutistiDisponibili(String partenza, String arrivo, java.sql.Date data_partenza, LocalTime ora) throws Exception {
         DisponibilitaDAO daodisponibilita=new DisponibilitaDAO();
         List<String> str = new ArrayList<>();
+        if(data_partenza.before(new Date())) {
+            throw new Exception("data non valida");
+        }
         str=daodisponibilita.selectNomeAutistiDisponibili(partenza,data_partenza,ora);
         AutistaDAO autdao =new AutistaDAO();
         autistiDisponibiliCorrente=autdao.selectAutistaByName(str);

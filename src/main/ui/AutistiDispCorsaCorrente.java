@@ -43,9 +43,10 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         JPanel cont = new JPanel();
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
+        JPanel torna = new JPanel();
         JLabel s = new JLabel("Scegli autista");
         JLabel l = new JLabel("partenza = " + corsa.getAddress().getCitta_partenza() + " arrivo = " + corsa.getAddress().getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + " ora partenza = " + corsa.getOra_partenza());
-        //JButton j = new JButton("Scegli");
+        JButton t = new JButton("Torna Indietro");
 
         //bottoni.setSize(10,5);
         f.add(cont);
@@ -53,26 +54,41 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         scegli.add(s);
         cont.add(scegli);
         cont.add(p);
+        torna.add(t);
 
         cont.add(panel);
+        cont.add(torna);
 
-        for(Autista autista : autistiDisponibili) {
-            //modelautisti.addRow(autista.toArray());
-            JButton j = new JButton("username : " + autista.getUsername() + " telefono : " + autista.getTelefono() + " email : " + autista.getEmail());
-            JPanel bottoni = new JPanel();
-            bottoni.add(j);
-            panel.add(bottoni);
-            j.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    corsa.setAutista(autista);
-                    veicoli= shuttlelive.veicoliAutista(autista.getUsername());
-                    new ScegliVeicolo(shuttlelive,veicoli,corsa);
-                    f.setVisible(false);
-                }
-            });
+        if(autistiDisponibili.isEmpty()) {
+            JLabel vuoto = new JLabel("Non ci sono autisti disponibili per quel giorno");
+            panel.add(vuoto);
+        } else {
+            for (Autista autista : autistiDisponibili) {
+                //modelautisti.addRow(autista.toArray());
+                JButton j = new JButton("username : " + autista.getUsername() + " telefono : " + autista.getTelefono() + " email : " + autista.getEmail());
+                JPanel bottoni = new JPanel();
+                bottoni.add(j);
+                panel.add(bottoni);
+                j.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        corsa.setAutista(autista);
+                        veicoli = shuttlelive.veicoliAutista(autista.getUsername());
+                        new ScegliVeicolo(shuttlelive, veicoli, corsa);
+                        f.setVisible(false);
+                    }
+                });
 
+            }
         }
+
+        t.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CercaCorsa(shuttlelive,corsa.getUtente());
+                f.setVisible(false);
+            }
+        });
 
 
         //panel.add(new JScrollPane(tbautisti));

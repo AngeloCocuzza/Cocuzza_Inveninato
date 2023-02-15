@@ -31,22 +31,20 @@ public class CercaCorsa extends javax.swing.JFrame {
         trovaCorsaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                autistiDisponibili = shuttlelive.cercaAutistiDisponibili(partenza.getText(),arrivo.getText(), Date.valueOf(dataPartenza.getText()), LocalTime.parse(oraPartenza.getText()));
-                corsa.setUtente(shuttlelive.getUtenteCorrente());
-                System.out.println(autistiDisponibili);
-                int km=(int)Math.floor(Math.random()*(100)+1);
-                corsa.setAddress(new Address(partenza.getText(),arrivo.getText(),indirizzopart.getText(),indirizzodest.getText(),km));
-                //corsa.setCitta_partenza(partenza.getText());
-                //corsa.setCitta_destinazione(arrivo.getText());
-                corsa.setData_partenza(Date.valueOf(dataPartenza.getText()));
-                //corsa.setInidirizzo_partenza(indirizzopart.getText());
-                //corsa.setIndirizzo_destinazione(indirizzodest.getText());
-                corsa.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
-                //Random rand=new Random();
+                try {
+                        autistiDisponibili = shuttlelive.cercaAutistiDisponibili(partenza.getText(), arrivo.getText(), Date.valueOf(dataPartenza.getText()), LocalTime.parse(oraPartenza.getText()));
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    corsa.setUtente(shuttlelive.getUtenteCorrente());
+                    System.out.println(autistiDisponibili);
+                    int km = (int) Math.floor(Math.random() * (100) + 1);
+                    corsa.setAddress(new Address(partenza.getText(), arrivo.getText(), indirizzopart.getText(), indirizzodest.getText(), km));
+                    corsa.setData_partenza(Date.valueOf(dataPartenza.getText()));
+                    corsa.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
 
-                //corsa.setKm_corsa(km);
-                new AutistiDispCorsaCorrente(shuttlelive,autistiDisponibili,corsa);//partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()));
-                setVisible(false);
+                    new AutistiDispCorsaCorrente(shuttlelive, autistiDisponibili, corsa);//partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()));
+                    setVisible(false);
             }
         });
 

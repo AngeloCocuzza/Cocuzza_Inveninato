@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ScegliVeicolo extends javax.swing.JFrame {
+public class ScegliVeicolo {
     private ShuttleLive shuttlelive;
     private List<Veicolo> veicoliDisp;
     private Corsa corsa;
@@ -41,30 +41,6 @@ public class ScegliVeicolo extends javax.swing.JFrame {
         cont.add(scegli);
         cont.add(panel);
 
-<<<<<<< HEAD
-=======
-        for(Veicolo veicolo : veicoliDisp) {
-            //modelautisti.addRow(autista.toArray());
-            JButton j = new JButton(" Targa : "+veicolo.getTarga() + " Marca :  " + veicolo.getMarca() + " Modello :  " + veicolo.getModello()+ " N. Posti : "+ veicolo.getN_posti() + "Colore :   "+ veicolo.getColore()+ "  " );
-            JPanel bottoni = new JPanel();
-            bottoni.add(j);
-            panel.add(bottoni);
-            j.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    corsa.setVeicolo(veicolo);
-                    corsa.setPrezzo(corsa.getPrezzo());
-                    new MostraCorsaFinale(shuttlelive,corsa);
-                    setVisible(false);
-                }
-            });
-
-        }
-
-
-        //panel.add(new JScrollPane(tbautisti));
-
->>>>>>> origin/main
         JFrame f = new JFrame();
         //JLabel l = new JLabel();
         //l.setSize(150,150);

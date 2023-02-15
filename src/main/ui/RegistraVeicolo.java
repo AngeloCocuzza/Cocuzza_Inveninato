@@ -16,6 +16,8 @@ public class RegistraVeicolo extends javax.swing.JFrame {
     private JTextField colore;
     private JTextField n_posti;
     private JPanel veicoloPanel;
+    private JButton tornaAlMenuPrincipaleButton;
+
     public RegistraVeicolo(ShuttleLive sl, Autista autista) {
         this.shuttlelive=sl;
         setTitle("RegVeicolo");
@@ -33,6 +35,15 @@ public class RegistraVeicolo extends javax.swing.JFrame {
                     new RegistraVeicolo(shuttlelive,autista);
                 }
                 setVisible(false);
+            }
+        });
+        tornaAlMenuPrincipaleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                new MenuAutista(shuttlelive,autista);
+                setVisible(false);
+
             }
         });
 }

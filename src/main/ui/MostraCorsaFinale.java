@@ -26,12 +26,14 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
         JPanel panel = new JPanel(new GridLayout(0,1));
         JPanel cont = new JPanel();
         JPanel p = new JPanel();
+        JPanel r = new JPanel();
+        JPanel torna = new JPanel();
         JPanel scegli = new JPanel();
         JLabel s = new JLabel("Ecco i dati della tua corsa");
-        JLabel l = new JLabel( "Autista : " + corsa.getAutista().getUsername() + " Utente : " + corsa.getUtente().getUsername() + " Veicolo : " + corsa.getVeicolo().getTarga() + " Data partenza = " + corsa.getData_partenza() + " Tratta : " + corsa.getAddress() + " Ora partenza : " + corsa.getOra_partenza()+ " Prezzo : " + corsa.getFee() + "");
-                //"partenza = " + corsa.getCitta_partenza() + " arrivo = " + corsa.getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + "Indirizzo di partenza : " + corsa.getInidirizzo_partenza() + "Indirizzo di destinazione : " + corsa.getIndirizzo_destinazione() +" ora partenza = " + corsa.getOra_partenza()+"autista : " + corsa.getAutista() + "veicolo : " + corsa.getVeicolo().getTarga() +);
-        //JButton j = new JButton("Scegli");
-
+        JLabel l = new JLabel( "Autista : " + corsa.getAutista().getUsername() + " Utente : " + corsa.getUtente().getUsername() + " Veicolo : " + corsa.getVeicolo().getTarga() +   " Prezzo : " + corsa.getFee() + "");
+        JLabel d = new JLabel(" Data partenza = " + corsa.getData_partenza() + " Tratta : " + corsa.getAddress() + " Ora partenza : " + corsa.getOra_partenza());
+        JButton t = new JButton("Torna Indietro");
+      torna.add(t);
         //bottoni.setSize(10,5);
         JFrame f = new JFrame();
         //JLabel l = new JLabel();
@@ -47,11 +49,15 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
         f.setVisible(true);
 
         p.add(l);
+        r.add(d);
         scegli.add(s);
 
-        cont.add(p);
+
         cont.add(scegli);
+        cont.add(p);
+        cont.add(r);
         cont.add(panel);
+        cont.add(torna);
 
 
 
@@ -62,11 +68,23 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
             j.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    shuttlelive.inserisciCorsa(corsa);
-                    new MenuUtente(shuttlelive,corsa.getUtente());
+                    try {
+                        shuttlelive.inserisciCorsa(corsa);
+                        new MenuUtente(shuttlelive,corsa.getUtente());
+                    } catch (Exception ex) {
+                        new CercaCorsa(shuttlelive,corsa.getUtente());
+                    }
+
                     f.setVisible(false);
                 }
             });
+        t.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CercaCorsa(shuttlelive,corsa.getUtente());
+                f.setVisible(false);
+            }
+        });
 
 
 

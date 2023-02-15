@@ -28,6 +28,10 @@ public class ScegliVeicolo {
         JPanel cont = new JPanel();
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
+        JPanel torna = new JPanel();
+        JButton t = new JButton("Scegli");
+        torna.add(t);
+
         JLabel s = new JLabel("Scegli veicolo");
         JLabel l = new JLabel("partenza = " + corsa.getAddress().getCitta_partenza() + " arrivo = " + corsa.getAddress().getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + " ora partenza = " + corsa.getOra_partenza());
         //JButton j = new JButton("Scegli");
@@ -40,6 +44,7 @@ public class ScegliVeicolo {
         cont.add(p);
         cont.add(scegli);
         cont.add(panel);
+        cont.add(torna);
 
         JFrame f = new JFrame();
         //JLabel l = new JLabel();
@@ -71,12 +76,20 @@ public class ScegliVeicolo {
             });
 
         }
+        t.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CercaCorsa(shuttlelive,corsa.getUtente());
+                f.setVisible(false);
+            }
+        });
 
 
         //panel.add(new JScrollPane(tbautisti));
 
 
     }
+
 }
 
 

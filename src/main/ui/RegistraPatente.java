@@ -32,8 +32,13 @@ public class RegistraPatente extends javax.swing.JFrame {
         bottoneConferma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shuttlelive.inserisciPatente(cod.getText(),autista.getUsername(),Date.valueOf(data_conseguimento.getText()),Date.valueOf(data_scadenza.getText()), liv.getText());
-                new RegistraVeicolo(shuttlelive,autista);
+                try {
+                    shuttlelive.inserisciPatente(cod.getText(),autista.getUsername(),Date.valueOf(data_conseguimento.getText()),Date.valueOf(data_scadenza.getText()), liv.getText());
+                    new RegistraVeicolo(shuttlelive,autista);
+                } catch (Exception ex) {
+                    new RegistraPatente(shuttlelive,autista);
+                }
+
                 setVisible(false);
             }
         });

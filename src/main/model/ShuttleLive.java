@@ -49,12 +49,21 @@ public class ShuttleLive {
         utenteCorrente = verificaLoginUtente(email, password);
         return utenteCorrente;
     }
-    public Patente inserisciPatente(String codice, String autista, Date data_conseguimento, Date data_scadenza, String livello) {
+    public Patente inserisciPatente(String codice, String autista, Date data_conseguimento, Date data_scadenza, String livello) throws Exception {
         Patente patent = new Patente(codice,autista,data_conseguimento,data_scadenza,livello);
         System.out.println(patent);
         PatenteDao daopatent = new PatenteDao();
-        patenteCorrente = daopatent.insertPatente(patent);
+        patenteCorrente = verificaPatente(patent);
         return patenteCorrente;
+
+    }
+    public Patente verificaPatente(Patente patente) throws Exception {
+        if(patente.getCodice().equals((""))||patente.getData_conseguimento().equals("")||patente.getData_scadenza().equals("")||patente.getLivello().equals(""))
+            throw new Exception("inserisci tutti i campi");
+            PatenteDao daopatent = new PatenteDao();
+            patenteCorrente=patente;
+            daopatent.insertPatente(patenteCorrente);
+            return patenteCorrente;
 
     }
     public Veicolo inserisciVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) throws Exception {
@@ -79,12 +88,26 @@ public class ShuttleLive {
 
     }
 
-    public Corsa inserisciCorsa(Corsa corsa) {
+    public Corsa inserisciCorsa(Corsa corsa) throws Exception {
+        corsaCorrente=verificaCampiCorsa(corsa);
+
+        return corsaCorrente;
+    }
+    public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
+        if(corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("")|| corsa.getAddress().getKm_corsa().equals("")|| corsa.getAddress().getIndirizzo_destinazione().equals("")|| corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza()==null || corsa.getOra_partenza()==null)
+            throw new Exception("Compilare tutti i campi");
+        if(corsa.getOra_partenza().getHour()>23||corsa.getOra_partenza().getHour()<0)
+            throw new Exception("Inserire ora tra 0 e 23");
+
+        if(corsa.getOra_partenza().getMinute()>59||corsa.getOra_partenza().getMinute()<0)
+            throw new Exception("Inserire minuti tra 0 e 59");
         CorsaDAO corsadao = new CorsaDAO();
         corsaCorrente=corsa;
         corsadao.insertCorsa(corsaCorrente);
-        return corsaCorrente;
+
+        return corsa;
     }
+
     public List<Veicolo> veicoliAutista(String autista){
         VeicoloDao daoveicoli=new VeicoloDao();
 
@@ -145,6 +168,7 @@ public class ShuttleLive {
     }
 
     public Veicolo verificaCampiVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) throws Exception {
+
         VeicoloDao daoveicol = new VeicoloDao();
 
         List<Veicolo> allveicolo = new ArrayList<Veicolo>();

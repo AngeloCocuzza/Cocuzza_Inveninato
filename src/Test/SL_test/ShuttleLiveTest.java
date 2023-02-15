@@ -31,6 +31,12 @@ class ShuttleLiveTest {
             fail("Unexpected exception");
         }
         try {
+            assertNull(shuttlelive.inserisciNuovoUtente("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "riempire tutti i campi");
+        }
+        try {
             assertNull(shuttlelive.inserisciNuovoUtente("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
             fail("Expected exception");
         } catch (Exception e){
@@ -53,6 +59,12 @@ class ShuttleLiveTest {
             assertNotNull(shuttlelive.getAutistaCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
+        }
+        try {
+            assertNull(shuttlelive.inserisciNuovoAutista("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "riempire tutti i campi");
         }
         try {
             assertNull(shuttlelive.inserisciNuovoAutista("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
@@ -79,6 +91,21 @@ class ShuttleLiveTest {
             fail("Unexpected exception");
         }
         try {
+            assertNull(shuttlelive.inserisciVeicolo("xy323xg",shuttlelive.getAutistaCorrente().getUsername(), "","x3","nero", Integer.valueOf("6")));
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
+        }
+        try {
+            assertNull(shuttlelive.inserisciVeicolo("xy323xg",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("-6")));
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"il numero dei posti non può essere negativo");
+        }
+
+        try {
             assertNull(shuttlelive.inserisciVeicolo("xy32g",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6")));
             fail("Expected exception");
 
@@ -98,10 +125,20 @@ class ShuttleLiveTest {
 
         try {
             shuttlelive.inserisciPatente("12345cd",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM");
-            System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
-            assertNotNull(shuttlelive.getAutistaCorrente());    }
+            //System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
+            assertNotNull(shuttlelive.getAutistaCorrente());
+        }
         catch (Exception e) {
-            fail("Unexpected exception");    }
+            fail("Unexpected exception");
+        }
+        try {
+            shuttlelive.inserisciPatente("",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM");
+            //System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
+            fail("Expected exception");
+        }
+        catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
+        }
     }
     @Test
     void testLoginAutista() {
@@ -111,6 +148,12 @@ class ShuttleLiveTest {
             assertNotNull(shuttlelive.getAutistaCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
+        }
+        try {
+            assertNull(shuttlelive.loginAutista("","antonio99"));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "riempire tutti i campi");
         }
         try {
             assertNull(shuttlelive.loginAutista("antonio@hotmail.it","anto"));
@@ -128,11 +171,18 @@ class ShuttleLiveTest {
         @Test
         void testLoginUtente() {
             ShuttleLive shuttlelive=ShuttleLive.getInstance();
+
             try {
                 shuttlelive.loginUtente("antonio@hotmail.it","antonio99");
                 assertNotNull(shuttlelive.getUtenteCorrente());
             } catch (Exception e) {
                 fail("Unexpected exception");
+            }
+            try {
+                shuttlelive.loginUtente("","antonio99");
+                fail("Unexpected exception");
+            } catch (Exception e) {
+                assertEquals(e.getMessage(),"riempire tutti i campi");
             }
             try {
                 assertNull(shuttlelive.loginUtente("antonio@hotmail.it","anto"));
@@ -156,6 +206,13 @@ class ShuttleLiveTest {
             assertNotNull(shuttlelive.getDisponibilitaCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
+        }
+        try {
+            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),null, LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
         }
         try {
             shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2022-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");

@@ -59,7 +59,7 @@ public class ShuttleLive {
     }
     public Patente verificaPatente(Patente patente) throws Exception {
         if(patente.getCodice().equals((""))||patente.getData_conseguimento().equals("")||patente.getData_scadenza().equals("")||patente.getLivello().equals(""))
-            throw new Exception("inserisci tutti i campi");
+            throw new Exception("riempire tutti i campi");
             PatenteDao daopatent = new PatenteDao();
             patenteCorrente=patente;
             daopatent.insertPatente(patenteCorrente);
@@ -96,11 +96,6 @@ public class ShuttleLive {
     public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
         if(corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("")|| corsa.getAddress().getKm_corsa().equals("")|| corsa.getAddress().getIndirizzo_destinazione().equals("")|| corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza()==null || corsa.getOra_partenza()==null)
             throw new Exception("Compilare tutti i campi");
-        if(corsa.getOra_partenza().getHour()>23||corsa.getOra_partenza().getHour()<0)
-            throw new Exception("Inserire ora tra 0 e 23");
-
-        if(corsa.getOra_partenza().getMinute()>59||corsa.getOra_partenza().getMinute()<0)
-            throw new Exception("Inserire minuti tra 0 e 59");
         CorsaDAO corsadao = new CorsaDAO();
         corsaCorrente=corsa;
         corsadao.insertCorsa(corsaCorrente);
@@ -173,7 +168,7 @@ public class ShuttleLive {
 
         List<Veicolo> allveicolo = new ArrayList<Veicolo>();
         allveicolo = daoveicol.allVeicolo();
-        if(targa.equals("") || marca.equals("") || modello.equals("") || colore.equals("") || n_posti==null) {
+        if(marca.equals("") || modello.equals("") || colore.equals("") || n_posti==null) {
             throw new Exception("riempire tutti i campi");
         }
         if(n_posti<0) {

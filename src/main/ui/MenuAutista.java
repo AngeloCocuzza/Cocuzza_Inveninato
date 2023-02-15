@@ -32,6 +32,8 @@ public class MenuAutista extends javax.swing.JFrame {
         aggiungiVeicoloButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new RegistraVeicolo(sl,autista);
+                setVisible(false);
 
             }
         });

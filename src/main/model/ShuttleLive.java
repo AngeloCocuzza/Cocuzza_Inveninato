@@ -98,6 +98,9 @@ public class ShuttleLive {
         UtenteDAO daouser = new UtenteDAO();
         List<Utente> allUsers = new ArrayList<>();
         allUsers = daouser.allUtente();
+        if(username.equals("") || email.equals("") || password.equals("") || nome.equals("") || cognome.equals("") || telefono.equals("") || data_nascita==null) {
+            throw new Exception("riempire tutti i campi");
+        }
         if (password.length() <= 7) {
             System.out.println("la password deve avere almeno 8 caratteri");
             throw new Exception("password troppo corta");
@@ -120,6 +123,9 @@ public class ShuttleLive {
         AutistaDAO daoautista = new AutistaDAO();
         List<Autista> allAutisti = new ArrayList<>();
         allAutisti = daoautista.allAutisti();
+        if(username.equals("") || email.equals("") || password.equals("") || nome.equals("") || cognome.equals("") || telefono.equals("") || daoautista==null) {
+            throw new Exception("riempire tutti i campi");
+        }
         if (password.length() <= 7) {
             System.out.println("la password deve avere almeno 8 caratteri");
             throw new Exception("password troppo corta");
@@ -143,6 +149,12 @@ public class ShuttleLive {
 
         List<Veicolo> allveicolo = new ArrayList<Veicolo>();
         allveicolo = daoveicol.allVeicolo();
+        if(targa.equals("") || marca.equals("") || modello.equals("") || colore.equals("") || n_posti==null) {
+            throw new Exception("riempire tutti i campi");
+        }
+        if(n_posti<0) {
+            throw new Exception("il numero dei posti non può essere negativo");
+        }
         if (targa.length() != 7) {
             System.out.println("la targa deve essere di 7 caratteri");
             throw new Exception("targa non valida");
@@ -164,6 +176,9 @@ public class ShuttleLive {
         AutistaDAO daouser = new AutistaDAO();
         Autista user = new Autista();
         user = daouser.selectAutista(email, password);
+        if(email.equals("") || password.equals("")) {
+            throw new Exception("riempire tutti i campi");
+        }
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
@@ -177,6 +192,9 @@ public class ShuttleLive {
     public Utente verificaLoginUtente(String email, String password) throws Exception {
         UtenteDAO daouser = new UtenteDAO();
         Utente user = new Utente();
+        if(email.equals("") || password.equals("")) {
+            throw new Exception("riempire tutti i campi");
+        }
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
@@ -192,6 +210,15 @@ public class ShuttleLive {
         DisponibilitaDAO dispdao = new DisponibilitaDAO();
         List<Disponibilita> alldisp = new ArrayList<>();
         alldisp = dispdao.allDisponibilita();
+        if(giorno_disponibilita==null || citta_partenza.equals("") ) {
+            throw new Exception("riempire tutti i campi");
+        }
+        if(ora_inizio.getHour() >23 || ora_fine.getHour() >23 || ora_inizio.getHour()<0 || ora_fine.getHour()<0) {
+            throw new Exception("ora non valida");
+        }
+        if(ora_inizio.getMinute() >59 || ora_fine.getMinute() >59 || ora_inizio.getMinute()<0 || ora_fine.getMinute()<0) {
+            throw new Exception("minuto non valida");
+        }
         if(giorno_disponibilita.before(new Date())) {
             throw new Exception("data non valida");
         } else {

@@ -36,4 +36,25 @@ class CorsaTest {
         System.out.println(corsa.getPrezzo());
         System.out.println(corsa);
     }
+
+    @Test
+    void testutenteSingoloByName() {
+        CorseController controller=CorseController.getInstance();
+        System.out.println(controller.utenteSingoloByName("antonio"));
+
+    }
+
+    @Test
+    void testautistaSingoloByName() {
+        CorseController controller=CorseController.getInstance();
+        System.out.println(controller.autistaSingoloByName("antonio"));
+
+    }
+
+    @Test
+    void testveicoloSingoloByName() {
+        CorseController controller=CorseController.getInstance();
+        System.out.println(controller.veicoloSingoloByName("xy325fj"));
+
+    }
 }

@@ -13,104 +13,43 @@ public class Corsa implements Discount {
     private Autista autista;
     private Utente utente;
     private Veicolo veicolo;
-    private String citta_partenza;
-    private String citta_destinazione;
+    //private String citta_partenza;
+    //private String citta_destinazione;
     private Date data_partenza;
-    private String inidirizzo_partenza;
-    private String indirizzo_destinazione;
+    //private String inidirizzo_partenza;
+    //private String indirizzo_destinazione;
     private LocalTime ora_partenza;
 
-    private Integer km_corsa;
+    //private Integer km_corsa;
+
+    private Address address;
     private float prezzo;
 
-
-    public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, float prezzo) {
+    public Corsa(Autista autista, Utente utente, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo) {
         this.autista = autista;
         this.utente = utente;
         this.veicolo = veicolo;
-        this.citta_partenza = citta_partenza;
-        this.citta_destinazione = citta_destinazione;
         this.data_partenza = data_partenza;
-        this.inidirizzo_partenza = inidirizzo_partenza;
-        this.indirizzo_destinazione = indirizzo_destinazione;
         this.ora_partenza = ora_partenza;
+        this.address = address;
         this.prezzo = prezzo;
     }
 
-    public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, Integer km_corsa, float prezzo) {
+    public Corsa(Autista autista, Date data_partenza, LocalTime ora_partenza, Address address) {
         this.autista = autista;
-        this.utente = utente;
+        this.data_partenza = data_partenza;
+        this.ora_partenza = ora_partenza;
+        this.address = address;
+    }
+
+    public Corsa(Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address) {
         this.veicolo = veicolo;
-        this.citta_partenza = citta_partenza;
-        this.citta_destinazione = citta_destinazione;
         this.data_partenza = data_partenza;
-        this.inidirizzo_partenza = inidirizzo_partenza;
-        this.indirizzo_destinazione = indirizzo_destinazione;
         this.ora_partenza = ora_partenza;
-        this.km_corsa = km_corsa;
-        this.prezzo = prezzo;
-    }
-
-    public Corsa(Autista autista, Utente utente, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza) {
-        this.autista = autista;
-        this.utente = utente;
-        this.citta_partenza = citta_partenza;
-        this.citta_destinazione = citta_destinazione;
-        this.data_partenza = data_partenza;
-        this.inidirizzo_partenza = inidirizzo_partenza;
-        this.indirizzo_destinazione = indirizzo_destinazione;
-        this.ora_partenza = ora_partenza;
+        this.address = address;
     }
 
     public Corsa() {
-    }
-
-    public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza) {
-        this.autista = autista;
-        this.utente = utente;
-        this.veicolo = veicolo;
-        this.citta_partenza = citta_partenza;
-        this.citta_destinazione = citta_destinazione;
-        this.data_partenza = data_partenza;
-        this.inidirizzo_partenza = inidirizzo_partenza;
-        this.indirizzo_destinazione = indirizzo_destinazione;
-        this.ora_partenza = ora_partenza;
-    }
-
-
-
-    public Corsa(Utente utente, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza) {
-        this.utente = utente;
-        this.citta_partenza = citta_partenza;
-        this.citta_destinazione = citta_destinazione;
-        this.data_partenza = data_partenza;
-        this.inidirizzo_partenza = inidirizzo_partenza;
-        this.indirizzo_destinazione = indirizzo_destinazione;
-        this.ora_partenza = ora_partenza;
-    }
-
-    public Corsa(Autista autista, Utente utente, Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, Integer km_corsa) {
-        this.autista = autista;
-        this.utente = utente;
-        this.veicolo = veicolo;
-        this.citta_partenza = citta_partenza;
-        this.citta_destinazione = citta_destinazione;
-        this.data_partenza = data_partenza;
-        this.inidirizzo_partenza = inidirizzo_partenza;
-        this.indirizzo_destinazione = indirizzo_destinazione;
-        this.ora_partenza = ora_partenza;
-        this.km_corsa = km_corsa;
-    }
-
-    public Corsa(Veicolo veicolo, String citta_partenza, String citta_destinazione, Date data_partenza, String inidirizzo_partenza, String indirizzo_destinazione, LocalTime ora_partenza, Integer km_corsa) {
-        this.veicolo = veicolo;
-        this.citta_partenza = citta_partenza;
-        this.citta_destinazione = citta_destinazione;
-        this.data_partenza = data_partenza;
-        this.inidirizzo_partenza = inidirizzo_partenza;
-        this.indirizzo_destinazione = indirizzo_destinazione;
-        this.ora_partenza = ora_partenza;
-        this.km_corsa = km_corsa;
     }
 
     public Autista getAutista() {
@@ -125,6 +64,14 @@ public class Corsa implements Discount {
         return utente;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public void setUtente(Utente utente) {
         this.utente = utente;
     }
@@ -137,7 +84,7 @@ public class Corsa implements Discount {
         this.veicolo = veicolo;
     }
 
-    public String getCitta_partenza() {
+    /*public String getCitta_partenza() {
         return citta_partenza;
     }
 
@@ -151,7 +98,7 @@ public class Corsa implements Discount {
 
     public void setCitta_destinazione(String citta_destinazione) {
         this.citta_destinazione = citta_destinazione;
-    }
+    }*/
 
     public Date getData_partenza() {
         return data_partenza;
@@ -161,7 +108,7 @@ public class Corsa implements Discount {
         this.data_partenza = data_partenza;
     }
 
-    public String getInidirizzo_partenza() {
+    /*public String getInidirizzo_partenza() {
         return inidirizzo_partenza;
     }
 
@@ -175,7 +122,7 @@ public class Corsa implements Discount {
 
     public void setIndirizzo_destinazione(String indirizzo_destinazione) {
         this.indirizzo_destinazione = indirizzo_destinazione;
-    }
+    } */
 
     public LocalTime getOra_partenza() {
         return ora_partenza;
@@ -189,24 +136,24 @@ public class Corsa implements Discount {
         return prezzo;
     }
 
-    public Integer getKm_corsa() {
+    /*public Integer getKm_corsa() {
         return km_corsa;
     }
 
     public void setKm_corsa(Integer km_corsa) {
         this.km_corsa = km_corsa;
-    }
+    }*/
 
     public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
     }
     public float getFee(){
         float prezzotot=0;
-        if(this.citta_partenza.equals(this.citta_destinazione)) {
-            prezzotot=3*km_corsa;
+        if(this.address.getCitta_partenza().equals(this.address.getCitta_destinazione())) {
+            prezzotot=3*this.address.getKm_corsa();
         }
         else {
-            prezzotot= (float) (1.5*this.km_corsa);
+            prezzotot= (float) (1.5*this.address.getKm_corsa());
         }
         prezzotot=getDiscount(prezzotot);
         return prezzotot;
@@ -219,12 +166,9 @@ public class Corsa implements Discount {
                 "autista=" + autista +
                 ", utente=" + utente +
                 ", veicolo=" + veicolo +
-                ", citta_partenza='" + citta_partenza + '\'' +
-                ", citta_destinazione='" + citta_destinazione + '\'' +
                 ", data_partenza=" + data_partenza +
-                ", inidirizzo_partenza='" + inidirizzo_partenza + '\'' +
-                ", indirizzo_destinazione='" + indirizzo_destinazione + '\'' +
                 ", ora_partenza=" + ora_partenza +
+                ", address=" + address +
                 ", prezzo=" + prezzo +
                 '}';
     }
@@ -243,26 +187,26 @@ public class Corsa implements Discount {
             discount=-15;
             prezzobase-=prezzobase*(discount/100);
         }
-        if(this.citta_partenza.equals(this.citta_destinazione) != true){
-            if(getKm_corsa() >= 100) {
-                int km = getKm_corsa()-100;
+        if(this.address.getCitta_partenza().equals(this.address.getCitta_destinazione()) != true){
+            if(this.address.getKm_corsa() >= 100) {
+                int km = this.address.getKm_corsa()-100;
                 discount=15;
                 float prezzokm = (float) (km * 1.5*(discount/100));
                 prezzobase=prezzobase-prezzokm;
             }
         }
-        if(this.citta_partenza.equals(this.citta_destinazione)) {
-            if(getKm_corsa() >= 10) {
-                int km = getKm_corsa()-10;
+        if(this.address.getCitta_partenza().equals(this.address.getCitta_destinazione())) {
+            if(this.address.getKm_corsa() >= 10) {
+                int km = this.address.getKm_corsa()-10;
                 discount=20;
                 float prezzokm = (float) (km * 3*(discount/100));
                 prezzobase=prezzobase-prezzokm;
             }
         }
         if(this.veicolo.getN_posti()>4) {
-            prezzobase = (float) (prezzobase*1.25+0.25*(this.veicolo.getN_posti()-1));
+            prezzobase = (float) (prezzobase*(0.25*(this.veicolo.getN_posti())));
         }
-        if(this.km_corsa<1){
+        if(this.address.getKm_corsa()<1){
             prezzobase = 2;}
         return prezzobase;
     }

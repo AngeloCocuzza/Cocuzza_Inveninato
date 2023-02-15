@@ -29,7 +29,7 @@ public class ScegliVeicolo {
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
         JLabel s = new JLabel("Scegli veicolo");
-        JLabel l = new JLabel("partenza = " + corsa.getCitta_partenza() + " arrivo = " + corsa.getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + " ora partenza = " + corsa.getOra_partenza());
+        JLabel l = new JLabel("partenza = " + corsa.getAddress().getCitta_partenza() + " arrivo = " + corsa.getAddress().getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + " ora partenza = " + corsa.getOra_partenza());
         //JButton j = new JButton("Scegli");
 
         //bottoni.setSize(10,5);

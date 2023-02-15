@@ -28,7 +28,7 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
         JLabel s = new JLabel("Ecco i dati della tua corsa");
-        JLabel l = new JLabel( "Autista : " + corsa.getAutista().getUsername() + " Utente : " + corsa.getUtente().getUsername() + " Veicolo : " + corsa.getVeicolo().getTarga() + " Partenza : " + corsa.getCitta_partenza() + " Arrivo = " + corsa.getCitta_destinazione() + " Data partenza = " + corsa.getData_partenza() + " Indirizzo di partenza : " + corsa.getInidirizzo_partenza() + " Indirizzo di destinazione : " + corsa.getIndirizzo_destinazione() + " Ora partenza : " + corsa.getOra_partenza()+ " KM : " + corsa.getKm_corsa() + " Prezzo : " + corsa.getPrezzo() + "");
+        JLabel l = new JLabel( "Autista : " + corsa.getAutista().getUsername() + " Utente : " + corsa.getUtente().getUsername() + " Veicolo : " + corsa.getVeicolo().getTarga() + " Data partenza = " + corsa.getData_partenza() + " Tratta : " + corsa.getAddress() + " Ora partenza : " + corsa.getOra_partenza()+ " Prezzo : " + corsa.getFee() + "");
                 //"partenza = " + corsa.getCitta_partenza() + " arrivo = " + corsa.getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + "Indirizzo di partenza : " + corsa.getInidirizzo_partenza() + "Indirizzo di destinazione : " + corsa.getIndirizzo_destinazione() +" ora partenza = " + corsa.getOra_partenza()+"autista : " + corsa.getAutista() + "veicolo : " + corsa.getVeicolo().getTarga() +);
         //JButton j = new JButton("Scegli");
 

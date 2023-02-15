@@ -24,13 +24,13 @@ public class CorsaDAO {
                 statement.setString(1, corsa.getAutista().getUsername());
                 statement.setString(2, corsa.getUtente().getUsername());
                 statement.setString(3, corsa.getVeicolo().getTarga());
-                statement.setString(4, corsa.getCitta_partenza());
-                statement.setString(5, corsa.getCitta_destinazione());
+                statement.setString(4, corsa.getAddress().getCitta_partenza());
+                statement.setString(5, corsa.getAddress().getCitta_destinazione());
                 statement.setDate(6, (Date) corsa.getData_partenza());
-                statement.setString(7, corsa.getInidirizzo_partenza());
-                statement.setString(8, corsa.getIndirizzo_destinazione());
+                statement.setString(7, corsa.getAddress().getInidirizzo_partenza());
+                statement.setString(8, corsa.getAddress().getIndirizzo_destinazione());
                 statement.setTime(9, Time.valueOf(corsa.getOra_partenza()));
-                statement.setInt(10, corsa.getKm_corsa());
+                statement.setInt(10, corsa.getAddress().getKm_corsa());
                 statement.setFloat(11,corsa.getPrezzo());
                 statement.executeUpdate();
             } else {
@@ -61,7 +61,8 @@ public class CorsaDAO {
                     auti = corsacontr.autistaSingoloByName(rs.getString("autista"));
                     user = corsacontr.utenteSingoloByName(rs.getString("utente"));
                     veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
-                    Corsa corsa = new Corsa(auti,user,veic, rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getDate("data_partenza"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"), LocalTime.parse(rs.getString("ora_partenza")),rs.getInt("km_corsa"),rs.getFloat("prezzo"));
+                    Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
+                    Corsa corsa = new Corsa(auti,user,veic,rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")), address,rs.getFloat("prezzo"));
                     allcorsa.add(corsa);
                 }
             }

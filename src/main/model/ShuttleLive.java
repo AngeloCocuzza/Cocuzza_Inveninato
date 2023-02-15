@@ -93,7 +93,7 @@ public class ShuttleLive {
 
     public Utente verificaCampiUtente(String username, String email, String password,String nome, String cognome, String telefono, Date data_nascita) throws Exception {
         UtenteDAO daouser = new UtenteDAO();
-        List<Utente> allUsers = new ArrayList<Utente>();
+        List<Utente> allUsers = new ArrayList<>();
         allUsers = daouser.allUtente();
         if (password.length() <= 7) {
             System.out.println("la password deve avere almeno 8 caratteri");
@@ -115,7 +115,7 @@ public class ShuttleLive {
 
     public Autista verificaCampiAutista(String username, String email, String password,String nome, String cognome, String telefono, Date data_nascita) throws Exception {
         AutistaDAO daoautista = new AutistaDAO();
-        List<Autista> allAutisti = new ArrayList<Autista>();
+        List<Autista> allAutisti = new ArrayList<>();
         allAutisti = daoautista.allAutisti();
         if (password.length() <= 7) {
             System.out.println("la password deve avere almeno 8 caratteri");

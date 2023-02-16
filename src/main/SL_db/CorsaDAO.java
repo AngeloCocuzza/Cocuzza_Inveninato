@@ -14,7 +14,7 @@ public class CorsaDAO {
     public void insertCorsa(Corsa corsa) {
 
 
-        String sql = "insert into corsa values (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into corsa (autista,utente,veicolo,citta_partenza,citta_destinazione,data_partenza,indirizzo_partenza,indirizzo_destinazione,ora_partenza,km_corsa,prezzo) values (?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             Connection conn = DBConnect.getConnection();

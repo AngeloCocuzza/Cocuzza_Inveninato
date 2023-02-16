@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ViaggioProgrammatoDAO {
     private CorseController corsacontr;
     public void insertViaggio(ViaggioProgrammato viaggio) {
-        String sql = "insert into viaggi_programmati values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into viaggi_programmati (autista,veicolo,citta_partenza,citta_destinazione,data_partenza,indirizzo_partenza,indirizzo_destinazione,ora_partenza,evento,km_corsa,prezzo,n_posti_disp) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             Connection conn = DBConnect.getConnection();

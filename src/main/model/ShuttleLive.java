@@ -95,34 +95,27 @@ public class ShuttleLive {
         return corsaCorrente;
     }
     public ViaggioProgrammato inserisciViaggio(ViaggioProgrammato viaggio) throws Exception {
-        viaggioCorrente= (ViaggioProgrammato) verificaCampiCorsa(viaggio);
+        viaggioCorrente = verificaCampiViaggio(viaggio);
         return viaggioCorrente;
     }
 
-    public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
-        if(corsa instanceof ViaggioProgrammato) {
+    public ViaggioProgrammato verificaCampiViaggio(ViaggioProgrammato corsa) throws Exception {
 
-             if (((ViaggioProgrammato) corsa).getEvento()==("")||corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || (corsa.getData_partenza() == null) || (corsa.getOra_partenza() == null) || (corsa.getAddress().getKm_corsa() == null)) {
+
+             if (corsa.getEvento()==("")||corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || (corsa.getData_partenza() == null) || (corsa.getOra_partenza() == null) || (corsa.getAddress().getKm_corsa() == null)) {
                 throw new Exception("riempire tutti i campi");}
 
              ViaggioProgrammatoDAO viaggiodao=new ViaggioProgrammatoDAO();
-             viaggioCorrente= (ViaggioProgrammato) corsa;
+             viaggioCorrente=corsa;
              viaggiodao.insertViaggio(viaggioCorrente);
              return corsa;
 
-        }
-        else {
-            if(corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("")|| corsa.getAddress().getIndirizzo_destinazione().equals("")|| corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza()==null || corsa.getOra_partenza()==null){
-                throw new Exception("riempire tutti i campi");}
-                CorsaDAO corsadao = new CorsaDAO();
-                corsaCorrente=corsa;
-                corsadao.insertCorsa(corsaCorrente);
-            return corsa;}
+
         }
 
 
 
-    /*public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
+    public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
         if(corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("")|| corsa.getAddress().getIndirizzo_destinazione().equals("")|| corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza()==null || corsa.getOra_partenza()==null)
             throw new Exception("riempire tutti i campi");
         CorsaDAO corsadao = new CorsaDAO();
@@ -130,7 +123,7 @@ public class ShuttleLive {
         corsadao.insertCorsa(corsaCorrente);
 
         return corsa;
-    }*/
+    }
 
     public List<Veicolo> veicoliAutista(String autista){
         VeicoloDao daoveicoli=new VeicoloDao();

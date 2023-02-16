@@ -13,6 +13,9 @@ public class MenuUtente extends javax.swing.JFrame{
     private Utente utente;
     private JButton cercaCorsaButton;
     private JPanel menuUtentePanel;
+    private JButton cercaViaggioProgrammatoButton;
+    private JButton gestisciPrenotazioniButton;
+    private JButton visualizzaRecensioniButton;
 
     public MenuUtente(ShuttleLive sl,Utente user) {
 
@@ -32,5 +35,11 @@ public class MenuUtente extends javax.swing.JFrame{
             //System.out.println(utente);
         }
     });
-
-}}
+        cercaViaggioProgrammatoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CercaViaggioProgrammato(shuttlelive,utente);
+                setVisible(false);
+            }
+        });
+    }}

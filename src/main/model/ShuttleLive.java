@@ -58,7 +58,7 @@ public class ShuttleLive {
 
     }
     public Patente verificaPatente(Patente patente) throws Exception {
-        if(patente.getCodice().equals((""))||patente.getData_conseguimento().equals("")||patente.getData_scadenza().equals("")||patente.getLivello().equals(""))
+        if(patente.getCodice().equals((""))||patente.getData_conseguimento()==null||patente.getData_scadenza()==null||patente.getLivello().equals(""))
             throw new Exception("riempire tutti i campi");
             PatenteDao daopatent = new PatenteDao();
             patenteCorrente=patente;
@@ -94,7 +94,7 @@ public class ShuttleLive {
         return corsaCorrente;
     }
     public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
-        if(corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("")|| corsa.getAddress().getKm_corsa().equals("")|| corsa.getAddress().getIndirizzo_destinazione().equals("")|| corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza()==null || corsa.getOra_partenza()==null)
+        if(corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("")|| corsa.getAddress().getIndirizzo_destinazione().equals("")|| corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza()==null || corsa.getOra_partenza()==null)
             throw new Exception("riempire tutti i campi");
         CorsaDAO corsadao = new CorsaDAO();
         corsaCorrente=corsa;
@@ -124,7 +124,7 @@ public class ShuttleLive {
             throw new Exception("password troppo corta");
         } else {
             for (Utente utente : allUsers) {
-                if (utente.getUsername().equals(username) == true || utente.getEmail().equals(email) == true) {
+                if (utente.getUsername().equals(username) || utente.getEmail().equals(email)) {
                     System.out.println("email o username già presenti");
                     throw new Exception("email o username già in uso");
                 }

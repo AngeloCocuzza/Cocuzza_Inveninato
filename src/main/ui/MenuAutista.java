@@ -11,7 +11,7 @@ public class MenuAutista extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
     private JButton renditiDisponibileButton;
     private JButton aggiungiVeicoloButton;
-    private JButton button3;
+    private JButton inserisciViaggioProgrammatoButton;
     private JPanel menuautistaPanel;
     private JButton button1;
 
@@ -32,9 +32,17 @@ public class MenuAutista extends javax.swing.JFrame {
         aggiungiVeicoloButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RegistraVeicolo(sl,autista);
+                new RegistraVeicolo(shuttlelive,autista);
                 setVisible(false);
 
+            }
+        });
+        inserisciViaggioProgrammatoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new InserisciViaggio(shuttlelive,autista);
+                setVisible(false);
+                //System.out.println(utente);
             }
         });
     }

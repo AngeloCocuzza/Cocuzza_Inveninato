@@ -32,4 +32,5 @@ public class MenuUtente extends javax.swing.JFrame{
             //System.out.println(utente);
         }
     });
+
 }}

@@ -21,6 +21,8 @@ public class InserisciViaggio extends javax.swing.JFrame {
     private JTextField veicolo;
     private JTextField prezzo;
     private JTextField indPartenza;
+    private JTextField indDest;
+    private JPanel inserisciViaggio;
 
     public InserisciViaggio(ShuttleLive sl,Utente user) {
         this.shuttlelive=sl;

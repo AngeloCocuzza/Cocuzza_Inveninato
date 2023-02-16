@@ -3,6 +3,7 @@ package SL_test;
 import model.Address;
 import model.Corsa;
 import model.ShuttleLive;
+import model.ViaggioProgrammato;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
@@ -234,9 +235,17 @@ class ShuttleLiveTest {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         Address indirizzo=new Address("Catania","Pisa","via Gabriele d'annunzio","via ortdegli ulivi 7",300);
         Corsa corsa=new Corsa(shuttlelive.getAutistaCorrente(),shuttlelive.getUtenteCorrente(),shuttlelive.getVeicoloCorrente(),java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"),indirizzo,300);
+        ViaggioProgrammato viaggio=new ViaggioProgrammato(shuttlelive.getAutistaCorrente(),shuttlelive.getVeicoloCorrente(),java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"),indirizzo,10,"concerto Ligabue");
         try {
             shuttlelive.inserisciCorsa(corsa);
             assertNotNull(shuttlelive.getCorsaCorrente());
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+
+        try {
+            shuttlelive.inserisciCorsa(viaggio);
+            assertNotNull(shuttlelive.getViaggioCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
         }
@@ -245,6 +254,15 @@ class ShuttleLiveTest {
         try {
             shuttlelive.inserisciCorsa(corsa);
             assertNull(shuttlelive.getCorsaCorrente());
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
+        }
+        viaggio.setAddress(indirizzo);
+        try {
+            shuttlelive.inserisciCorsa(viaggio);
+            assertNull(shuttlelive.getViaggioCorrente());
             fail("Expected exception");
 
         } catch (Exception e) {

@@ -1,10 +1,15 @@
 package SL_db;
 
-import model.ViaggioProgrammato;
+import model.*;
 
+import java.awt.*;
 import java.sql.*;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ViaggioProgrammatoDAO {
+    private CorseController corsacontr;
     public void insertViaggio(ViaggioProgrammato viaggio) {
         String sql = "insert into viaggi_programmati values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -15,7 +20,7 @@ public class ViaggioProgrammatoDAO {
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setString(1, viaggio.getAutista().getUsername());
                 statement.setString(2, viaggio.getVeicolo().getTarga());
-                statement.setString(3, viaggio.getAddress().getCitta_partenza();
+                statement.setString(3, viaggio.getAddress().getCitta_partenza());
                 statement.setString(4, viaggio.getAddress().getCitta_destinazione());
                 statement.setDate(5, (Date) viaggio.getData_partenza());
                 statement.setString(6, viaggio.getAddress().getInidirizzo_partenza());
@@ -35,6 +40,31 @@ public class ViaggioProgrammatoDAO {
         }
 
     }
-
-
+    public List<ViaggioProgrammato> selectViaggiByEventoOrData(String evento, Date data_partenza) {
+        List<ViaggioProgrammato> viaggi = new ArrayList();
+        String sql = "select * from viaggi_programmati where evento = ? and data_partenza = ?";
+        corsacontr = CorseController.getInstance();
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1,evento);
+                statement.setDate(2, (Date) data_partenza);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    Autista auti = new Autista();
+                    Veicolo veic = new Veicolo();
+                    auti = corsacontr.autistaSingoloByName(rs.getString("autista"));
+                    veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
+                    Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
+                    ViaggioProgrammato viaggio = new ViaggioProgrammato(auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")),address,rs.getFloat("prezzo"),rs.getString("evento"), rs.getInt("n_posti_disp"));
+                    viaggi.add(viaggio);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return viaggi;
+    }
 }

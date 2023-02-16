@@ -3,6 +3,11 @@ package model;
 import SL_db.AutistaDAO;
 import SL_db.UtenteDAO;
 import SL_db.VeicoloDao;
+import SL_db.ViaggioProgrammatoDAO;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CorseController {
 
@@ -11,6 +16,8 @@ public class CorseController {
     Autista autistacorrente;
 
     Veicolo veicolocorrente;
+
+    List<ViaggioProgrammato> viaggicorrente;
 
     public Utente getUtentecorrente() {
         return utentecorrente;
@@ -22,6 +29,10 @@ public class CorseController {
 
     public Veicolo getVeicolocorrente() {
         return veicolocorrente;
+    }
+
+    public List<ViaggioProgrammato> getViaggicorrente() {
+        return viaggicorrente;
     }
 
     public static CorseController corsecontr;
@@ -50,5 +61,19 @@ public class CorseController {
         veicolocorrente= veicdao.allvVeicoloTarga(veicolo);
         return veicolocorrente;
     }
+
+    public List<ViaggioProgrammato> selezionaViaggioProgrammato(String evento, Date data_partenza) {
+        viaggicorrente = verificaCampiViaggiProgrammato(evento, data_partenza);
+        return viaggicorrente;
+    }
+
+    public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) {
+        ViaggioProgrammatoDAO viaggidao = new ViaggioProgrammatoDAO();
+        List<ViaggioProgrammato> viaggi = new ArrayList();
+        viaggi = viaggidao.selectViaggiByEventoOrData(evento,data_partenza);
+
+
+    }
+
 
 }

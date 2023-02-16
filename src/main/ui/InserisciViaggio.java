@@ -10,58 +10,69 @@ import java.time.LocalTime;
 
 public class InserisciViaggio extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
+    private CorseController controller;
 
     private Autista autista;
-    private Corsa corsa;
+    private ViaggioProgrammato viaggio;
     private JTextField dataViaggio;
     private JTextField oraPartenza;
     private JTextField cittaPartenza;
-    private JTextField textField4;
+    private JTextField luogoEvento;
     private JTextField evento;
     private JTextField veicolo;
     private JTextField prezzo;
     private JTextField indPartenza;
     private JTextField indDest;
     private JPanel inserisciViaggio;
+    private JButton creaViaggio;
+    private JButton tornaAlMenuPrincipaleButton;
+    private JTextField km;
 
     public InserisciViaggio(ShuttleLive sl,Utente user) {
         this.shuttlelive=sl;
         this.autista=autista;
-        corsa=new Corsa();
+        controller=CorseController.getInstance();
 
         setTitle("InserisciViaggio");
-        setContentPane(inserisciViaggioPanel);
+        setContentPane(inserisciViaggio);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
-        trovaCorsaButton.addActionListener(new ActionListener() {
+        creaViaggio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    autistiDisponibili = shuttlelive.cercaAutistiDisponibili(partenza.getText(), arrivo.getText(), Date.valueOf(dataPartenza.getText()), LocalTime.parse(oraPartenza.getText()));
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-                corsa.setUtente(shuttlelive.getUtenteCorrente());
-                System.out.println(autistiDisponibili);
-                int km = (int) Math.floor(Math.random() * (100) + 1);
-                corsa.setAddress(new Address(partenza.getText(), arrivo.getText(), indirizzopart.getText(), indirizzodest.getText(), km));
-                corsa.setData_partenza(Date.valueOf(dataPartenza.getText()));
-                corsa.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
+                    viaggio.setEvento(evento.getText());
+                    viaggio.setPrezzo(Float.parseFloat(prezzo.getText()));
+                    viaggio.setAutista(autista);
+                    viaggio.setAddress(new Address(cittaPartenza.getText(),luogoEvento.getText(),indPartenza.getText(),indDest.getText(), Integer.parseInt(km.getText())));
+                    viaggio.setVeicolo(controller.veicoloSingoloByName(veicolo.getText()));
+                    viaggio.setPostiDisponibili();
+                    viaggio.setData_partenza(Date.valueOf(dataViaggio.getText()));
+                    viaggio.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
+                    System.out.println(viaggio);
+                    viaggio=shuttlelive.inserisciViaggio(viaggio);
+                    System.out.println(viaggio);
 
-                new AutistiDispCorsaCorrente(shuttlelive, autistiDisponibili, corsa);//partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()));
+                    new MenuAutista(shuttlelive,autista);
+                } catch (Exception ex) {
+                    new InserisciViaggio(shuttlelive,autista);
+                }
+
+
+
                 setVisible(false);
             }
         });
 
-        tornaAlMenuPricipaleButton.addActionListener(new ActionListener() {
+        tornaAlMenuPrincipaleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new MenuUtente(shuttlelive,utente);
+                new MenuUtente(shuttlelive,autista);
                 setVisible(false);
 
             }
         });
-    }
+    }}

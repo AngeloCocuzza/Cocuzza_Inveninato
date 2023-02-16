@@ -57,7 +57,7 @@ public class ViaggioProgrammato extends Corsa{
         return postiDisponibili;
     }
 
-    public void setPostiDisponibili(Integer postiDisponibili) {
+    public void setPostiDisponibili() {
           postiDisponibili=this.getVeicolo().getN_posti();
     }
 }

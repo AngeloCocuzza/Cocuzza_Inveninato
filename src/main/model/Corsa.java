@@ -10,6 +10,16 @@ import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
 
 public class Corsa implements Discount {
+    private int ID;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     private Autista autista;
     private Utente utente;
     private Veicolo veicolo;

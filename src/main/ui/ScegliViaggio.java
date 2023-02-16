@@ -42,13 +42,13 @@ public class ScegliViaggio {
         f.setSize(550,400);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
-
+/*
         for(ViaggioProgrammato viaggio : viaggi) {
             JPanel v1 = new JPanel();
             JPanel v2 = new JPanel();
-            JLabel ad = new JLabel("Citta Partenza: " + );
+            //JLabel ad = new JLabel("Citta Partenza: " + );
             JLabel info = new JLabel();
-            JButton j = new JButton(" ID : "+viaggio.getID() + " Autista :  " + viaggio.getAutista().getUsername() + " Veicolo :  " + viaggio.getVeicolo().getTarga()+ " Citta di partenza : "+ viaggio.ge.getN_posti() + " Colore :   "+ veicolo.getColore()+ "  " );
+            //JButton j = new JButton(" ID : "+viaggio.getID() + " Autista :  " + viaggio.getAutista().getUsername() + " Veicolo :  " + viaggio.getVeicolo().getTarga()+ " Citta di partenza : "+ viaggio.ge.getN_posti() + " Colore :   "+ veicolo.getColore()+ "  " );
             JPanel bottoni = new JPanel();
             bottoni.add(j);
             panel.add(v1);
@@ -57,14 +57,14 @@ public class ScegliViaggio {
             j.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    corsa.setVeicolo(veicolo);
+                  //  corsa.setVeicolo(veicolo);
                     corsa.setPrezzo(corsa.getFee());
-                    new MostraCorsaFinale(shuttlelive,corsa);
+                    //new MostraCorsaFinale(shuttlelive,corsa);
                     f.setVisible(false);
                 }
             });
 
-        }
+        }*/
     }
 
 }

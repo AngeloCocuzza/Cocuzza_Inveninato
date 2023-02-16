@@ -62,16 +62,23 @@ public class CorseController {
         return veicolocorrente;
     }
 
-    public List<ViaggioProgrammato> selezionaViaggioProgrammato(String evento, Date data_partenza) {
+    public List<ViaggioProgrammato> selezionaViaggioProgrammato(String evento, Date data_partenza) throws Exception {
         viaggicorrente = verificaCampiViaggiProgrammato(evento, data_partenza);
         return viaggicorrente;
     }
 
-    public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) {
+    public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) throws Exception {
         ViaggioProgrammatoDAO viaggidao = new ViaggioProgrammatoDAO();
         List<ViaggioProgrammato> viaggi = new ArrayList();
-        viaggi = viaggidao.selectViaggiByEventoOrData(evento,data_partenza);
 
+        if(evento.equals("") || data_partenza==null) {
+            throw new Exception("riempire tutti i campi");
+        }
+        if(data_partenza.before(new java.util.Date())) {
+            throw new Exception("data non valida");
+        }
+        viaggi = viaggidao.selectViaggiByEventoOrData(evento,data_partenza);
+        return viaggi;
 
     }
 

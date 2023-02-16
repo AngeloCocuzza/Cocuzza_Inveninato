@@ -35,6 +35,16 @@ public class Corsa implements Discount {
     private Address address;
     private float prezzo;
 
+    public Corsa(int ID, Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo) {
+        this.ID = ID;
+        this.autista = autista;
+        this.veicolo = veicolo;
+        this.data_partenza = data_partenza;
+        this.ora_partenza = ora_partenza;
+        this.address = address;
+        this.prezzo = prezzo;
+    }
+
     public Corsa(Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo) {
         this.autista = autista;
         this.veicolo = veicolo;

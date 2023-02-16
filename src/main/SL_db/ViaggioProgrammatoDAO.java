@@ -22,7 +22,7 @@ public class ViaggioProgrammatoDAO {
                 statement.setString(2, viaggio.getVeicolo().getTarga());
                 statement.setString(3, viaggio.getAddress().getCitta_partenza());
                 statement.setString(4, viaggio.getAddress().getCitta_destinazione());
-                statement.setDate(5, (Date) viaggio.getData_partenza());
+                statement.setDate(5, (java.sql.Date)viaggio.getData_partenza());
                 statement.setString(6, viaggio.getAddress().getInidirizzo_partenza());
                 statement.setString(7, viaggio.getAddress().getIndirizzo_destinazione());
                 statement.setTime(8, Time.valueOf(viaggio.getOra_partenza()));
@@ -58,7 +58,7 @@ public class ViaggioProgrammatoDAO {
                     auti = corsacontr.autistaSingoloByName(rs.getString("autista"));
                     veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
-                    ViaggioProgrammato viaggio = new ViaggioProgrammato(auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")),address,rs.getFloat("prezzo"),rs.getString("evento"), rs.getInt("n_posti_disp"));
+                    ViaggioProgrammato viaggio = new ViaggioProgrammato(rs.getInt("ID"),auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")),address,rs.getFloat("prezzo"),rs.getString("evento"), rs.getInt("n_posti_disp"));
                     viaggi.add(viaggio);
                 }
             }
@@ -67,4 +67,25 @@ public class ViaggioProgrammatoDAO {
         }
         return viaggi;
     }
+
+    public void insertCorsaProgrammata(Integer id, String user) {
+        String sql = "insert into corsa_programmati values (?,?)";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setInt(1, id);
+                statement.setString(2, user);
+                statement.executeUpdate();
+            } else {
+                System.out.println("connessione fallita");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -38,7 +38,7 @@ public class MenuUtente extends javax.swing.JFrame{
         cercaViaggioProgrammatoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //new CercaViaggioProgrammato(shuttlelive,utente);
+                new CercaViaggioProgrammato(shuttlelive,utente);
                 setVisible(false);
             }
         });

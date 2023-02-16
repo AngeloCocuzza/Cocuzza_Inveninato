@@ -280,7 +280,7 @@ class ShuttleLiveTest {
     void testInserisciViaggio() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         Address indirizzo=new Address("Catania","Pisa","via Gabriele d'annunzio","via ortdegli ulivi 7",300);
-        ViaggioProgrammato viaggio=new ViaggioProgrammato(shuttlelive.getAutistaCorrente(),shuttlelive.getVeicoloCorrente(),java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"),indirizzo,10,"concerto Ligabue",50);
+        ViaggioProgrammato viaggio=new ViaggioProgrammato(shuttlelive.getAutistaCorrente(),shuttlelive.getVeicoloCorrente(),java.sql.Date.valueOf("2023-04-04"), LocalTime.parse("16:00:00"),indirizzo,10,"concerto Ligabue",50);
         try {
             shuttlelive.inserisciViaggio(viaggio);
             assertNotNull(shuttlelive.getViaggioCorrente());

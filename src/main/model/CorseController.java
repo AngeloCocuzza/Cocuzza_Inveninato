@@ -67,6 +67,11 @@ public class CorseController {
         return viaggicorrente;
     }
 
+    public void inserisciCorsaProgrammata(Integer id, String user) {
+        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        viaggiodao.insertCorsaProgrammata(id,user);
+    }
+
     public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) throws Exception {
         ViaggioProgrammatoDAO viaggidao = new ViaggioProgrammatoDAO();
         List<ViaggioProgrammato> viaggi = new ArrayList();
@@ -81,6 +86,8 @@ public class CorseController {
         return viaggi;
 
     }
+
+
 
 
 }

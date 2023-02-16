@@ -29,7 +29,7 @@ public class ScegliVeicolo {
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
         JPanel torna = new JPanel();
-        JButton t = new JButton("Scegli");
+        JButton t = new JButton("Torna indietro");
         torna.add(t);
 
         JLabel s = new JLabel("Scegli veicolo");

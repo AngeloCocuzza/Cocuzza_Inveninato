@@ -10,11 +10,13 @@ public class ViaggioProgrammato extends Corsa{
     private String evento;
     private Integer postiDisponibili;
 
-    public ViaggioProgrammato(Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo, List<Utente> utentiPrenotati, String evento, Integer postiDisponibili) {
-        super(autista, veicolo, data_partenza, ora_partenza, address, prezzo);
-        this.utentiPrenotati = utentiPrenotati;
+    public ViaggioProgrammato(int ID, Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo, String evento, Integer postiDisponibili) {
+        super(ID, autista, veicolo, data_partenza, ora_partenza, address, prezzo);
         this.evento = evento;
         this.postiDisponibili = postiDisponibili;
+    }
+
+    public ViaggioProgrammato() {
     }
 
     public ViaggioProgrammato(Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo, String evento, Integer postiDisponibili) {
@@ -28,14 +30,7 @@ public class ViaggioProgrammato extends Corsa{
         this.evento = evento;
     }
 
-    @Override
-    public String toString() {
-        return "ViaggioProgrammato{" +
-                "utentiPrenotati=" + utentiPrenotati +
-                ", evento='" + evento + '\'' +
-                ", postiDisponibili=" + postiDisponibili +
-                '}';
-    }
+
 
     public List<Utente> getUtentiPrenotati() {
         return utentiPrenotati;
@@ -60,4 +55,5 @@ public class ViaggioProgrammato extends Corsa{
     public void setPostiDisponibili() {
           postiDisponibili=this.getVeicolo().getN_posti();
     }
+
 }

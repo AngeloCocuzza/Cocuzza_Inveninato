@@ -103,12 +103,14 @@ public class ShuttleLive {
 
 
              if (corsa.getEvento()==("")||corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || (corsa.getData_partenza() == null) || (corsa.getOra_partenza() == null) || (corsa.getAddress().getKm_corsa() == null)) {
-                throw new Exception("riempire tutti i campi");}
+                throw new Exception("riempire tutti i campi");
+             }
 
              ViaggioProgrammatoDAO viaggiodao=new ViaggioProgrammatoDAO();
-             viaggioCorrente=corsa;
-             viaggiodao.insertViaggio(viaggioCorrente);
-             return corsa;
+             ViaggioProgrammato viag = new ViaggioProgrammato();
+             viag=corsa;
+             viaggiodao.insertViaggio(viag);
+             return viag;
 
 
         }
@@ -116,11 +118,13 @@ public class ShuttleLive {
 
 
     public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
-        if(corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("")|| corsa.getAddress().getIndirizzo_destinazione().equals("")|| corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza()==null || corsa.getOra_partenza()==null)
+        if (corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza() == null || corsa.getOra_partenza() == null) {
             throw new Exception("riempire tutti i campi");
+    }
         CorsaDAO corsadao = new CorsaDAO();
-        corsaCorrente=corsa;
-        corsadao.insertCorsa(corsaCorrente);
+        Corsa cr = new Corsa();
+        cr=corsa;
+        corsadao.insertCorsa(cr);
 
         return corsa;
     }

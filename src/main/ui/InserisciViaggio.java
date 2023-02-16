@@ -28,10 +28,11 @@ public class InserisciViaggio extends javax.swing.JFrame {
     private JButton tornaAlMenuPrincipaleButton;
     private JTextField km;
 
-    public InserisciViaggio(ShuttleLive sl,Utente user) {
+    public InserisciViaggio(ShuttleLive sl,Autista user) {
         this.shuttlelive=sl;
-        this.autista=autista;
+        this.autista=user;
         controller=CorseController.getInstance();
+        viaggio = new ViaggioProgrammato();
 
         setTitle("InserisciViaggio");
         setContentPane(inserisciViaggio);
@@ -43,17 +44,18 @@ public class InserisciViaggio extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    System.out.println("sono qui");
                     viaggio.setEvento(evento.getText());
                     viaggio.setPrezzo(Float.parseFloat(prezzo.getText()));
                     viaggio.setAutista(autista);
                     viaggio.setAddress(new Address(cittaPartenza.getText(),luogoEvento.getText(),indPartenza.getText(),indDest.getText(), Integer.parseInt(km.getText())));
-                    viaggio.setVeicolo(controller.veicoloSingoloByName(veicolo.getText()));
+                    Veicolo veicoloprova = controller.veicoloSingoloByName(veicolo.getText());
+                    viaggio.setVeicolo(veicoloprova);
                     viaggio.setPostiDisponibili();
                     viaggio.setData_partenza(Date.valueOf(dataViaggio.getText()));
                     viaggio.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
                     System.out.println(viaggio);
-                    viaggio=shuttlelive.inserisciViaggio(viaggio);
-                    System.out.println(viaggio);
+                    System.out.println(shuttlelive.inserisciViaggio(viaggio));
 
                     new MenuAutista(shuttlelive,autista);
                 } catch (Exception ex) {

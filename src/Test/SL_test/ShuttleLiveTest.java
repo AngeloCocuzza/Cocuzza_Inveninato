@@ -32,14 +32,14 @@ class ShuttleLiveTest {
         }
         try {
             Utente utente=new Utente("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
-            assertNull(shuttlelive.inserisciNuovoUtente(utente);
+            assertNull(shuttlelive.inserisciNuovoUtente(utente));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "riempire tutti i campi");
         }
         try {
             Utente utente=new Utente("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
-            assertNull(shuttlelive.inserisciNuovoUtente(utente);
+            assertNull(shuttlelive.inserisciNuovoUtente(utente));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "password troppo corta");
@@ -131,7 +131,8 @@ class ShuttleLiveTest {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
 
         try {
-            shuttlelive.inserisciPatente("12345cd",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM");
+            Patente patente=new Patente("12345cd",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM")
+            shuttlelive.inserisciPatente(patente);
             //System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
             assertNotNull(shuttlelive.getAutistaCorrente());
         }
@@ -139,8 +140,9 @@ class ShuttleLiveTest {
             fail("Unexpected exception");
         }
         try {
-            shuttlelive.inserisciPatente("",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM");
-            //System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
+            Patente patente=new Patente("",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM");
+            shuttlelive.inserisciPatente(patente);
+
             fail("Expected exception");
         }
         catch (Exception e) {

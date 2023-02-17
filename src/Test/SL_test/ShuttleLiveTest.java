@@ -1,9 +1,6 @@
 package SL_test;
 
-import model.Address;
-import model.Corsa;
-import model.ShuttleLive;
-import model.ViaggioProgrammato;
+import model.*;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
@@ -27,25 +24,29 @@ class ShuttleLiveTest {
     void testInserisciNuovoUtente() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         try {
-            shuttlelive.inserisciNuovoUtente("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+            Utente utente=new Utente("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+            shuttlelive.inserisciNuovoUtente(utente);
             assertNotNull(shuttlelive.getUtenteCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
         }
         try {
-            assertNull(shuttlelive.inserisciNuovoUtente("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
+            Utente utente=new Utente("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+            assertNull(shuttlelive.inserisciNuovoUtente(utente);
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "riempire tutti i campi");
         }
         try {
-            assertNull(shuttlelive.inserisciNuovoUtente("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
+            Utente utente=new Utente("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+            assertNull(shuttlelive.inserisciNuovoUtente(utente);
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "password troppo corta");
         }
         try {
-            assertNull(shuttlelive.inserisciNuovoUtente("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
+            Utente utente=new Utente("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+            assertNull(shuttlelive.inserisciNuovoUtente(utente));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "email o username già in uso");

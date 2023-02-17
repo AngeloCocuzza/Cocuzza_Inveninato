@@ -72,8 +72,8 @@ public class ShuttleLive {
         return veicoloCorrente;
     }
 
-    public Disponibilita inserisciNuovaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) throws Exception {
-        disponibilitaCorrente = verificaDisponibilita(autista,giorno_disponibilita,ora_inizio,ora_fine,citta_partenza);
+    public Disponibilita inserisciNuovaDisponibilita(Disponibilita disp) throws Exception {
+        disponibilitaCorrente = verificaDisponibilita(disp);
         return disponibilitaCorrente;
     }
     public List<Autista> cercaAutistiDisponibili(String partenza, String arrivo, java.sql.Date data_partenza, LocalTime ora) throws Exception {
@@ -249,29 +249,29 @@ public class ShuttleLive {
         }
     }
 
-    public Disponibilita verificaDisponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) throws Exception {
+    public Disponibilita verificaDisponibilita(Disponibilita disp) throws Exception {
         DisponibilitaDAO dispdao = new DisponibilitaDAO();
         List<Disponibilita> alldisp = new ArrayList<>();
         alldisp = dispdao.allDisponibilita();
-        if(giorno_disponibilita==null || citta_partenza.equals("") ) {
+        if(disp.getGiorno_disponibilita()==null || disp.getCitta_partenza().equals("") ) {
             throw new Exception("riempire tutti i campi");
         }
-        if(ora_inizio.getHour() >23 || ora_fine.getHour() >23 || ora_inizio.getHour()<0 || ora_fine.getHour()<0) {
+        if(disp.ora_inizio.getHour() >23 || disp.getOra_fine().getHour() >23 || disp.getOra_inizio().getHour()<0 || disp.getOra_fine().getHour()<0) {
             throw new Exception("ora non valida");
         }
-        if(ora_inizio.getMinute() >59 || ora_fine.getMinute() >59 || ora_inizio.getMinute()<0 || ora_fine.getMinute()<0) {
+        if(disp.getOra_inizio().getMinute() >59 || disp.getOra_fine().getMinute() >59 || disp.getOra_inizio().getMinute()<0 || disp.getOra_fine().getMinute() >59) {
             throw new Exception("minuto non valida");
         }
-        if(giorno_disponibilita.before(new Date())) {
+        if(disp.getGiorno_disponibilita().before(new Date())) {
             throw new Exception("data non valida");
         } else {
-            for (Disponibilita disp : alldisp) {
-                if(disp.getGiorno_disponibilita().equals(giorno_disponibilita) == true && disp.getAutista().equals(autista) == true) {
+            for (Disponibilita dispon : alldisp) {
+                if(dispon.getGiorno_disponibilita().equals(disp.getGiorno_disponibilita()) == true && dispon.getAutista().equals(disp.getAutista()) == true) {
                     System.out.println("è già presente una messa a disposizione per la data inserita");
                     throw new Exception("data già occupata");
                 }
             }
-            Disponibilita dispo = new Disponibilita(autista, giorno_disponibilita, ora_inizio, ora_fine, citta_partenza);
+            Disponibilita dispo = disp;
             dispdao.insertDisponibilita(dispo);
             return dispo;
         }

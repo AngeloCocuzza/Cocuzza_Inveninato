@@ -1,5 +1,6 @@
 package SL_db;
 
+import model.Autista;
 import model.Disponibilita;
 import model.Veicolo;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisponibilitaDAO {
-    public void insertDisponibilita(Disponibilita disp) {
+    public void insertDisponibilita(Disponibilita disp,Autista autista) {
         String sql = "insert into disponibilita values (?,?,?,?,?)";
 
         try {
@@ -17,7 +18,7 @@ public class DisponibilitaDAO {
             if(conn!=null) {
                 System.out.println("connessione con successo");
                 PreparedStatement statement = conn.prepareStatement(sql);
-                statement.setString(1, disp.getAutista());
+                statement.setString(1, autista.getUsername());
                 statement.setDate(2, (Date) disp.getGiorno_disponibilita());
                 statement.setTime(3, Time.valueOf(disp.getOra_inizio()));
                 statement.setTime(4, Time.valueOf(disp.getOra_fine()));
@@ -32,9 +33,9 @@ public class DisponibilitaDAO {
         }
 
     }
-    public List<String> selectNomeAutistiDisponibili(String partenza,Date data_partenza, LocalTime ora) {
-        String sql = "select autista from disponibilita  where citta_partenza=? AND giorno_disponibilita=? AND TIMEDIFF(?,ora_inizio)>=0 AND TIMEDIFF(?,ora_fine)<=0";
-        List<String> autistiDisp=new ArrayList<>();
+    public List<Autista> selectNomeAutistiDisponibili(String partenza,Date data_partenza, LocalTime ora) {
+        String sql = "select username,email,password,nome,cognome,telefono,datanascita from disponibilita join autisti on disponibilita.autista=autisti.username  where citta_partenza=? AND giorno_disponibilita=? AND TIMEDIFF(?,ora_inizio)>=0 AND TIMEDIFF(?,ora_fine)<=0";
+        List<Autista> autistiDisp=new ArrayList<>();
 
         try {
             Connection conn = DBConnect.getConnection();

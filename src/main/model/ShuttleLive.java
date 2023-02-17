@@ -15,7 +15,6 @@ public class ShuttleLive {
     Veicolo veicoloCorrente;
 
     Patente patenteCorrente;
-
     Corsa corsaCorrente;
     ViaggioProgrammato viaggioCorrente;
 

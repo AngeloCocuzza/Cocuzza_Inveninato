@@ -56,33 +56,37 @@ class ShuttleLiveTest {
     @Test
     void testInserisciNuovoAutista() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
+
         try {
-            shuttlelive.inserisciNuovoAutista("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456", java.sql.Date.valueOf("1999-05-30"));
+            Autista autista = new Autista("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456", java.sql.Date.valueOf("1999-05-30"));
+            shuttlelive.inserisciNuovoAutista(autista);
             System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
             assertNotNull(shuttlelive.getAutistaCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
         }
         try {
-            assertNull(shuttlelive.inserisciNuovoAutista("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
+            Autista autista = new Autista("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+            assertEquals(null, shuttlelive.inserisciNuovoAutista(autista));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "riempire tutti i campi");
         }
         try {
-            assertNull(shuttlelive.inserisciNuovoAutista("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
+            Autista autista = new Autista("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+            assertEquals(null, shuttlelive.inserisciNuovoAutista(autista));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "password troppo corta");
         }
         try {
-            assertNull(shuttlelive.inserisciNuovoAutista("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30")));
+            Autista autista = new Autista("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+            assertEquals(null, shuttlelive.inserisciNuovoAutista(autista));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "email o username già in uso");
         }
     }
-
     @Test
     void testInserisciVeicolo() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();

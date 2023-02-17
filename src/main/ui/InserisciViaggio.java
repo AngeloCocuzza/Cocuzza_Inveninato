@@ -49,9 +49,9 @@ public class InserisciViaggio extends javax.swing.JFrame {
                     viaggio.setPrezzo(Float.parseFloat(prezzo.getText()));
                     viaggio.setAutista(autista);
                     viaggio.setAddress(new Address(cittaPartenza.getText(),luogoEvento.getText(),indPartenza.getText(),indDest.getText(), Integer.parseInt(km.getText())));
-                    Veicolo veicoloprova = controller.veicoloSingoloByName(veicolo.getText());
+                    Veicolo veicoloprova = viaggio.getAutista().getVeicoli().get(veicolo.getText());
                     viaggio.setVeicolo(veicoloprova);
-                    viaggio.setPostiDisponibili();
+                    viaggio.setPostiDisponibili(veicoloprova.getN_posti());
                     viaggio.setData_partenza(Date.valueOf(dataViaggio.getText()));
                     viaggio.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
                     System.out.println(viaggio);

@@ -58,7 +58,7 @@ public class VeicoloDao {
     }
 
     public List<Veicolo> allVeicoloAutista(String autista) {
-        List<Veicolo> veicoliauti = new ArrayList<Veicolo>();
+        List<Veicolo> veicoliauti = new ArrayList<>();
         String sql = "select * from veicolo where autista = ?";
 
         try {

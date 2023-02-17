@@ -56,11 +56,12 @@ public class CorseController {
         return utentecorrente;
     }
 
-    public Veicolo veicoloSingoloByName(String veicolo) {
+    /*public Veicolo veicoloSingoloByName(String veicolo) {
         VeicoloDao veicdao = new VeicoloDao();
         veicolocorrente= veicdao.allvVeicoloTarga(veicolo);
         return veicolocorrente;
     }
+    */
 
     public List<ViaggioProgrammato> selezionaViaggioProgrammato(String evento, Date data_partenza) throws Exception {
         viaggicorrente = verificaCampiViaggiProgrammato(evento, data_partenza);

@@ -234,7 +234,7 @@ class ShuttleLiveTest {
     void testInserisciCorsa() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         Address indirizzo=new Address("Catania","Pisa","via Gabriele d'annunzio","via ortdegli ulivi 7",300);
-        Corsa corsa=new Corsa(shuttlelive.getAutistaCorrente(),shuttlelive.getUtenteCorrente(),shuttlelive.getVeicoloCorrente(),java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"),indirizzo,300);
+        Corsa corsa=new Corsa(shuttlelive.getAutistaCorrente(), shuttlelive.getVeicoloCorrente(), java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"), indirizzo, 300, shuttlelive.getUtenteCorrente());
 
         try {
             shuttlelive.inserisciCorsa(corsa);

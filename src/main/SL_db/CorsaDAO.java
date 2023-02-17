@@ -62,7 +62,7 @@ public class CorsaDAO {
                     user = corsacontr.utenteSingoloByName(rs.getString("utente"));
                     veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
-                    Corsa corsa = new Corsa(auti,user,veic,rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")), address,rs.getFloat("prezzo"));
+                    Corsa corsa = new Corsa(auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")), address, rs.getFloat("prezzo"), user);
                     allcorsa.add(corsa);
                 }
             }

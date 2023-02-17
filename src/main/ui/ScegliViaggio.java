@@ -64,7 +64,7 @@ public class ScegliViaggio {
                     JPanel v1 = new JPanel();
                     JPanel v2 = new JPanel();
                     JLabel ad = new JLabel(" Citta Partenza : " + viaggio.getAddress().getCitta_partenza() + " Citta Destinazione : " + viaggio.getAddress().getCitta_destinazione() + " Indirizzo Partenza : " + viaggio.getAddress().getInidirizzo_partenza() + " Indirizzo destinazione : " + viaggio.getAddress().getIndirizzo_destinazione() + " Km viaggio : " + viaggio.getAddress().getKm_corsa());
-                    JLabel info = new JLabel(" ID : " + viaggio.getID() + " Autista :  " + viaggio.getAutista().getUsername() + " Veicolo :  " + viaggio.getVeicolo().getTarga() + " Data Partenza : " + viaggio.getData_partenza() + " Ora Partenza : " + viaggio.getOra_partenza() + " Evento : " + viaggio.getEvento() + " Prezzo : " + viaggio.getPrezzo());
+                    JLabel info = new JLabel(" ID : " + viaggio.getID() + " Autista :  " + viaggio.getAutista().getUsername() + " Veicolo :  " + viaggio.getVeicolo().getTarga() + " Data Partenza : " + viaggio.getData_partenza() + " Ora Partenza : " + viaggio.getOra_partenza() + " Evento : " + viaggio.getEvento() + " Prezzo : " + viaggio.getPrezzo() + " Numero posti disponibili : " + viaggio.getPostiDisponibili());
                     JButton j = new JButton(" Acquista Viaggio");
                     JPanel bottoni = new JPanel();
                     bottoni.add(j);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ViaggioProgrammato extends Corsa{
+public class ViaggioProgrammato extends CorsaViaggio{
     private List <Utente> utentiPrenotati=new ArrayList<>();
     private String evento;
     private Integer postiDisponibili;
@@ -17,6 +17,10 @@ public class ViaggioProgrammato extends Corsa{
     }
 
     public ViaggioProgrammato() {
+    }
+
+    @Override
+    public void setPrezzo() {
     }
 
     public ViaggioProgrammato(Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo, String evento, Integer postiDisponibili) {

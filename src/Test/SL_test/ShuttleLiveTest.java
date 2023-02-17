@@ -32,14 +32,14 @@ class ShuttleLiveTest {
         }
         try {
             Utente utente=new Utente("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
-            assertNull(shuttlelive.inserisciNuovoUtente(utente);
+            assertEquals(null, shuttlelive.inserisciNuovoUtente(utente));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "riempire tutti i campi");
         }
         try {
             Utente utente=new Utente("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
-            assertNull(shuttlelive.inserisciNuovoUtente(utente);
+            assertEquals(null, shuttlelive.inserisciNuovoUtente(utente));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "password troppo corta");
@@ -91,6 +91,7 @@ class ShuttleLiveTest {
     void testInserisciVeicolo() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         try {
+
             shuttlelive.inserisciVeicolo("xy325fj",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6"));
             System.out.println(shuttlelive.getVeicoloCorrente() + "ciao");
             assertNotNull(shuttlelive.getVeicoloCorrente());

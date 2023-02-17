@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RegistraVeicolo extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
@@ -35,8 +36,8 @@ public class RegistraVeicolo extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Veicolo veicolo = new Veicolo(targa.getText(),autista.getUsername(), marca.getText(),modello.getText(),colore.getText(), Integer.valueOf(n_posti.getText()));
-                    List<Veicolo> veicoli=autista.getVeicoli();
-                    veicoli.add(veicolo);
+                    Map<String, Veicolo> veicoli = autista.getVeicoli();
+                    veicoli.putIfAbsent(veicolo.getTarga(),veicolo);
 
                     shuttlelive.inserisciVeicolo(veicolo);
                     autista.setVeicoli(veicoli);

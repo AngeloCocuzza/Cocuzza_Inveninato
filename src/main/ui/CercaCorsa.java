@@ -32,7 +32,7 @@ public class CercaCorsa extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                        autistiDisponibili = shuttlelive.cercaAutistiDisponibili(partenza.getText(), arrivo.getText(), Date.valueOf(dataPartenza.getText()), LocalTime.parse(oraPartenza.getText()));
+                    autistiDisponibili = shuttlelive.cercaAutistiDisponibili(partenza.getText(), arrivo.getText(), Date.valueOf(dataPartenza.getText()), LocalTime.parse(oraPartenza.getText()));
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }

@@ -3,8 +3,6 @@ package model;
 public class Veicolo {
     private String targa;
     private String autista;
-
-
     private String marca;
     private String modello;
     private String colore;

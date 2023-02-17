@@ -3,23 +3,24 @@ import model.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Autista extends Utente{
     private Patente patente;
-    private List<Veicolo> veicoli;
+    private Map<String, Veicolo> veicoli;
 
-    public Autista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita, Patente patente, List<Veicolo> veicoli) {
+    public Autista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita, Patente patente, Map<String,Veicolo> veicoli) {
         super(username, email, password, nome, cognome, telefono, data_nascita);
         this.patente = patente;
         this.veicoli = veicoli;
     }
 
-    public List<Veicolo> getVeicoli() {
+    public Map<String, Veicolo> getVeicoli() {
         return veicoli;
     }
 
-    public void setVeicoli(List<Veicolo> veicoli) {
+    public void setVeicoli(Map<String, Veicolo> veicoli) {
         this.veicoli = veicoli;
     }
 
@@ -37,17 +38,6 @@ public class Autista extends Utente{
 
     public Autista() {
 
-    }
-
-    public Object[] toArray() {
-        Object[] a = new Object[] {
-                getUsername(),
-                getEmail(),
-                getNome(),
-                getCognome(),
-                getTelefono()
-        };
-        return a;
     }
 
     @Override

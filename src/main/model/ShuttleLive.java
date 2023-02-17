@@ -31,13 +31,13 @@ public class ShuttleLive {
         return shuttlelive;
     }
 
-    public Autista inserisciNuovoAutista(String username, String email, String password, String nome, String cognome, String telefono, java.sql.Date data_nascita) throws Exception {
-        autistaCorrente = verificaCampiAutista(username, email, password, nome, cognome, telefono, data_nascita);
+    public Autista inserisciNuovoAutista(Autista autista) throws Exception {
+        autistaCorrente = verificaCampiAutista(autista);
         System.out.println(autistaCorrente);
         return autistaCorrente;
     }
-    public Utente inserisciNuovoUtente(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita) throws Exception {
-        utenteCorrente = verificaCampiUtente(username, email, password, nome, cognome, telefono, data_nascita);
+    public Utente inserisciNuovoUtente(Utente utente) throws Exception {
+        utenteCorrente = verificaCampiUtente(utente);
         return utenteCorrente;
     }
 
@@ -138,24 +138,23 @@ public class ShuttleLive {
 
     }
 
-    public Utente verificaCampiUtente(String username, String email, String password,String nome, String cognome, String telefono, Date data_nascita) throws Exception {
+    public Utente verificaCampiUtente(Utente user) throws Exception {
         UtenteDAO daouser = new UtenteDAO();
         List<Utente> allUsers = new ArrayList<>();
         allUsers = daouser.allUtente();
-        if(username.equals("") || email.equals("") || password.equals("") || nome.equals("") || cognome.equals("") || telefono.equals("") || data_nascita==null) {
+        if(user.getUsername().equals("") || user.getEmail().equals("") || user.getPassword().equals("") || user.getNome().equals("") || user.getCognome().equals("") || user.getTelefono().equals("") || user.getData_nascita()==null) {
             throw new Exception("riempire tutti i campi");
         }
-        if (password.length() <= 7) {
+        if (user.getPassword().length() <= 7) {
             System.out.println("la password deve avere almeno 8 caratteri");
             throw new Exception("password troppo corta");
         } else {
             for (Utente utente : allUsers) {
-                if (utente.getUsername().equals(username) || utente.getEmail().equals(email)) {
+                if (utente.getUsername().equals(user.getUsername()) || utente.getEmail().equals(user.getEmail())) {
                     System.out.println("email o username già presenti");
                     throw new Exception("email o username già in uso");
                 }
             }
-            Utente user = new Utente(username, email, password, nome, cognome, telefono, data_nascita);
             System.out.println(user);
             daouser.insertUtente(user);
             return user;
@@ -163,25 +162,24 @@ public class ShuttleLive {
         }
     }
 
-    public Autista verificaCampiAutista(String username, String email, String password,String nome, String cognome, String telefono, Date data_nascita) throws Exception {
+    public Autista verificaCampiAutista(Autista autista) throws Exception {
         AutistaDAO daoautista = new AutistaDAO();
         List<Autista> allAutisti = new ArrayList<>();
         allAutisti = daoautista.allAutisti();
-        if(username.equals("") || email.equals("") || password.equals("") || nome.equals("") || cognome.equals("") || telefono.equals("") || daoautista==null) {
+        if(autista.getUsername().equals("") || autista.getEmail().equals("") || autista.getPassword().equals("") || autista.getNome().equals("") || autista.getCognome().equals("") || autista.getTelefono().equals("") || autista.getData_nascita()==null) {
             throw new Exception("riempire tutti i campi");
         }
-        if (password.length() <= 7) {
+        if (autista.getPassword().length() <= 7) {
             System.out.println("la password deve avere almeno 8 caratteri");
             throw new Exception("password troppo corta");
         } else {
-            for (Autista autista : allAutisti) {
-                if (autista.getUsername().equals(username) == true || autista.getEmail().equals(email) == true) {
+            for (Autista auti : allAutisti) {
+                if (auti.getUsername().equals(autista.getUsername()) == true || auti.getEmail().equals(autista.getEmail()) == true) {
                     System.out.println("email o username già presenti");
                     throw new Exception("email o username già in uso");
 
                 }
             }
-            Autista autista = new Autista(username, email, password, nome, cognome, telefono, data_nascita);
             System.out.println(autista);
             daoautista.insertAutista(autista);
             return autista;

@@ -29,7 +29,9 @@ public class ScegliViaggio {
         JPanel p = new JPanel();
         JPanel scegli = new JPanel();
         JPanel torna = new JPanel();
+        JPanel vuoto = new JPanel();
         JButton t = new JButton("Torna indietro");
+
         torna.add(t);
         JLabel s = new JLabel("Scegli Viaggio");
 
@@ -38,6 +40,7 @@ public class ScegliViaggio {
         cont.add(p);
         cont.add(scegli);
         cont.add(panel);
+        cont.add(vuoto);
         cont.add(torna);
 
         JFrame f = new JFrame();
@@ -48,28 +51,40 @@ public class ScegliViaggio {
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
 
-        for(ViaggioProgrammato viaggio : viaggi) {
-            JPanel v1 = new JPanel();
-            JPanel v2 = new JPanel();
-            JLabel ad = new JLabel(" Citta Partenza : " + viaggio.getAddress().getCitta_partenza() + " Citta Destinazione : " + viaggio.getAddress().getCitta_destinazione() + " Indirizzo Partenza : " + viaggio.getAddress().getInidirizzo_partenza() + " Indirizzo destinazione : " + viaggio.getAddress().getIndirizzo_destinazione() + " Km viaggio : " + viaggio.getAddress().getKm_corsa());
-            JLabel info = new JLabel(" ID : " + viaggio.getID() + " Autista :  " + viaggio.getAutista().getUsername() + " Veicolo :  " + viaggio.getVeicolo().getTarga() + " Data Partenza : " + viaggio.getData_partenza() + " Ora Partenza : " + viaggio.getOra_partenza() + " Evento : " + viaggio.getEvento() + " Prezzo : " + viaggio.getPrezzo());
-            JButton j = new JButton( " Acquista Viaggio" );
-            JPanel bottoni = new JPanel();
-            bottoni.add(j);
-            v1.add(ad);
-            v2.add(info);
-            panel.add(v1);
-            panel.add(v2);
-            panel.add(bottoni);
-            j.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    controller.inserisciCorsaProgrammata(viaggio.getID(), utente.getUsername());
-                    new MenuUtente(shuttlelive,utente);
-                    f.setVisible(false);
-                }
-            });
+        if(viaggi.isEmpty()) {
+            JLabel indisp  = new JLabel("Non ci sono viaggi disponibili");
+            vuoto.add(indisp);
+        }
+        else{
+            for (ViaggioProgrammato viaggio : viaggi) {
+                if (viaggio.getPostiDisponibili() == 0) {
+                    JLabel indisp = new JLabel("Non ci sono viaggi disponibili");
+                    vuoto.add(indisp);
+                } else {
+                    JPanel v1 = new JPanel();
+                    JPanel v2 = new JPanel();
+                    JLabel ad = new JLabel(" Citta Partenza : " + viaggio.getAddress().getCitta_partenza() + " Citta Destinazione : " + viaggio.getAddress().getCitta_destinazione() + " Indirizzo Partenza : " + viaggio.getAddress().getInidirizzo_partenza() + " Indirizzo destinazione : " + viaggio.getAddress().getIndirizzo_destinazione() + " Km viaggio : " + viaggio.getAddress().getKm_corsa());
+                    JLabel info = new JLabel(" ID : " + viaggio.getID() + " Autista :  " + viaggio.getAutista().getUsername() + " Veicolo :  " + viaggio.getVeicolo().getTarga() + " Data Partenza : " + viaggio.getData_partenza() + " Ora Partenza : " + viaggio.getOra_partenza() + " Evento : " + viaggio.getEvento() + " Prezzo : " + viaggio.getPrezzo());
+                    JButton j = new JButton(" Acquista Viaggio");
+                    JPanel bottoni = new JPanel();
+                    bottoni.add(j);
+                    v1.add(ad);
+                    v2.add(info);
+                    panel.add(v1);
+                    panel.add(v2);
+                    panel.add(bottoni);
+                    j.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            controller.inserisciCorsaProgrammata(viaggio.getID(), utente.getUsername());
+                            controller.diminuisciPostiDisponibili(viaggio.getID());
+                            new MenuUtente(shuttlelive, utente);
+                            f.setVisible(false);
+                        }
+                    });
 
+                }
+            }
         }
         t.addActionListener(new ActionListener() {
             @Override

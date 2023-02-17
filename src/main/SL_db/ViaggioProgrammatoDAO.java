@@ -88,4 +88,23 @@ public class ViaggioProgrammatoDAO {
         }
     }
 
+    public void updatePostiDisponibili(Integer id) {
+        String sql = "UPDATE viaggi_programmati SET n_posti_disp = (n_posti_disp-1) WHERE ID = ?";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setInt(1, id);
+                statement.executeUpdate();
+            } else {
+                System.out.println("connessione fallita");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

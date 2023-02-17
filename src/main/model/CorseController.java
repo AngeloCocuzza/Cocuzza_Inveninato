@@ -87,6 +87,11 @@ public class CorseController {
 
     }
 
+    public void diminuisciPostiDisponibili(Integer id){
+        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        viaggiodao.updatePostiDisponibili(id);
+    }
+
 
 
 

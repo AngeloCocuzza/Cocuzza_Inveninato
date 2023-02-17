@@ -72,19 +72,19 @@ public class ShuttleLive {
         return veicoloCorrente;
     }
 
-    public Disponibilita inserisciNuovaDisponibilita(Disponibilita disp) throws Exception {
-        disponibilitaCorrente = verificaDisponibilita(disp);
+    public Disponibilita inserisciNuovaDisponibilita(Autista autista,Disponibilita disp) throws Exception {
+        disponibilitaCorrente = verificaDisponibilita(autista, disp);
         return disponibilitaCorrente;
     }
     public List<Autista> cercaAutistiDisponibili(String partenza, String arrivo, java.sql.Date data_partenza, LocalTime ora) throws Exception {
         DisponibilitaDAO daodisponibilita=new DisponibilitaDAO();
-        List<String> str = new ArrayList<>();
+        List<Autista> autisti = new ArrayList<>();
         if(data_partenza.before(new Date())) {
             throw new Exception("data non valida");
         }
-        str=daodisponibilita.selectNomeAutistiDisponibili(partenza,data_partenza,ora);
+        autisti=daodisponibilita.selectNomeAutistiDisponibili(partenza,data_partenza,ora);
         AutistaDAO autdao =new AutistaDAO();
-        autistiDisponibiliCorrente=autdao.selectAutistaByName(str);
+        autistiDisponibiliCorrente=autisti;
         return autistiDisponibiliCorrente;
 
     }
@@ -249,7 +249,7 @@ public class ShuttleLive {
         }
     }
 
-    public Disponibilita verificaDisponibilita(Disponibilita disp) throws Exception {
+    public Disponibilita verificaDisponibilita(Autista autista,Disponibilita disp) throws Exception {
         DisponibilitaDAO dispdao = new DisponibilitaDAO();
         List<Disponibilita> alldisp = new ArrayList<>();
         alldisp = dispdao.allDisponibilita();
@@ -266,13 +266,13 @@ public class ShuttleLive {
             throw new Exception("data non valida");
         } else {
             for (Disponibilita dispon : alldisp) {
-                if(dispon.getGiorno_disponibilita().equals(disp.getGiorno_disponibilita()) == true && dispon.getAutista().equals(disp.getAutista()) == true) {
+                if(dispon.getGiorno_disponibilita().equals(disp.getGiorno_disponibilita()) == true ) {
                     System.out.println("è già presente una messa a disposizione per la data inserita");
                     throw new Exception("data già occupata");
                 }
             }
             Disponibilita dispo = disp;
-            dispdao.insertDisponibilita(dispo);
+            dispdao.insertDisponibilita(dispo, autista);
             return dispo;
         }
     }

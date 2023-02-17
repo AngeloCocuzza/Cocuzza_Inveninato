@@ -49,7 +49,7 @@ public class DisponibilitaDAO {
 
                 ResultSet rs=statement.executeQuery();
                 while(rs.next()){
-                    String autista=new String(rs.getString("autista"));
+                    Autista autista=new Autista(rs.getString("username"), rs.getString("email"),rs.getString("password"),rs.getString("nome") ,rs.getString("cognome"),rs.getString("telefono"),rs.getDate("datanascita")    );
                     autistiDisp.add(autista);
                 }
             } else {
@@ -74,7 +74,7 @@ public class DisponibilitaDAO {
                 PreparedStatement statement = conn.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
-                    Disponibilita dispo = new Disponibilita(rs.getString("autista"), rs.getDate("giorno_disponibilita"), LocalTime.parse(rs.getString("ora_inizio")), LocalTime.parse(rs.getString("ora_fine")),rs.getString("citta_partenza"));
+                    Disponibilita dispo = new Disponibilita( rs.getDate("giorno_disponibilita"), LocalTime.parse(rs.getString("ora_inizio")), LocalTime.parse(rs.getString("ora_fine")),rs.getString("citta_partenza"));
                     alldisp.add(dispo);
                 }
             }

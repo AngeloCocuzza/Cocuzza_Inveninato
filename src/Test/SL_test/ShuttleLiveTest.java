@@ -91,22 +91,24 @@ class ShuttleLiveTest {
     void testInserisciVeicolo() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         try {
-
-            shuttlelive.inserisciVeicolo("xy325fj",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6"));
+            Veicolo veicolo = new Veicolo("xy325fj",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6"));
+            shuttlelive.inserisciVeicolo(veicolo);
             System.out.println(shuttlelive.getVeicoloCorrente() + "ciao");
             assertNotNull(shuttlelive.getVeicoloCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
         }
         try {
-            assertNull(shuttlelive.inserisciVeicolo("xy323xg",shuttlelive.getAutistaCorrente().getUsername(), "","x3","nero", Integer.valueOf("6")));
+            Veicolo veicolo = new Veicolo("xy323xg",shuttlelive.getAutistaCorrente().getUsername(), "","x3","nero", Integer.valueOf("6"));
+            assertEquals(null, shuttlelive.inserisciVeicolo(veicolo));
             fail("Expected exception");
 
         } catch (Exception e) {
             assertEquals(e.getMessage(),"riempire tutti i campi");
         }
         try {
-            assertNull(shuttlelive.inserisciVeicolo("xy323xg",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("-6")));
+            Veicolo veicolo = new Veicolo("xy323xg",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("-6"));
+            assertEquals(null, shuttlelive.inserisciVeicolo(veicolo));
             fail("Expected exception");
 
         } catch (Exception e) {
@@ -114,13 +116,16 @@ class ShuttleLiveTest {
         }
 
         try {
-            assertNull(shuttlelive.inserisciVeicolo("xy32g",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6")));
+            Veicolo veicolo = new Veicolo("x33xg",shuttlelive.getAutistaCorrente().getUsername(), "bmw","x3","nero", Integer.valueOf("6"));
+            assertEquals(null, shuttlelive.inserisciVeicolo(veicolo));
             fail("Expected exception");
 
         } catch (Exception e) {
             assertEquals(e.getMessage(),"targa non valida");
         }
-        try{assertNull(shuttlelive.inserisciVeicolo("xy325fj",shuttlelive.getAutistaCorrente().getUsername(), "audi","a4","nero", Integer.valueOf("6")));
+        Veicolo veicolo = new Veicolo("xy325fj",shuttlelive.getAutistaCorrente().getUsername(), "audi","a4","nero", Integer.valueOf("6"));
+        try{
+            assertEquals(null, shuttlelive.inserisciVeicolo(veicolo));
             fail("Expected exception");
         } catch (Exception e) {
             assertEquals(e.getMessage(),"veicolo già registrato");
@@ -210,27 +215,31 @@ class ShuttleLiveTest {
     void testInserisciNuovaDisponibilita() {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
         try {
-            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2023-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            Disponibilita disp = new Disponibilita(java.sql.Date.valueOf("2023-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente(), disp);
             assertNotNull(shuttlelive.getDisponibilitaCorrente());
         } catch (Exception e) {
             fail("Unexpected exception");
         }
         try {
-            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),null, LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            Disponibilita disp = new Disponibilita(null, LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente(), disp);
             fail("Expected exception");
 
         } catch (Exception e) {
             assertEquals(e.getMessage(),"riempire tutti i campi");
         }
         try {
-            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2022-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            Disponibilita disp = new Disponibilita(java.sql.Date.valueOf("2022-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
+            shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente(),disp);
             fail("Expected exception");
 
         } catch (Exception e) {
             assertEquals(e.getMessage(),"data non valida");
         }
         try{
-            assertNull(shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2023-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania"));
+            Disponibilita disp = new Disponibilita(java.sql.Date.valueOf("2023-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania"));
+            assertEquals(null, shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente(), disp));
             fail("Expected exception");
         } catch (Exception e) {
             assertEquals(e.getMessage(),"data già occupata");

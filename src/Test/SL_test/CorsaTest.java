@@ -51,10 +51,4 @@ class CorsaTest {
 
     }
 
-    @Test
-    void testveicoloSingoloByName() {
-        CorseController controller=CorseController.getInstance();
-        System.out.println(controller.veicoloSingoloByName("xy325fj"));
-
-    }
 }

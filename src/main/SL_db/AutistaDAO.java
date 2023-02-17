@@ -1,11 +1,13 @@
 package SL_db;
 
-import model.Autista;
-import model.Utente;
+import model.*;
 
 import java.sql.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AutistaDAO {
     public void insertAutista(Autista user) {
@@ -58,7 +60,7 @@ public class AutistaDAO {
 
     public Autista selectAutista(String email, String password) {
         Autista autista = new Autista();
-        String sql = "select * from autisti where email = ? and password = ?";
+        String sql = "select * from autisti join veicolo on autisti.username=veicolo.autista join patente on autisti.username=patente.autista join disponibiilta on autisti.username=disponibilita.autista where email = ? and password = ?";
         try {
             Connection conn = DBConnect.getConnection();
             if(conn!=null) {
@@ -69,8 +71,14 @@ public class AutistaDAO {
 
                 ResultSet rs = statement.executeQuery();
                 //System.out.println("ciao");
+                Map<String, Veicolo> veicoli=new HashMap<>();
+                List<Disponibilita> disp=new ArrayList<>();
+                Patente patente=new Patente();
                 while (rs.next()) {
-                    Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
+                    Veicolo veicolo=new Veicolo(rs.getString("targa"),rs.getString("autista"),rs.getString("marca"),rs.getString("modello"),rs.getString("colore"),rs.getInt("n_posti") );
+                    veicoli.putIfAbsent(veicolo.getTarga(),veicolo);
+                    Disponibilita disp=new Disponibilita(rs.getDate("giorno_disponibilita"), LocalTime.parse(rs.getString("ora_inizio")), LocalTime.parse(rs.getString("ora_fine")),rs.getString("citta_partenza"));
+                    Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"),rs);
                     autista=user;
                 }
                 //System.out.println(autista);

@@ -32,14 +32,14 @@ class ShuttleLiveTest {
         }
         try {
             Utente utente=new Utente("","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
-            assertNull(shuttlelive.inserisciNuovoUtente(utente);
+            assertNull(shuttlelive.inserisciNuovoUtente(utente));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "riempire tutti i campi");
         }
         try {
             Utente utente=new Utente("antonio","antonio@hotmail.it","antonio","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
-            assertNull(shuttlelive.inserisciNuovoUtente(utente);
+            assertNull(shuttlelive.inserisciNuovoUtente(utente));
             fail("Expected exception");
         } catch (Exception e){
             assertEquals(e.getMessage(), "password troppo corta");
@@ -137,7 +137,7 @@ class ShuttleLiveTest {
         ShuttleLive shuttlelive=ShuttleLive.getInstance();
 
         try {
-            Patente patente=new Patente("12345cd",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM")
+            Patente patente=new Patente("12345cd",shuttlelive.getAutistaCorrente().getUsername(),java.sql.Date.valueOf("2018-05-30"),java.sql.Date.valueOf("2027-05-30"),"AM");
             shuttlelive.inserisciPatente(patente);
             //System.out.println(shuttlelive.getAutistaCorrente() + "ciao");
             assertNotNull(shuttlelive.getAutistaCorrente());
@@ -240,7 +240,7 @@ class ShuttleLiveTest {
             assertEquals(e.getMessage(),"data non valida");
         }
         try{
-            Disponibilita disp = new Disponibilita(java.sql.Date.valueOf("2023-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania"));
+            Disponibilita disp = new Disponibilita(java.sql.Date.valueOf("2023-05-05"), LocalTime.parse("10:00:00"), LocalTime.parse("18:00:00"), "Catania");
             assertEquals(null, shuttlelive.inserisciNuovaDisponibilita(shuttlelive.getAutistaCorrente(), disp));
             fail("Expected exception");
         } catch (Exception e) {

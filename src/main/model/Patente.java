@@ -18,6 +18,10 @@ public class Patente {
         this.livello = livello;
     }
 
+    public Patente() {
+
+    }
+
     public String getCodice() {
         return codice;
     }

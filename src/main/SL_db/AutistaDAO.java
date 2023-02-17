@@ -3,11 +3,10 @@ package SL_db;
 import model.*;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AutistaDAO {
     public void insertAutista(Autista user) {
@@ -60,7 +59,7 @@ public class AutistaDAO {
 
     public Autista selectAutista(String email, String password) {
         Autista autista = new Autista();
-        String sql = "select * from autisti join veicolo on autisti.username=veicolo.autista join patente on autisti.username=patente.autista join disponibiilta on autisti.username=disponibilita.autista where email = ? and password = ?";
+        String sql = "select * from autisti join veicolo on autisti.username=veicolo.autista join patente on autisti.username=patente.autista join disponibilita on autisti.username=disponibilita.autista where email = ? and password = ?";
         try {
             Connection conn = DBConnect.getConnection();
             if(conn!=null) {
@@ -70,18 +69,26 @@ public class AutistaDAO {
                 statement.setString(2, password);
 
                 ResultSet rs = statement.executeQuery();
-                //System.out.println("ciao");
+                System.out.println("ciao");
                 Map<String, Veicolo> veicoli=new HashMap<>();
-                List<Disponibilita> disp=new ArrayList<>();
+                Map<String, Disponibilita> disponi=new HashMap<>();
+                List<Disponibilita> disp= new ArrayList<>();
                 Patente patente=new Patente();
                 while (rs.next()) {
                     Veicolo veicolo=new Veicolo(rs.getString("targa"),rs.getString("autista"),rs.getString("marca"),rs.getString("modello"),rs.getString("colore"),rs.getInt("n_posti") );
                     veicoli.putIfAbsent(veicolo.getTarga(),veicolo);
-                    Disponibilita disp=new Disponibilita(rs.getDate("giorno_disponibilita"), LocalTime.parse(rs.getString("ora_inizio")), LocalTime.parse(rs.getString("ora_fine")),rs.getString("citta_partenza"));
-                    Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"),rs);
+                    Disponibilita disponibilita =new Disponibilita(rs.getDate("giorno_disponibilita"), LocalTime.parse(rs.getString("ora_inizio")), LocalTime.parse(rs.getString("ora_fine")),rs.getString("citta_partenza"));
+                    patente.setCodice(rs.getString("codice"));
+                    patente.setAutista(rs.getString("autista"));
+                    patente.setData_conseguimento(rs.getDate("data_conseguimento"));
+                    patente.setData_scadenza(rs.getDate("data_scadenza"));
+                    patente.setLivello(rs.getString("livello"));
+                    disponi.putIfAbsent(disponibilita.getCitta_partenza(),disponibilita);
+                    Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"),patente,veicoli);
                     autista=user;
                 }
-                //System.out.println(autista);
+                autista.setDisponibilita(disponi.values().stream().collect(Collectors.toList()));
+
             }
 
         } catch (SQLException e) {

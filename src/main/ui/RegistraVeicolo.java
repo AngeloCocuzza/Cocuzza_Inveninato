@@ -36,9 +36,10 @@ public class RegistraVeicolo extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Veicolo veicolo = new Veicolo(targa.getText(),autista.getUsername(), marca.getText(),modello.getText(),colore.getText(), Integer.valueOf(n_posti.getText()));
-                    Map<String, Veicolo> veicoli = autista.getVeicoli();
-                    veicoli.putIfAbsent(veicolo.getTarga(),veicolo);
-
+                    Map<String,Veicolo> veicoli = autista.getVeicoli();
+                    System.out.println(veicoli);
+                    veicoli.put(veicolo.getTarga(),veicolo);
+                    System.out.println(veicoli);
                     shuttlelive.inserisciVeicolo(veicolo);
                     autista.setVeicoli(veicoli);
                     new MenuAutista(shuttlelive,autista);

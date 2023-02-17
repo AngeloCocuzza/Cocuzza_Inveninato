@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class ShuttleLive {
     public static ShuttleLive shuttlelive;
@@ -13,6 +14,11 @@ public class ShuttleLive {
     Utente utenteCorrente;
     Autista autistaCorrente;
     Veicolo veicoloCorrente;
+
+    List<Autista> autisti;
+    Map<String,Veicolo> veicoli;
+    Map<String,Utente> utenti;
+
 
     Patente patenteCorrente;
     Corsa corsaCorrente;
@@ -29,6 +35,7 @@ public class ShuttleLive {
             System.out.println("Istanza già creata");
         return shuttlelive;
     }
+
 
     public Autista inserisciNuovoAutista(Autista autista) throws Exception {
         autistaCorrente = verificaCampiAutista(autista);

@@ -8,13 +8,21 @@ import java.util.Objects;
 
 public class Autista extends Utente{
     private Patente patente;
-    private Map<String, Veicolo> veicoli;
+
+    private Map<String,Veicolo> veicoli;
     private List<Disponibilita> disponibilita;
+
 
     public Autista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita, Patente patente, Map<String,Veicolo> veicoli) {
         super(username, email, password, nome, cognome, telefono, data_nascita);
         this.patente = patente;
         this.veicoli = veicoli;
+    }
+
+    public Autista(Patente patente, Map<String, Veicolo> veicoli, List<Disponibilita> disponibilita) {
+        this.patente = patente;
+        this.veicoli = veicoli;
+        this.disponibilita = disponibilita;
     }
 
     public List<Disponibilita> getDisponibilita() {
@@ -61,6 +69,7 @@ public class Autista extends Utente{
         return "Autista{" +
                 "patente=" + patente +
                 ", veicoli=" + veicoli +
+                ", disponibilita=" + disponibilita +
                 '}';
     }
 }

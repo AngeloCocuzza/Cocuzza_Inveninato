@@ -30,7 +30,7 @@ class CorsaTest {
         CorseController controller=CorseController.getInstance();
         Address address = new Address("Catania","Pisa","via","corso",80);
 
-        Corsa corsa = new Corsa(controller.veicoloSingoloByName("xy325fj"),java.sql.Date.valueOf("2023-04-04"),LocalTime.parse("16:00:00"),address);
+        Corsa corsa = new Corsa(controller.getAutistacorrente().getVeicoli().get("xy325fj"),java.sql.Date.valueOf("2023-04-04"),LocalTime.parse("16:00:00"),address);
         corsa.setPrezzo(corsa.getFee());
         System.out.println(LocalDate.parse("2023-04-04").getDayOfWeek());
         System.out.println(corsa.getPrezzo());
@@ -51,10 +51,4 @@ class CorsaTest {
 
     }
 
-    @Test
-    void testveicoloSingoloByName() {
-        CorseController controller=CorseController.getInstance();
-        System.out.println(controller.veicoloSingoloByName("xy325fj"));
-
-    }
 }

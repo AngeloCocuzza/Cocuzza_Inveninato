@@ -16,8 +16,9 @@ public class ViaggioProgrammato extends CorsaViaggio{
         this.postiDisponibili = postiDisponibili;
     }
 
-    public ViaggioProgrammato() {
-    }
+
+
+
 
     @Override
     public void setPrezzo() {
@@ -28,6 +29,7 @@ public class ViaggioProgrammato extends CorsaViaggio{
         this.evento = evento;
         this.postiDisponibili = postiDisponibili;
     }
+public ViaggioProgrammato(){}
 
     public ViaggioProgrammato(Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo, String evento) {
         super(autista, veicolo, data_partenza, ora_partenza, address, prezzo);

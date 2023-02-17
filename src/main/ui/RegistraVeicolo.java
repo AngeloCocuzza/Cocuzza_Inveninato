@@ -2,13 +2,17 @@ package ui;
 
 import model.Autista;
 import model.ShuttleLive;
+import model.Veicolo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegistraVeicolo extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
+    private Autista autista;
     private JButton registraVeicoloButton;
     private JTextField targa;
     private JTextField marca;
@@ -18,7 +22,8 @@ public class RegistraVeicolo extends javax.swing.JFrame {
     private JPanel veicoloPanel;
     private JButton tornaAlMenuPrincipaleButton;
 
-    public RegistraVeicolo(ShuttleLive sl, Autista autista) {
+    public RegistraVeicolo(ShuttleLive sl, Autista autist) {
+        this.autista=autist;
         this.shuttlelive=sl;
         setTitle("RegVeicolo");
         setContentPane(veicoloPanel);
@@ -29,7 +34,12 @@ public class RegistraVeicolo extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    shuttlelive.inserisciVeicolo(targa.getText(),autista.getUsername(), marca.getText(),modello.getText(),colore.getText(), Integer.valueOf(n_posti.getText()));
+                    Veicolo veicolo = new Veicolo(targa.getText(),autista.getUsername(), marca.getText(),modello.getText(),colore.getText(), Integer.valueOf(n_posti.getText()));
+                    List<Veicolo> veicoli=autista.getVeicoli();
+                    veicoli.add(veicolo);
+
+                    shuttlelive.inserisciVeicolo(veicolo);
+                    autista.setVeicoli(veicoli);
                     new MenuAutista(shuttlelive,autista);
                 } catch (Exception ex) {
                     new RegistraVeicolo(shuttlelive,autista);

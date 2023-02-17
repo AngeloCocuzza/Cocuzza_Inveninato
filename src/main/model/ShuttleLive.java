@@ -50,8 +50,8 @@ public class ShuttleLive {
         utenteCorrente = verificaLoginUtente(email, password);
         return utenteCorrente;
     }
-    public Patente inserisciPatente(String codice, String autista, Date data_conseguimento, Date data_scadenza, String livello) throws Exception {
-        Patente patent = new Patente(codice,autista,data_conseguimento,data_scadenza,livello);
+    public Patente inserisciPatente(Patente patente) throws Exception {
+        Patente patent = new Patente(patente.getCodice(),patente.getAutista(),patente.getData_conseguimento(),patente.getData_scadenza(), patente.getLivello());
         System.out.println(patent);
         PatenteDao daopatent = new PatenteDao();
         patenteCorrente = verificaPatente(patent);
@@ -67,8 +67,8 @@ public class ShuttleLive {
             return patenteCorrente;
 
     }
-    public Veicolo inserisciVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) throws Exception {
-        veicoloCorrente= verificaCampiVeicolo(targa, autista, marca, modello, colore, n_posti);
+    public Veicolo inserisciVeicolo(Veicolo veicolo) throws Exception {
+        veicoloCorrente= verificaCampiVeicolo(veicolo);
         return veicoloCorrente;
     }
 
@@ -188,29 +188,29 @@ public class ShuttleLive {
         }
     }
 
-    public Veicolo verificaCampiVeicolo(String targa,String autista, String marca,String modello,String colore,Integer n_posti) throws Exception {
+    public Veicolo verificaCampiVeicolo(Veicolo veicolo) throws Exception {
 
         VeicoloDao daoveicol = new VeicoloDao();
 
         List<Veicolo> allveicolo = new ArrayList<Veicolo>();
         allveicolo = daoveicol.allVeicolo();
-        if(marca.equals("") || modello.equals("") || colore.equals("") || n_posti==null) {
+        if(veicolo.getMarca().equals("") || veicolo.getModello().equals("") || veicolo.getColore().equals("") || veicolo.getN_posti()==null) {
             throw new Exception("riempire tutti i campi");
         }
-        if(n_posti<0) {
+        if(veicolo.getN_posti()<0) {
             throw new Exception("il numero dei posti non può essere negativo");
         }
-        if (targa.length() != 7) {
+        if (veicolo.getTarga().length() != 7) {
             System.out.println("la targa deve essere di 7 caratteri");
             throw new Exception("targa non valida");
         } else {
-            for (Veicolo veicolo : allveicolo) {
-                if (veicolo.getTarga().equals(targa) == true) {
+            for (Veicolo veico : allveicolo) {
+                if (veico.getTarga().equals(veicolo.getTarga()) == true) {
                     System.out.println("targa già presente");
                     throw new Exception("veicolo già registrato");
                 }
             }
-            Veicolo veicol = new Veicolo(targa,autista,marca,modello,colore,n_posti);
+            Veicolo veicol = veicolo;
             System.out.println(veicol);
             daoveicol.insertVeicolo(veicol);
             return veicol;

@@ -12,6 +12,7 @@ import java.time.LocalTime;
 public class AggiungiDisponibilita extends javax.swing.JFrame {
 
     private ShuttleLive shuttlelive;
+    private Autista autista;
     private JTextField datadispo;
     private JTextField orainizio;
     private JTextField orafine;
@@ -20,7 +21,8 @@ public class AggiungiDisponibilita extends javax.swing.JFrame {
     private JTextField cittapart;
     private JButton tornaAlMenuPrincipaleButton;
 
-    public AggiungiDisponibilita(ShuttleLive sl, Autista autista) {
+    public AggiungiDisponibilita(ShuttleLive sl, Autista autist) {
+        this.autista=autist;
     this.shuttlelive=sl;
     setTitle("Aggiungi disponibilità");
     setContentPane(disponibilitaPanel);

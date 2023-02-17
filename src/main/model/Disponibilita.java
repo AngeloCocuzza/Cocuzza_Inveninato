@@ -5,14 +5,14 @@ import java.util.Date;
 
 public class Disponibilita {
 
-    String autista;
+    Autista autista;
     Date giorno_disponibilita;
     LocalTime ora_inizio;
     LocalTime ora_fine;
 
     String citta_partenza;
 
-    public Disponibilita(String autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) {
+    public Disponibilita(Autista autista, Date giorno_disponibilita, LocalTime ora_inizio, LocalTime ora_fine, String citta_partenza) {
         this.autista = autista;
         this.giorno_disponibilita = giorno_disponibilita;
         this.ora_inizio = ora_inizio;
@@ -20,11 +20,11 @@ public class Disponibilita {
         this.citta_partenza = citta_partenza;
     }
 
-    public String getAutista() {
+    public Autista getAutista() {
         return autista;
     }
 
-    public void setAutista(String autista) {
+    public void setAutista(Autista autista) {
         this.autista = autista;
     }
 

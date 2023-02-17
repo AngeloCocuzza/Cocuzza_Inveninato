@@ -76,8 +76,8 @@ public class ScegliViaggio {
                     j.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            controller.inserisciCorsaProgrammata(viaggio.getID(), utente.getUsername());
-                            controller.diminuisciPostiDisponibili(viaggio.getID());
+                            controller.inserisciCorsaProgrammata(viaggio, utente);
+                            controller.diminuisciPostiDisponibili(viaggio);
                             new MenuUtente(shuttlelive, utente);
                             f.setVisible(false);
                         }

@@ -288,6 +288,6 @@ public class ShuttleLive {
     public Disponibilita getDisponibilitaCorrente() {return disponibilitaCorrente;}
 
     public Corsa getCorsaCorrente() {return corsaCorrente;}
-    public Corsa getViaggioCorrente() {return viaggioCorrente;}
+    public ViaggioProgrammato getViaggioCorrente() {return viaggioCorrente;}
 
 }

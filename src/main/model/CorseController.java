@@ -67,9 +67,12 @@ public class CorseController {
         return viaggicorrente;
     }
 
-    public void inserisciCorsaProgrammata(Integer id, String user) {
+    public void inserisciCorsaProgrammata(ViaggioProgrammato viaggio,Utente user) {
         ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
-        viaggiodao.insertCorsaProgrammata(id,user);
+        List<Utente> utenti = viaggio.getUtentiPrenotati();
+        utenti.add(user);
+        viaggio.setUtentiPrenotati(utenti);
+        viaggiodao.insertCorsaProgrammata(viaggio.getID(),user.getUsername());
     }
 
     public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) throws Exception {
@@ -87,12 +90,11 @@ public class CorseController {
 
     }
 
-    public void diminuisciPostiDisponibili(Integer id){
+    public void diminuisciPostiDisponibili(ViaggioProgrammato viaggio){
         ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
-        viaggiodao.updatePostiDisponibili(id);
+        viaggio.setPostiDisponibili(viaggio.getVeicolo().getN_posti()-1);
+        viaggiodao.updatePostiDisponibili(viaggio.getID());
     }
-
-
 
 
 }

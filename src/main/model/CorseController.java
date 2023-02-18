@@ -1,13 +1,12 @@
 package model;
 
-import SL_db.AutistaDAO;
-import SL_db.UtenteDAO;
-import SL_db.VeicoloDao;
-import SL_db.ViaggioProgrammatoDAO;
+import SL_db.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CorseController {
 
@@ -18,6 +17,8 @@ public class CorseController {
     Veicolo veicolocorrente;
 
     List<ViaggioProgrammato> viaggicorrente;
+
+    Map<String,CorsaViaggio> allviaggi;
 
     public Utente getUtentecorrente() {
         return utentecorrente;
@@ -95,6 +96,36 @@ public class CorseController {
         ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         viaggio.setPostiDisponibili(viaggio.getVeicolo().getN_posti()-1);
         viaggiodao.updatePostiDisponibili(viaggio.getID());
+    }
+
+    public Map<String,CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
+        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        CorsaDAO corsadao = new CorsaDAO();
+        List<ViaggioProgrammato> viaggi = viaggiodao.selectViaggioProgrammatoByUtente(user.getUsername());
+        List<Corsa> corse= corsadao.selectCorseByUtente(user.getUsername());
+        Map<String,CorsaViaggio> corseviaggi = new HashMap<>();
+        for (ViaggioProgrammato viaggio : viaggi) {
+            corseviaggi.put(viaggio.getEvento(),viaggio);
+        }
+        for (Corsa corsa : corse) {
+            corseviaggi.putIfAbsent(corsa.getUtente().getUsername(),corsa);
+        }
+        return corseviaggi;
+
+    }
+
+    public void cancellaCorsa(Corsa corsa,Utente user) {
+        CorsaDAO corsadao = new CorsaDAO();
+        corsadao.deleteCorsa(corsa);
+        caricaCorseViaggiByUtente(user);
+
+    }
+
+    public void cancellaViaggio(ViaggioProgrammato viaggio, Utente user) {
+        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        viaggiodao.deleteViaggio(viaggio);
+        caricaCorseViaggiByUtente(user);
+
     }
 
 

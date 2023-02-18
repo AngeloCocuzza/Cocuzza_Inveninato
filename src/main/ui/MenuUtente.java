@@ -1,4 +1,5 @@
 package ui;
+import model.CorseController;
 import model.ShuttleLive;
 import model.Utente;
 
@@ -10,6 +11,8 @@ import java.awt.event.ActionListener;
 public class MenuUtente extends javax.swing.JFrame{
     private ShuttleLive shuttlelive;
 
+    private CorseController controller;
+
     private Utente utente;
     private JButton cercaCorsaButton;
     private JPanel menuUtentePanel;
@@ -18,6 +21,7 @@ public class MenuUtente extends javax.swing.JFrame{
     private JButton visualizzaRecensioniButton;
 
     public MenuUtente(ShuttleLive sl,Utente user) {
+        controller = CorseController.getInstance();
 
     this.shuttlelive = sl;
     this.utente=user;
@@ -39,6 +43,13 @@ public class MenuUtente extends javax.swing.JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new CercaViaggioProgrammato(shuttlelive,utente);
+                setVisible(false);
+            }
+        });
+        gestisciPrenotazioniButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GestisciPrenotazioni(shuttlelive,controller,utente);
                 setVisible(false);
             }
         });

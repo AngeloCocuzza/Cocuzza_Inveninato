@@ -57,7 +57,7 @@ public class MenuUtente extends javax.swing.JFrame{
         visualizzaRecensioniButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //new VisualizzaRecensioniAutista(shuttlelive,utente,controller);
+                new CercaRecensioniAutista(shuttlelive,utente,controller);
                 setVisible(false);
             }
         });

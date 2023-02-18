@@ -87,7 +87,7 @@ public class CorseController {
         }
 
     }
-    /*public List<Recensione> SelezionaRecensione(String autista) {
+    public List<Recensione> selezionaRecensioniAutista(String autista) {
         List<Recensione> recensioni=new ArrayList<>();
 
             RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
@@ -95,8 +95,9 @@ public class CorseController {
 
             RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
             recensioni.addAll(recensioneviaggiodao.allRecensioniAutista(autista));
+            return recensioni;
 
-        }*/
+        }
 
 
 

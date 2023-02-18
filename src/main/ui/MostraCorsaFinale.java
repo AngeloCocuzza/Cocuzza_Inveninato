@@ -61,7 +61,7 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
 
 
 
-            JButton j = new JButton(" conferma il pagamento  " );
+            JButton j = new JButton(" conferma la prenotazione  " );
             JPanel bottoni = new JPanel();
             bottoni.add(j);
             panel.add(bottoni);

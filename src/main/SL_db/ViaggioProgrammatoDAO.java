@@ -135,14 +135,15 @@ public class ViaggioProgrammatoDAO {
         }
     }
 
-    public void deleteViaggio(ViaggioProgrammato viaggio) {
-        String sql = "delete from viaggi_programmati where ID = ?";
+    public void deleteViaggio(ViaggioProgrammato viaggio,Utente user) {
+        String sql = "delete from corsa_programmati where ID = ? and user = ?";
         try {
             Connection conn = DBConnect.getConnection();
             if(conn!=null) {
                 System.out.println("connessione con successo");
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setInt(1,viaggio.getID());
+                statement.setString(2,user.getUsername());
                 statement.executeUpdate();
             }
         } catch (SQLException e) {

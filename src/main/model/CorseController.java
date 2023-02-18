@@ -108,7 +108,7 @@ public class CorseController {
             corseviaggi.put(viaggio.getEvento(),viaggio);
         }
         for (Corsa corsa : corse) {
-            corseviaggi.putIfAbsent(corsa.getUtente().getUsername(),corsa);
+            corseviaggi.put(corsa.getUtente().getUsername(),corsa);
         }
         return corseviaggi;
 
@@ -123,7 +123,7 @@ public class CorseController {
 
     public void cancellaViaggio(ViaggioProgrammato viaggio, Utente user) {
         ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
-        viaggiodao.deleteViaggio(viaggio);
+        viaggiodao.deleteViaggio(viaggio,user);
         caricaCorseViaggiByUtente(user);
 
     }

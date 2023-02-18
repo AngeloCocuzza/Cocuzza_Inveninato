@@ -1,16 +1,13 @@
 package SL_test;
 
-import model.Address;
-import model.Corsa;
-import model.CorseController;
-import model.ShuttleLive;
+import model.*;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -36,19 +33,38 @@ class CorsaTest {
         System.out.println(corsa.getPrezzo());
         System.out.println(corsa);
     }
-
     @Test
-    void testutenteSingoloByName() {
+    void testSelezionaViaggioProgrammato() {
         CorseController controller=CorseController.getInstance();
-        System.out.println(controller.utenteSingoloByName("antonio"));
+
+        try {
+            controller.selezionaViaggioProgrammato("concerto Ligabue", Date.valueOf("2023-04-04"));
+            assertNotNull(controller.getViaggicorrente());
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+
+
+        try {
+            controller.selezionaViaggioProgrammato("", Date.valueOf("2023-04-04"));
+            assertNull(controller.getViaggicorrente());
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
+        }
+        try {
+            controller.selezionaViaggioProgrammato("concerto Ligabue", Date.valueOf("2023-01-01"));
+            assertNull(controller.getViaggicorrente());
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"data non valida");
+        }
+
 
     }
 
-    @Test
-    void testautistaSingoloByName() {
-        CorseController controller=CorseController.getInstance();
-        System.out.println(controller.autistaSingoloByName("antonio"));
 
-    }
 
 }

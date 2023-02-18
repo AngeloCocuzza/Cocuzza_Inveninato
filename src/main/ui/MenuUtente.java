@@ -46,10 +46,10 @@ public class MenuUtente extends javax.swing.JFrame{
                 setVisible(false);
             }
         });
-        gestisciPrenotazioniButton.addActionListener(new ActionListener() {
+        visualizzaRecensioniButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GestisciPrenotazioni(shuttlelive,controller,utente);
+                new VisualizzaRecensioniAutista(shuttlelive,utente,controller);
                 setVisible(false);
             }
         });

@@ -76,6 +76,31 @@ public class CorseController {
         System.out.println("Lista" + utenti);
         viaggiodao.insertCorsaProgrammata(viaggio.getID(),user.getUsername());
     }
+    public void inserisciRecensione(CorsaViaggio viaggio) {
+        if(viaggio instanceof Corsa){
+        RecensioneCorsaDAO recensionedao = new RecensioneCorsaDAO();
+        recensionedao.insertRecensione(viaggio);}
+        else if(viaggio instanceof ViaggioProgrammato){
+            RecensioneViaggioDAO recensionedao = new RecensioneViaggioDAO();
+            recensionedao.insertRecensione(viaggio);
+
+        }
+
+    }
+    public List<Recensione> inserisciRecensione(String autista) {
+        List<Recensione> recensioni=new ArrayList<>();
+
+            RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
+            recensioni=recensionecorsadao.allRecensioniAutista(autista);
+
+            RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
+            recensioni.addAll(recensioneviaggiodao.allRecensioniAutista(autista));
+
+        }
+
+
+
+
 
     public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) throws Exception {
         ViaggioProgrammatoDAO viaggidao = new ViaggioProgrammatoDAO();

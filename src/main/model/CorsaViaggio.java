@@ -11,6 +11,15 @@ public abstract class CorsaViaggio {
     private LocalTime ora_partenza;
     private Address address;
     private float prezzo;
+    private Recensione recensione;
+
+    public Recensione getRecensione() {
+        return recensione;
+    }
+
+    public void setRecensione(Recensione recensione) {
+        this.recensione = recensione;
+    }
 
     public CorsaViaggio(Integer ID, Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo) {
         this.ID = ID;

@@ -85,7 +85,7 @@ public class DisponibilitaDAO {
     }
     public List<Disponibilita> allDisponibilitaByAutista(String autista) {
         List<Disponibilita> alldisp = new ArrayList<>();
-        String sql = "select * from disponibilita where disponibilita.autista=autista";
+        String sql = "select * from disponibilita where disponibilita.autista=? ";
 
         try {
             Connection conn = DBConnect.getConnection();

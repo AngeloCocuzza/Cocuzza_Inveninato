@@ -10,14 +10,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 
 public class ScegliVeicolo {
     private ShuttleLive shuttlelive;
-    private List<Veicolo> veicoliDisp;
+    private Map<String,Veicolo> veicoliDisp;
     private Corsa corsa;
     private JPanel elencoautistiPanel;
 
-    public ScegliVeicolo(ShuttleLive sl, List<Veicolo> veicoli, Corsa cor) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
+    public ScegliVeicolo(ShuttleLive sl, Map<String,Veicolo> veicoli, Corsa cor) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
         this.shuttlelive=sl;
         this.veicoliDisp = veicoli;
         this.corsa = cor;
@@ -59,7 +60,7 @@ public class ScegliVeicolo {
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
 
-        for(Veicolo veicolo : veicoliDisp) {
+        for(Veicolo veicolo : veicoli.values()) {
             //modelautisti.addRow(autista.toArray());
             JButton j = new JButton(" Targa : "+veicolo.getTarga() + " Marca :  " + veicolo.getMarca() + " Modello :  " + veicolo.getModello()+ " N. Posti : "+ veicolo.getN_posti() + " Colore :   "+ veicolo.getColore()+ "  " );
             JPanel bottoni = new JPanel();

@@ -5,8 +5,10 @@ import model.*;
 import java.awt.*;
 import java.sql.*;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ViaggioProgrammatoDAO {
     private CorseController corsacontr;
@@ -52,11 +54,13 @@ public class ViaggioProgrammatoDAO {
                 statement.setString(1,evento);
                 statement.setDate(2, (Date) data_partenza);
                 ResultSet rs = statement.executeQuery();
+                //Map<String,Veicolo> veicoli = new HashMap();
                 while (rs.next()) {
                     Autista auti = new Autista();
                     Veicolo veic = new Veicolo();
                     auti = corsacontr.autistaSingoloByName(rs.getString("autista"));
-                    veic = auti.getVeicoli().get(rs.getString("veicolo"));
+                    veic=corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
+                    //veic = auti.getVeicoli().get(rs.getString("veicolo"));
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
                     ViaggioProgrammato viaggio = new ViaggioProgrammato(rs.getInt("ID"),auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")),address,rs.getFloat("prezzo"),rs.getString("evento"), rs.getInt("n_posti_disp"));
                     viaggi.add(viaggio);

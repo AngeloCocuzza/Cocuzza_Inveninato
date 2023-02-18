@@ -1,11 +1,10 @@
 package SL_db;
 
+import model.Autista;
 import model.Patente;
+import model.Veicolo;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class PatenteDao {
     public Patente insertPatente(Patente patent) {
@@ -34,4 +33,28 @@ public class PatenteDao {
 
         return patent;
     }
+
+    public Patente selectPatenteByAutista(String autista) {
+        String sql = "select * from patente where autista = ?";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1,autista);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    Patente patente = new Patente(rs.getString("codice"), rs.getString("autista"), rs.getDate("data_conseguimento"), rs.getDate("data_scadenza"),rs.getString("livello"));
+                    return patente;
+                }
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
+
 }

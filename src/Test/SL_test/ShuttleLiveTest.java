@@ -1,6 +1,8 @@
 package SL_test;
 
 import model.*;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
@@ -155,34 +157,7 @@ class ShuttleLiveTest {
             assertEquals(e.getMessage(),"riempire tutti i campi");
         }
     }
-    @Test
-    void testLoginAutista() {
-        ShuttleLive shuttlelive=ShuttleLive.getInstance();
-        try {
-            shuttlelive.loginAutista("antonio@hotmail.it","antonio99");
-            assertNotNull(shuttlelive.getAutistaCorrente());
-        } catch (Exception e) {
-            fail("Unexpected exception");
-        }
-        try {
-            assertNull(shuttlelive.loginAutista("","antonio99"));
-            fail("Expected exception");
-        } catch (Exception e){
-            assertEquals(e.getMessage(), "riempire tutti i campi");
-        }
-        try {
-            assertNull(shuttlelive.loginAutista("antonio@hotmail.it","anto"));
-            fail("Expected exception");
-        } catch (Exception e){
-            assertEquals(e.getMessage(), "password troppo breve");
-        }
-        try {
 
-            assertNull(shuttlelive.loginAutista("antoni@hotmail.it","antonio98"));
-            fail("Expected exception");
-        } catch (Exception e){
-            assertEquals(e.getMessage(), "autista non trovato");
-        }}
         @Test
         void testLoginUtente() {
             ShuttleLive shuttlelive=ShuttleLive.getInstance();
@@ -212,6 +187,34 @@ class ShuttleLiveTest {
                 assertEquals(e.getMessage(), "utente non trovato");
             }
     }
+
+    @Test
+     void testLoginAutista() {
+        ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        try {
+            assertNotNull(shuttlelive.loginAutista("antonio@hotmail.it","antonio99"));
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+        try {
+            assertNull(shuttlelive.loginAutista("","antonio99"));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "riempire tutti i campi");
+        }
+        try {
+            assertNull(shuttlelive.loginAutista("antonio@hotmail.it","anto"));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "password troppo breve");
+        }
+        try {
+
+            assertNull(shuttlelive.loginAutista("antoni@hotmail.it","antonio98"));
+            fail("Expected exception");
+        } catch (Exception e){
+            assertEquals(e.getMessage(), "autista non trovato");
+        }}
 
     @Test
     void testInserisciNuovaDisponibilita() {

@@ -3,10 +3,7 @@ package model;
 import SL_db.*;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ShuttleLive {
     public static ShuttleLive shuttlelive;
@@ -26,7 +23,7 @@ public class ShuttleLive {
 
     Disponibilita disponibilitaCorrente;
     List<Autista> autistiDisponibiliCorrente;
-    List<Veicolo> veicoliAutistaCorrente;
+    Map<String,Veicolo> veicoliAutistaCorrente;
 
     public static ShuttleLive getInstance() {
         if(shuttlelive == null)
@@ -49,7 +46,17 @@ public class ShuttleLive {
 
     public Autista loginAutista(String email,String password) throws Exception {
         autistaCorrente = verificaLoginAutista(email,password);
+        caricaDati(autistaCorrente);
+        System.out.println(autistaCorrente);
         return autistaCorrente;
+    }
+
+    public void caricaDati(Autista autista) {
+        PatenteDao patedao = new PatenteDao();
+        VeicoloDao veicdao = new VeicoloDao();
+        DisponibilitaDAO dispdao = new DisponibilitaDAO();
+        autista.setVeicoli(veicdao.allVeicoloAutista(autista.getUsername()));
+        autista.setPatente(patedao.selectPatenteByAutista(autista.getUsername()));
     }
 
     public Utente loginUtente(String email,String password) throws Exception {
@@ -135,7 +142,7 @@ public class ShuttleLive {
         return corsa;
     }
 
-    public List<Veicolo> veicoliAutista(String autista){
+    public Map<String,Veicolo> veicoliAutista(String autista){
         VeicoloDao daoveicoli=new VeicoloDao();
 
         veicoliAutistaCorrente=daoveicoli.allVeicoloAutista(autista);
@@ -196,7 +203,7 @@ public class ShuttleLive {
 
         VeicoloDao daoveicol = new VeicoloDao();
 
-        List<Veicolo> allveicolo = new ArrayList<Veicolo>();
+        Map<String,Veicolo> allveicolo = new HashMap<>();
         allveicolo = daoveicol.allVeicolo();
         if(veicolo.getMarca().equals("") || veicolo.getModello().equals("") || veicolo.getColore().equals("") || veicolo.getN_posti()==null) {
             throw new Exception("riempire tutti i campi");
@@ -208,7 +215,7 @@ public class ShuttleLive {
             System.out.println("la targa deve essere di 7 caratteri");
             throw new Exception("targa non valida");
         } else {
-            for (Veicolo veico : allveicolo) {
+            for (Veicolo veico : allveicolo.values()) {
                 if (veico.getTarga().equals(veicolo.getTarga()) == true) {
                     System.out.println("targa già presente");
                     throw new Exception("veicolo già registrato");

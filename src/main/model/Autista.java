@@ -25,6 +25,12 @@ public class Autista extends Utente{
         this.disponibilita = disponibilita;
     }
 
+    public Autista(String username, String email, String password, String nome, String cognome, String telefono, Date data_nascita, Patente patente) {
+        super(username, email, password, nome, cognome, telefono, data_nascita);
+        this.patente = patente;
+    }
+
+
     public List<Disponibilita> getDisponibilita() {
         return disponibilita;
     }

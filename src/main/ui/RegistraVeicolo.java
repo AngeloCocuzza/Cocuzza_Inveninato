@@ -14,6 +14,8 @@ import java.util.Map;
 public class RegistraVeicolo extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
     private Autista autista;
+
+    private Map<String,Veicolo> veicoli;
     private JButton registraVeicoloButton;
     private JTextField targa;
     private JTextField marca;
@@ -26,6 +28,7 @@ public class RegistraVeicolo extends javax.swing.JFrame {
     public RegistraVeicolo(ShuttleLive sl, Autista autist) {
         this.autista=autist;
         this.shuttlelive=sl;
+
         setTitle("RegVeicolo");
         setContentPane(veicoloPanel);
         setSize(550,400);
@@ -36,9 +39,11 @@ public class RegistraVeicolo extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Veicolo veicolo = new Veicolo(targa.getText(),autista.getUsername(), marca.getText(),modello.getText(),colore.getText(), Integer.valueOf(n_posti.getText()));
-                    Map<String,Veicolo> veicoli = autista.getVeicoli();
+                    veicoli = autista.getVeicoli();
                     System.out.println(veicoli);
-                    veicoli.put(veicolo.getTarga(),veicolo);
+                    veicoli.putIfAbsent(veicolo.getTarga(),veicolo);
+                    System.out.println("ciao");
+
                     System.out.println(veicoli);
                     shuttlelive.inserisciVeicolo(veicolo);
                     autista.setVeicoli(veicoli);

@@ -57,7 +57,7 @@ public class AutistaDAO {
     }
 
 
-    public Autista selectAutista(String email, String password) {
+    /*public Autista selectAutista(String email, String password) {
         Autista autista = new Autista();
         String sql = "select * from autisti join veicolo on autisti.username=veicolo.autista join patente on autisti.username=patente.autista join disponibilita on autisti.username=disponibilita.autista where email = ? and password = ?";
         try {
@@ -84,11 +84,18 @@ public class AutistaDAO {
                     patente.setData_scadenza(rs.getDate("data_scadenza"));
                     patente.setLivello(rs.getString("livello"));
                     disponi.putIfAbsent(disponibilita.getCitta_partenza(),disponibilita);
-                    Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"),patente,veicoli);
+                    Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
                     autista=user;
                 }
-                autista.setDisponibilita(disponi.values().stream().collect(Collectors.toList()));
-
+                if(!disponi.isEmpty()) {
+                    autista.setDisponibilita(disponi.values().stream().collect(Collectors.toList()));
+                }
+                if(!veicoli.isEmpty()) {
+                    autista.setVeicoli(veicoli);
+                }
+                if(patente==null) {
+                    autista.setPatente(patente);
+                }
             }
 
         } catch (SQLException e) {
@@ -96,7 +103,7 @@ public class AutistaDAO {
         }
 
         return autista;
-    }
+    }*/
     public List<Autista> selectAutistaByName(List<String> autisti) {
         List<Autista> autistiDisponib=new ArrayList<>();
         Autista autista = new Autista();
@@ -150,6 +157,33 @@ public class AutistaDAO {
         }
 
         return autistibyname;
+    }
+
+    public Autista selectAutista(String email, String password) {
+        Autista autistilogin =new Autista();
+        String sql = "select * from autisti where email= ? and password = ?";
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1, email);
+                statement.setString(2, password);
+                ResultSet rs = statement.executeQuery();
+                //System.out.println("ciao");
+                while (rs.next()) {
+                    Autista autist = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
+                    autistilogin=autist;
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return autistilogin;
     }
 
 

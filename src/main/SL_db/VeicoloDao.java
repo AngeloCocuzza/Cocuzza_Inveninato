@@ -6,7 +6,9 @@ import model.Veicolo;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VeicoloDao {
     public void insertVeicolo(Veicolo veicol) {
@@ -36,8 +38,8 @@ public class VeicoloDao {
 
     }
 
-    public List<Veicolo> allVeicolo() {
-        List<Veicolo> allveicolo = new ArrayList<Veicolo>();
+    public Map<String,Veicolo> allVeicolo() {
+        Map<String,Veicolo> allveicolo = new HashMap<>();
         String sql = "select * from veicolo";
 
         try {
@@ -48,7 +50,7 @@ public class VeicoloDao {
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     Veicolo veicolo = new Veicolo(rs.getString("targa"), rs.getString("autista"), rs.getString("marca"), rs.getString("modello"),rs.getString("colore"), rs.getInt("n_posti"));
-                    allveicolo.add(veicolo);
+                    allveicolo.putIfAbsent(veicolo.getTarga(), veicolo);
                 }
             }
         } catch (SQLException e) {
@@ -57,8 +59,8 @@ public class VeicoloDao {
         return allveicolo;
     }
 
-    public List<Veicolo> allVeicoloAutista(String autista) {
-        List<Veicolo> veicoliauti = new ArrayList<>();
+    public Map<String,Veicolo> allVeicoloAutista(String autista) {
+        Map<String,Veicolo> veicoliauti = new HashMap<>();
         String sql = "select * from veicolo where autista = ?";
 
         try {
@@ -70,7 +72,7 @@ public class VeicoloDao {
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     Veicolo veicolo = new Veicolo(rs.getString("targa"), rs.getString("autista"), rs.getString("marca"), rs.getString("modello"),rs.getString("colore"), rs.getInt("n_posti"));
-                    veicoliauti.add(veicolo);
+                    veicoliauti.putIfAbsent(veicolo.getTarga(), veicolo);
                 }
             }
         } catch (SQLException e) {

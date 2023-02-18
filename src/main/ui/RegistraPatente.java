@@ -36,7 +36,7 @@ public class RegistraPatente extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Patente patente=new Patente(cod.getText(),autista.getUsername(),Date.valueOf(data_conseguimento.getText()),Date.valueOf(data_scadenza.getText()), liv.getText());
+                    Patente patente=new Patente(codice.getText(),autista.getUsername(),Date.valueOf(data_conseguimento.getText()),Date.valueOf(data_scadenza.getText()), livello.getText());
 
                     shuttlelive.inserisciPatente(patente);
                     autista.setPatente(patente);

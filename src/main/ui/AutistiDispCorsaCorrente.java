@@ -10,12 +10,13 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
 
     private ShuttleLive shuttlelive;
     private List<Autista> autistiDisponibili;
-    private List<Veicolo> veicoli;
+    private Map<String,Veicolo> veicoli;
     private Corsa corsa;
     private JPanel elencoautistiPanel;
 

@@ -136,7 +136,7 @@ public class ViaggioProgrammatoDAO {
     }
 
     public void deleteViaggio(ViaggioProgrammato viaggio,Utente user) {
-        String sql = "delete from corsa_programmati where ID = ? and user = ?";
+        String sql = "delete from corsa_programmati where ID_viaggio = ? and utente = ?";
         try {
             Connection conn = DBConnect.getConnection();
             if(conn!=null) {

@@ -87,7 +87,7 @@ public class CorseController {
         }
 
     }
-    public List<Recensione> inserisciRecensione(String autista) {
+    /*public List<Recensione> SelezionaRecensione(String autista) {
         List<Recensione> recensioni=new ArrayList<>();
 
             RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
@@ -96,7 +96,7 @@ public class CorseController {
             RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
             recensioni.addAll(recensioneviaggiodao.allRecensioniAutista(autista));
 
-        }
+        }*/
 
 
 
@@ -123,18 +123,14 @@ public class CorseController {
         viaggiodao.updatePostiDisponibili(viaggio.getID());
     }
 
-    public Map<String,CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
+    public List<CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
         ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         CorsaDAO corsadao = new CorsaDAO();
         List<ViaggioProgrammato> viaggi = viaggiodao.selectViaggioProgrammatoByUtente(user.getUsername());
         List<Corsa> corse= corsadao.selectCorseByUtente(user.getUsername());
-        Map<String,CorsaViaggio> corseviaggi = new HashMap<>();
-        for (ViaggioProgrammato viaggio : viaggi) {
-            corseviaggi.put(viaggio.getEvento(),viaggio);
-        }
-        for (Corsa corsa : corse) {
-            corseviaggi.put(corsa.getUtente().getUsername(),corsa);
-        }
+        List<CorsaViaggio> corseviaggi = new ArrayList<>();
+        corseviaggi.addAll(corse);
+        corseviaggi.addAll(viaggi);
         return corseviaggi;
 
     }

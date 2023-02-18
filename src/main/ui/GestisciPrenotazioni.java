@@ -6,10 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 import static model.ShuttleLive.shuttlelive;
 
@@ -46,10 +44,10 @@ public class GestisciPrenotazioni {
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
 
-        Map<String, CorsaViaggio> corseviaggi = new HashMap<>();
+        List<CorsaViaggio> corseviaggi = new ArrayList<>();
 
         corseviaggi = corsecontroller.caricaCorseViaggiByUtente(utente);
-        for(CorsaViaggio corsa : corseviaggi.values()) {
+        for(CorsaViaggio corsa : corseviaggi) {
             System.out.println(corsa);
         }
 
@@ -57,12 +55,12 @@ public class GestisciPrenotazioni {
             JLabel vuoto = new JLabel("Non ci sono corse prenotate");
             panel.add(vuoto);
         } else {
-            for (CorsaViaggio v : corseviaggi.values()) {
+            for (CorsaViaggio v : corseviaggi) {
                 JPanel v1 = new JPanel();
                 JPanel v2 = new JPanel();
                 if(v instanceof Corsa) {
-                    JLabel l = new JLabel( "Autista : " + v.getAutista().getUsername() + " Utente : " + ((Corsa) v).getUtente().getUsername() + " Veicolo : " + v.getVeicolo().getTarga() );
-                    JLabel d = new JLabel(" Data partenza = " + v.getData_partenza() + " Tratta : " + v.getAddress() + " Ora partenza : " + v.getOra_partenza());
+                    JLabel l = new JLabel( "Autista : " + v.getAutista().getUsername() + " Utente : " + ((Corsa) v).getUtente().getUsername() + " Veicolo : " + v.getVeicolo().getTarga() + " Prezzo : " + ((Corsa) v).getFee());
+                    JLabel d = new JLabel(" Data partenza = " + v.getData_partenza() + " Tratta : " + v.getAddress() + " Ora partenza : " + v.getOra_partenza() );
                     v1.add(l);
                     v2.add(d);
                     panel.add(v1);
@@ -76,7 +74,7 @@ public class GestisciPrenotazioni {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 //RECENSIONE
-                                new MenuUtente(shuttlelive, utente);
+                                new InserisciRecensione(shuttlelive,corsecontroller,v,utente);
                                 f.setVisible(false);
                             }
                         });
@@ -111,7 +109,7 @@ public class GestisciPrenotazioni {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 //RECENSIONE
-                                new MenuUtente(shuttlelive, utente);
+                                new InserisciRecensione(shuttlelive,corsecontroller,v,utente);
                                 f.setVisible(false);
                             }
                         });

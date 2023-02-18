@@ -46,8 +46,8 @@ public class ShuttleLive {
 
     public Autista loginAutista(String email,String password) throws Exception {
         autistaCorrente = verificaLoginAutista(email,password);
-        caricaDati(autistaCorrente);
         System.out.println(autistaCorrente);
+        caricaDati(autistaCorrente);
         return autistaCorrente;
     }
 
@@ -55,8 +55,20 @@ public class ShuttleLive {
         PatenteDao patedao = new PatenteDao();
         VeicoloDao veicdao = new VeicoloDao();
         DisponibilitaDAO dispdao = new DisponibilitaDAO();
-        autista.setVeicoli(veicdao.allVeicoloAutista(autista.getUsername()));
-        autista.setPatente(patedao.selectPatenteByAutista(autista.getUsername()));
+        if(!veicdao.allVeicoloAutista(autista.getUsername()).isEmpty()) {
+            autista.setVeicoli(veicdao.allVeicoloAutista(autista.getUsername()));
+            System.out.println(autista);
+
+        }
+        if(patedao.selectPatenteByAutista(autista.getUsername()) != null) {
+            autista.setPatente(patedao.selectPatenteByAutista(autista.getUsername()));
+            System.out.println(autista);
+        }
+        if(!dispdao.allDisponibilitaByAutista(autista.getUsername()).isEmpty()) {
+            autista.setDisponibilita(dispdao.allDisponibilitaByAutista(autista.getUsername()));
+            System.out.println(autista);
+        }
+        System.out.println(autista);
     }
 
     public Utente loginUtente(String email,String password) throws Exception {

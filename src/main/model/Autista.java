@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public class Autista extends Utente{
     private Patente patente;
-
     private Map<String,Veicolo> veicoli;
     private List<Disponibilita> disponibilita;
 
@@ -68,6 +67,10 @@ public class Autista extends Utente{
 
     public Autista() {
 
+    }
+
+    public void setVeicolo(Veicolo veicolo) {
+        this.veicoli.putIfAbsent(veicolo.getTarga(),veicolo);
     }
 
     @Override

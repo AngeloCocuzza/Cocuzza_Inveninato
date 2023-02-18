@@ -85,13 +85,14 @@ public class DisponibilitaDAO {
     }
     public List<Disponibilita> allDisponibilitaByAutista(String autista) {
         List<Disponibilita> alldisp = new ArrayList<>();
-        String sql = "select * from disponibilita where disponibilita.autista=autista";
+        String sql = "select * from disponibilita where autista=?";
 
         try {
             Connection conn = DBConnect.getConnection();
             if(conn!=null) {
                 System.out.println("connessione con successo");
                 PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1,autista);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     Disponibilita dispo = new Disponibilita( rs.getDate("giorno_disponibilita"), LocalTime.parse(rs.getString("ora_inizio")), LocalTime.parse(rs.getString("ora_fine")),rs.getString("citta_partenza"));

@@ -3,11 +3,14 @@ package ui;
 import model.Autista;
 import model.Patente;
 import model.ShuttleLive;
+import model.Veicolo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistraPatente extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
@@ -37,9 +40,12 @@ public class RegistraPatente extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Patente patente=new Patente(codice.getText(),autista.getUsername(),Date.valueOf(data_conseguimento.getText()),Date.valueOf(data_scadenza.getText()), livello.getText());
+                    Map<String, Veicolo> veic = new HashMap<>();
+                    autista.setVeicoli(veic);
 
                     shuttlelive.inserisciPatente(patente);
                     autista.setPatente(patente);
+
                     new RegistraVeicolo(shuttlelive,autista);
                 } catch (Exception ex) {
                     new RegistraPatente(shuttlelive,autista);

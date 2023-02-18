@@ -73,6 +73,7 @@ public class VeicoloDao {
                 while (rs.next()) {
                     Veicolo veicolo = new Veicolo(rs.getString("targa"), rs.getString("autista"), rs.getString("marca"), rs.getString("modello"),rs.getString("colore"), rs.getInt("n_posti"));
                     veicoliauti.putIfAbsent(veicolo.getTarga(), veicolo);
+                    System.out.println(veicoliauti);
                 }
             }
         } catch (SQLException e) {

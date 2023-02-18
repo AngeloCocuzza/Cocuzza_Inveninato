@@ -116,10 +116,7 @@ public class Corsa extends CorsaViaggio implements Discount {
             prezzobase-=prezzobase*(discount/100);
 
         }
-        if(LocalDate.parse(String.valueOf(getData_partenza())).getDayOfWeek().equals(SATURDAY) || LocalDate.parse(String.valueOf(getData_partenza())).getDayOfWeek().equals(SUNDAY)) {
-            discount=-15;
-            prezzobase-=prezzobase*(discount/100);
-        }
+
         if(getAddress().getCitta_partenza().equals(getAddress().getCitta_destinazione()) != true){
             if(getAddress().getKm_corsa() >= 100) {
                 int km = getAddress().getKm_corsa()-100;

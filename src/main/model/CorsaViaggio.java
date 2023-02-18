@@ -48,6 +48,14 @@ public abstract class CorsaViaggio {
         this.address = address;
     }
 
+    public CorsaViaggio(Integer ID, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address) {
+        this.ID = ID;
+        this.veicolo = veicolo;
+        this.data_partenza = data_partenza;
+        this.ora_partenza = ora_partenza;
+        this.address = address;
+    }
+
     public Integer getID() {
         return ID;
     }

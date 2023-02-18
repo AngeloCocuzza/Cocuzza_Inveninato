@@ -21,18 +21,13 @@ class CorsaTest {
     void initTest() {
         controller = CorseController.getInstance();
     }
-
     @Test
-    void testGetPrezzo() {
+    void testutenteSingoloByName() {
         CorseController controller=CorseController.getInstance();
-        Address address = new Address("Catania","Pisa","via","corso",80);
+        System.out.println(controller.utenteSingoloByName("antonio"));
 
-        Corsa corsa = new Corsa(controller.getAutistacorrente().getVeicoli().get("xy325fj"),java.sql.Date.valueOf("2023-04-04"),LocalTime.parse("16:00:00"),address);
-        corsa.setPrezzo(corsa.getFee());
-        System.out.println(LocalDate.parse("2023-04-04").getDayOfWeek());
-        System.out.println(corsa.getPrezzo());
-        System.out.println(corsa);
     }
+
     @Test
     void testSelezionaViaggioProgrammato() {
         CorseController controller=CorseController.getInstance();
@@ -66,5 +61,32 @@ class CorsaTest {
     }
 
 
+
+    @Test
+    void testVeicoloSingoloByName() {
+        CorseController controller=CorseController.getInstance();
+        System.out.println(controller.veicoloSingoloByName("xy325fj"));
+
+    }
+
+    @Test
+    void testInserisciCorsaprogrammata() {
+        CorseController controller=CorseController.getInstance();
+        Address address = new Address("Catania","Pisa","via","corso",80);
+        Veicolo veicolo = new Veicolo("xy325fj","antonio","fiat","fiesta","blu",6);
+        ViaggioProgrammato viaggio = new ViaggioProgrammato(1,veicolo,java.sql.Date.valueOf("2023-04-04"),LocalTime.parse("16:00:00"),address,"mole",veicolo.getN_posti());
+        Utente utente=new Utente("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
+        controller.inserisciCorsaProgrammata(viaggio,utente);
+    }
+    @Test
+    void testDiminuisciPostiDisponibili() {
+        CorseController controller=CorseController.getInstance();
+        Address address = new Address("Catania","Pisa","via","corso",80);
+        Veicolo veicolo = new Veicolo("xy325fj","antonio","fiat","fiesta","blu",6);
+        ViaggioProgrammato viaggio = new ViaggioProgrammato(1,veicolo,java.sql.Date.valueOf("2023-04-04"),LocalTime.parse("16:00:00"),address,"mole",veicolo.getN_posti());
+        System.out.println(viaggio.getPostiDisponibili());
+        controller.diminuisciPostiDisponibili(viaggio);
+        System.out.println(viaggio.getPostiDisponibili());
+    }
 
 }

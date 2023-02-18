@@ -321,6 +321,20 @@ class ShuttleLiveTest {
         }
 
 
-    }}
+    }
+
+    @Test
+    void testGetDiscount() {
+        ShuttleLive shuttlelive=ShuttleLive.getInstance();
+        Address address = new Address("Catania","Pisa","via","corso",80);
+        Veicolo veicolo = new Veicolo("xy325fj","antonio","fiat","fiesta","blu",6);
+
+        Corsa corsa = new Corsa(veicolo,java.sql.Date.valueOf("2023-04-04"),LocalTime.parse("16:00:00"),address);
+        corsa.setPrezzo(corsa.getFee());
+        System.out.println(LocalDate.parse("2023-04-04").getDayOfWeek());
+        System.out.println(corsa.getPrezzo());
+        System.out.println(corsa);
+    }
+}
 
 

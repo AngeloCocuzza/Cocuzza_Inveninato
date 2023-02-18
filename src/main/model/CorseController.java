@@ -72,6 +72,7 @@ public class CorseController {
         List<Utente> utenti = viaggio.getUtentiPrenotati();
         utenti.add(user);
         viaggio.setUtentiPrenotati(utenti);
+        System.out.println("Lista" + utenti);
         viaggiodao.insertCorsaProgrammata(viaggio.getID(),user.getUsername());
     }
 

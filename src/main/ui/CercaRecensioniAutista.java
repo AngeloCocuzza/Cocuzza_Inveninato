@@ -7,7 +7,6 @@ import model.Utente;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.util.List;
 import model.*;
 
@@ -20,6 +19,7 @@ public class CercaRecensioniAutista extends javax.swing.JFrame {
     private JButton cercaRecensioni;
     private JTextField autista;
     private JPanel cerca;
+    private JButton cercaRecensioniButton;
 
     public CercaRecensioniAutista(ShuttleLive sl, Utente user, CorseController cl) {
         this.controller=cl;
@@ -28,12 +28,12 @@ public class CercaRecensioniAutista extends javax.swing.JFrame {
         this.utente=user;
 
 List<Recensione> recensioni;
-        setTitle("CercaCorsa");
-        setContentPane(cercaRecensioni);
+        setTitle("CercaRecensioni");
+        setContentPane(cerca);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-        cercaRecensioni.addActionListener(new ActionListener() {
+        cercaRecensioniButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {

@@ -19,7 +19,6 @@ import java.util.Map;
 public class RecensioneCorsaDAO {
 
     public void insertRecensione(CorsaViaggio viaggio) {
-        //Utente user = new Utente();
         String sql = "insert into recensioni_corsa values (?,?,?)";
 
         try {
@@ -31,8 +30,6 @@ public class RecensioneCorsaDAO {
                 statement.setInt(1, viaggio.getRecensione().getVoto());
                 statement.setString(2, viaggio.getRecensione().getCommento());
                 statement.setInt(3, viaggio.getID());
-
-
                 statement.executeUpdate();
             } else {
                 System.out.println("connessione fallita");
@@ -47,7 +44,7 @@ public class RecensioneCorsaDAO {
     public List<Recensione> allRecensioniAutista(String autista) {
 
         List<Recensione> listaRecen=new ArrayList<>();
-        String sql = "select * from recensioni_corsa join viaggi_programmati on recensioni_viaggi.viaggio=viaggi_programmati.ID where autista= ?";
+        String sql = "select * from recensioni_corsa join corsa on recensioni_corsa.corsa=corsa.ID where autista= ?";
 
         try {
             Connection conn = DBConnect.getConnection();

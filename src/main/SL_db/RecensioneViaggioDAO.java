@@ -11,6 +11,16 @@ import java.util.List;
 
 public class RecensioneViaggioDAO {
 
+    public static RecensioneViaggioDAO recensionevdao;
+
+    public static RecensioneViaggioDAO getInstance() {
+        if(recensionevdao == null)
+            recensionevdao = new RecensioneViaggioDAO();
+        else
+            System.out.println("Istanza già creata");
+        return recensionevdao;
+    }
+
     public void insertRecensione(CorsaViaggio viaggio) {
         //Utente user = new Utente();
         String sql = "insert into recensioni_viaggi values (?,?,?)";

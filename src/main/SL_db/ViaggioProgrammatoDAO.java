@@ -12,6 +12,16 @@ import java.util.Map;
 
 public class ViaggioProgrammatoDAO {
     private CorseController corsacontr;
+
+    public static ViaggioProgrammatoDAO viaggiodao;
+
+    public static ViaggioProgrammatoDAO getInstance() {
+        if(viaggiodao == null)
+            viaggiodao = new ViaggioProgrammatoDAO();
+        else
+            System.out.println("Istanza già creata");
+        return viaggiodao;
+    }
     public void insertViaggio(ViaggioProgrammato viaggio) {
         String sql = "insert into viaggi_programmati (autista,veicolo,citta_partenza,citta_destinazione,data_partenza,indirizzo_partenza,indirizzo_destinazione,ora_partenza,evento,km_corsa,prezzo,n_posti_disp) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 

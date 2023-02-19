@@ -6,6 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UtenteDAO {
+
+    public static UtenteDAO utentedao;
+
+    public static UtenteDAO getInstance() {
+        if(utentedao == null)
+            utentedao = new UtenteDAO();
+        else
+            System.out.println("Istanza già creata");
+        return utentedao;
+    }
     public void insertUtente(Utente user) {
 
         String sql = "insert into utenti values (?,?,?,?,?,?,?)";

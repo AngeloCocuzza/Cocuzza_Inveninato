@@ -11,6 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 public class VeicoloDao {
+
+    public static VeicoloDao veicolodao;
+
+    public static VeicoloDao getInstance() {
+        if(veicolodao == null)
+            veicolodao = new VeicoloDao();
+        else
+            System.out.println("Istanza già creata");
+        return veicolodao;
+    }
     public void insertVeicolo(Veicolo veicol) {
         //Utente user = new Utente();
         String sql = "insert into veicolo values (?,?,?,?,?,?)";

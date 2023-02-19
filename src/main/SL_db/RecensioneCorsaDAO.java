@@ -18,6 +18,16 @@ import java.util.List;
 import java.util.Map;
 public class RecensioneCorsaDAO {
 
+    public static RecensioneCorsaDAO recensionecdao;
+
+    public static RecensioneCorsaDAO getInstance() {
+        if (recensionecdao == null)
+            recensionecdao = new RecensioneCorsaDAO();
+        else
+            System.out.println("Istanza già creata");
+        return recensionecdao;
+    }
+
     public void insertRecensione(CorsaViaggio viaggio) {
         String sql = "insert into recensioni_corsa values (?,?,?)";
 

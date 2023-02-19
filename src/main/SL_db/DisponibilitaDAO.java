@@ -43,7 +43,7 @@ public class DisponibilitaDAO {
         }
 
     }
-    public List<Autista> selectNomeAutistiDisponibili(String partenza,Date data_partenza, LocalTime ora) {
+    public List<Autista> selectAutistiDisponibili(String partenza,Date data_partenza, LocalTime ora) {
         String sql = "select username,email,password,nome,cognome,telefono,datanascita from disponibilita join autisti on disponibilita.autista=autisti.username  where citta_partenza=? AND giorno_disponibilita=? AND TIMEDIFF(?,ora_inizio)>=0 AND TIMEDIFF(?,ora_fine)<=0";
         List<Autista> autistiDisp=new ArrayList<>();
 

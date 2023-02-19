@@ -54,20 +54,19 @@ public class ShuttleLive {
     }
 
     public void caricaDati(Autista autista) {
-        PatenteDao patedao = new PatenteDao();
         VeicoloDao veicdao = new VeicoloDao();
-        DisponibilitaDAO dispdao = new DisponibilitaDAO();
+
         if(!veicdao.allVeicoloAutista(autista.getUsername()).isEmpty()) {
             autista.setVeicoli(veicdao.allVeicoloAutista(autista.getUsername()));
             System.out.println(autista);
 
         }
-        if(patedao.selectPatenteByAutista(autista.getUsername()) != null) {
-            autista.setPatente(patedao.selectPatenteByAutista(autista.getUsername()));
+        if(Facade.getInstance().trovaPatenteDaAutista(autista.getUsername()) != null) {
+            autista.setPatente(Facade.getInstance().trovaPatenteDaAutista(autista.getUsername()));
             System.out.println(autista);
         }
-        if(!dispdao.allDisponibilitaByAutista(autista.getUsername()).isEmpty()) {
-            autista.setDisponibilita(dispdao.allDisponibilitaByAutista(autista.getUsername()));
+        if(!Facade.getInstance().caricaDisponibilitaAutista(autista.getUsername()).isEmpty()) {
+            autista.setDisponibilita(Facade.getInstance().caricaDisponibilitaAutista(autista.getUsername()));
             System.out.println(autista);
         }
         System.out.println(autista);
@@ -89,7 +88,7 @@ public class ShuttleLive {
             throw new Exception("riempire tutti i campi");
             PatenteDao daopatent = new PatenteDao();
 
-            facade.getInstance().salvaPatente(patente);
+            Facade.getInstance().salvaPatente(patente);
            patenteCorrente=patente;
             return patenteCorrente;
 
@@ -104,13 +103,12 @@ public class ShuttleLive {
         return disponibilitaCorrente;
     }
     public List<Autista> cercaAutistiDisponibili(String partenza, String arrivo, java.sql.Date data_partenza, LocalTime ora) throws Exception {
-        DisponibilitaDAO daodisponibilita=new DisponibilitaDAO();
+
         List<Autista> autisti = new ArrayList<>();
         if(data_partenza.before(new Date())) {
             throw new Exception("data non valida");
         }
-        autisti=daodisponibilita.selectNomeAutistiDisponibili(partenza,data_partenza,ora);
-        AutistaDAO autdao =new AutistaDAO();
+        autisti=Facade.getInstance().caricaAutistiDisponibili(partenza,data_partenza,ora);
         autistiDisponibiliCorrente=autisti;
         return autistiDisponibiliCorrente;
 
@@ -166,9 +164,9 @@ public class ShuttleLive {
     }
 
     public Utente verificaCampiUtente(Utente user) throws Exception {
-        UtenteDAO daouser = new UtenteDAO();
+
         List<Utente> allUsers = new ArrayList<>();
-        allUsers = daouser.allUtente();
+        allUsers = Facade.getInstance().caricaUtenti();
         if(user.getUsername().equals("") || user.getEmail().equals("") || user.getPassword().equals("") || user.getNome().equals("") || user.getCognome().equals("") || user.getTelefono().equals("") || user.getData_nascita()==null) {
             throw new Exception("riempire tutti i campi");
         }
@@ -183,7 +181,7 @@ public class ShuttleLive {
                 }
             }
             System.out.println(user);
-            daouser.insertUtente(user);
+            Facade.getInstance().salvaUtente(user);
             return user;
 
         }
@@ -192,7 +190,7 @@ public class ShuttleLive {
     public Autista verificaCampiAutista(Autista autista) throws Exception {
 
         List<Autista> allAutisti = new ArrayList<>();
-        allAutisti = facade.getInstance().caricaAutisti();
+        allAutisti = Facade.getInstance().caricaAutisti();
         if(autista.getUsername().equals("") || autista.getEmail().equals("") || autista.getPassword().equals("") || autista.getNome().equals("") || autista.getCognome().equals("") || autista.getTelefono().equals("") || autista.getData_nascita()==null) {
             throw new Exception("riempire tutti i campi");
         }
@@ -208,7 +206,7 @@ public class ShuttleLive {
                 }
             }
             System.out.println(autista);
-            daoautista.insertAutista(autista);
+            Facade.getInstance().salvaAutista(autista);
             return autista;
         }
     }
@@ -243,9 +241,8 @@ public class ShuttleLive {
     }
 
     public Autista verificaLoginAutista(String email, String password) throws Exception {
-        AutistaDAO daouser = new AutistaDAO();
         Autista user = new Autista();
-        user = daouser.selectAutista(email, password);
+        user = Facade.getInstance().trovaAutista(email, password);
         if(email.equals("") || password.equals("")) {
             throw new Exception("riempire tutti i campi");
         }
@@ -260,7 +257,7 @@ public class ShuttleLive {
     }
 
     public Utente verificaLoginUtente(String email, String password) throws Exception {
-        UtenteDAO daouser = new UtenteDAO();
+
         Utente user = new Utente();
         if(email.equals("") || password.equals("")) {
             throw new Exception("riempire tutti i campi");
@@ -268,7 +265,7 @@ public class ShuttleLive {
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
-            user = daouser.selectUtente(email, password);
+            user = Facade.getInstance().trovaUtente(email, password);
             if (user.getPassword() == null || user.getEmail()==null) {
                 throw new Exception("utente non trovato");
             }
@@ -277,9 +274,9 @@ public class ShuttleLive {
     }
 
     public Disponibilita verificaDisponibilita(Autista autista,Disponibilita disp) throws Exception {
-        DisponibilitaDAO dispdao = new DisponibilitaDAO();
+
         List<Disponibilita> alldisp = new ArrayList<>();
-        alldisp = dispdao.allDisponibilita();
+        alldisp = Facade.getInstance().caricaDisponibilita();
         if(disp.getGiorno_disponibilita()==null || disp.getCitta_partenza().equals("") ) {
             throw new Exception("riempire tutti i campi");
         }
@@ -299,7 +296,7 @@ public class ShuttleLive {
                 }
             }
             Disponibilita dispo = disp;
-            dispdao.insertDisponibilita(dispo, autista);
+            Facade.getInstance().salvaDisponibilita(dispo, autista);
             return dispo;
         }
     }

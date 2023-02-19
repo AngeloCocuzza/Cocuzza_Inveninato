@@ -67,81 +67,8 @@ public class AutistaDAO {
     }
 
 
-    /*public Autista selectAutista(String email, String password) {
-        Autista autista = new Autista();
-        String sql = "select * from autisti join veicolo on autisti.username=veicolo.autista join patente on autisti.username=patente.autista join disponibilita on autisti.username=disponibilita.autista where email = ? and password = ?";
-        try {
-            Connection conn = DBConnect.getConnection();
-            if(conn!=null) {
-                System.out.println("connessione con successo");
-                PreparedStatement statement = conn.prepareStatement(sql);
-                statement.setString(1, email);
-                statement.setString(2, password);
 
-                ResultSet rs = statement.executeQuery();
-                System.out.println("ciao");
-                Map<String, Veicolo> veicoli=new HashMap<>();
-                Map<String, Disponibilita> disponi=new HashMap<>();
-                List<Disponibilita> disp= new ArrayList<>();
-                Patente patente=new Patente();
-                while (rs.next()) {
-                    Veicolo veicolo=new Veicolo(rs.getString("targa"),rs.getString("autista"),rs.getString("marca"),rs.getString("modello"),rs.getString("colore"),rs.getInt("n_posti") );
-                    veicoli.putIfAbsent(veicolo.getTarga(),veicolo);
-                    Disponibilita disponibilita =new Disponibilita(rs.getDate("giorno_disponibilita"), LocalTime.parse(rs.getString("ora_inizio")), LocalTime.parse(rs.getString("ora_fine")),rs.getString("citta_partenza"));
-                    patente.setCodice(rs.getString("codice"));
-                    patente.setAutista(rs.getString("autista"));
-                    patente.setData_conseguimento(rs.getDate("data_conseguimento"));
-                    patente.setData_scadenza(rs.getDate("data_scadenza"));
-                    patente.setLivello(rs.getString("livello"));
-                    disponi.putIfAbsent(disponibilita.getCitta_partenza(),disponibilita);
-                    Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
-                    autista=user;
-                }
-                if(!disponi.isEmpty()) {
-                    autista.setDisponibilita(disponi.values().stream().collect(Collectors.toList()));
-                }
-                if(!veicoli.isEmpty()) {
-                    autista.setVeicoli(veicoli);
-                }
-                if(patente==null) {
-                    autista.setPatente(patente);
-                }
-            }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return autista;
-    }*/
-    public List<Autista> selectAutistaByName(List<String> autisti) {
-        List<Autista> autistiDisponib=new ArrayList<>();
-        Autista autista = new Autista();
-        String sql = "select * from autisti where username= ?";
-        try {
-            Connection conn = DBConnect.getConnection();
-            if(conn!=null) {
-                System.out.println("connessione con successo");
-                PreparedStatement statement = conn.prepareStatement(sql);
-
-                for(String autist: autisti) {
-                    statement.setString(1, autist);
-                    ResultSet rs = statement.executeQuery();
-                    //System.out.println("ciao");
-                    while (rs.next()) {
-                        Autista user = new Autista(rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("telefono"), rs.getDate("datanascita"));
-                        autistiDisponib.add(user);
-                    }
-
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return autistiDisponib;
-    }
 
     public Autista selectAutistaSingoloByName(String autista) {
         Autista autistibyname =new Autista();

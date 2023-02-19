@@ -48,13 +48,13 @@ public class CorseController {
 
     public Autista autistaSingoloByName(String autista) {
         AutistaDAO autidao = new AutistaDAO();
-        autistacorrente= autidao.selectAutistaSingoloByName(autista);
+        autistacorrente= Facade.getInstance().trovaAutistaDalNome(autista);
         return autistacorrente;
     }
 
     public Utente utenteSingoloByName(String utente) {
-        UtenteDAO userdao = new UtenteDAO();
-        utentecorrente= userdao.selectUtenteSingoloByName(utente);
+
+        utentecorrente= Facade.getInstance().trovaUtenteDalNome(utente);
         return utentecorrente;
     }
 

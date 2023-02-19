@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static SL_db.Facade.facade;
+
 public class CorseController {
 
     Utente utentecorrente;
@@ -20,6 +22,7 @@ public class CorseController {
     List<ViaggioProgrammato> viaggicorrente;
 
     Map<String,CorsaViaggio> allviaggi;
+
 
     public Utente getUtentecorrente() {
         return utentecorrente;
@@ -59,8 +62,9 @@ public class CorseController {
     }
 
     public Veicolo veicoloSingoloByName(String veicolo) {
-        VeicoloDao veicdao = new VeicoloDao();
-        veicolocorrente= veicdao.allvVeicoloTarga(veicolo);
+        //VeicoloDao veicdao = new VeicoloDao();
+        veicolocorrente= Facade.getInstance().tuttiVeicoloTarga(veicolo);
+        //veicdao.allvVeicoloTarga(veicolo);
         return veicolocorrente;
     }
 
@@ -70,29 +74,31 @@ public class CorseController {
     }
 
     public void inserisciCorsaProgrammata(ViaggioProgrammato viaggio,Utente user) {
-        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         List<Utente> utenti = viaggio.getUtentiPrenotati();
         utenti.add(user);
         viaggio.setUtentiPrenotati(utenti);
         System.out.println("Lista" + utenti);
-        viaggiodao.insertCorsaProgrammata(viaggio.getID(),user.getUsername());
+        Facade.getInstance().inserisciCProgrammata(viaggio.getID(),user.getUsername());
+        //viaggiodao.insertCorsaProgrammata(viaggio.getID(),user.getUsername());
     }
     public void inserisciRecensione(CorsaViaggio viaggio) throws Exception {
         //Recensione vuota = new Recensione(null,"");
         if (viaggio instanceof Corsa) {
-            RecensioneCorsaDAO recensionedao = new RecensioneCorsaDAO();
-            if (recensionedao.recensioneCorsa((Corsa) viaggio) != null){
+            //RecensioneCorsaDAO recensionedao = new RecensioneCorsaDAO();
+            if (Facade.getInstance().recenCorsa((Corsa) viaggio) != null){
                 System.out.println("sono qui");
                 throw new Exception("recensione già inserita");
-            } else if(recensionedao.recensioneCorsa((Corsa) viaggio) == null) {
-                recensionedao.insertRecensione(viaggio);
+            } else if(Facade.getInstance().recenCorsa((Corsa) viaggio) == null) {
+                Facade.getInstance().insRecensioneC(viaggio);
             }
         } else if(viaggio instanceof ViaggioProgrammato){
-            RecensioneViaggioDAO recensionedao = new RecensioneViaggioDAO();
-            if(recensionedao.recensioneViaggio((ViaggioProgrammato) viaggio) != null) {
+            //RecensioneViaggioDAO recensionedao = new RecensioneViaggioDAO();
+            if(Facade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) != null) {
                throw new Exception("recensione già inserita");
-            } else if(recensionedao.recensioneViaggio((ViaggioProgrammato) viaggio) == null){
-                recensionedao.insertRecensione(viaggio);
+            } else if(Facade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) == null){
+                Facade.getInstance().insRecensione(viaggio);
+                //recensionedao.insertRecensione(viaggio);
             }
         }
 
@@ -100,21 +106,20 @@ public class CorseController {
     public List<Recensione> selezionaRecensioniAutista(String autista) {
         List<Recensione> recensioni=new ArrayList<>();
 
-            RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
-            recensioni=recensionecorsadao.allRecensioniAutista(autista);
+            //RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
+            recensioni=Facade.getInstance().tuttiRecensioniAutistaC(autista);
+            //recensionecorsadao.allRecensioniAutista(autista);
 
-            RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
-            recensioni.addAll(recensioneviaggiodao.allRecensioniAutista(autista));
+           // RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
+            recensioni.addAll(Facade.getInstance().tuttiRecensioniAutista(autista));
+                    //recensioneviaggiodao.allRecensioniAutista(autista));
             return recensioni;
 
         }
 
 
-
-
-
     public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) throws Exception {
-        ViaggioProgrammatoDAO viaggidao = new ViaggioProgrammatoDAO();
+        //ViaggioProgrammatoDAO viaggidao = new ViaggioProgrammatoDAO();
         List<ViaggioProgrammato> viaggi = new ArrayList();
 
         if(evento.equals("") || data_partenza==null) {
@@ -123,22 +128,25 @@ public class CorseController {
         if(data_partenza.before(new java.util.Date())) {
             throw new Exception("data non valida");
         }
-        viaggi = viaggidao.selectViaggiByEventoOrData(evento,data_partenza);
+        viaggi = Facade.getInstance().selezioneViaggiByEventoOrData(evento,data_partenza);
         return viaggi;
 
     }
 
     public void diminuisciPostiDisponibili(ViaggioProgrammato viaggio){
-        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         viaggio.setPostiDisponibili(viaggio.getVeicolo().getN_posti()-1);
-        viaggiodao.updatePostiDisponibili(viaggio.getID());
+        Facade.getInstance().aggiornaPostiDisponibili(viaggio.getID());
+        //viaggiodao.updatePostiDisponibili(viaggio.getID());
     }
 
     public List<CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
-        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
-        CorsaDAO corsadao = new CorsaDAO();
-        List<ViaggioProgrammato> viaggi = viaggiodao.selectViaggioProgrammatoByUtente(user.getUsername());
-        List<Corsa> corse= corsadao.selectCorseByUtente(user.getUsername());
+        //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        //CorsaDAO corsadao = new CorsaDAO();
+        List<ViaggioProgrammato> viaggi = Facade.getInstance().selezionaViaggioProgrammatoByUtente(user.getUsername());
+        //viaggiodao.selectViaggioProgrammatoByUtente(user.getUsername());
+        List<Corsa> corse= Facade.getInstance().selezionaCorseByUtente(utentecorrente.getUsername());
+        //corsadao.selectCorseByUtente(user.getUsername());
         List<CorsaViaggio> corseviaggi = new ArrayList<>();
         corseviaggi.addAll(corse);
         corseviaggi.addAll(viaggi);
@@ -146,10 +154,12 @@ public class CorseController {
     }
 
     public List<CorsaViaggio> caricaCorseViaggiByAutista(Autista autista) {
-        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
-        CorsaDAO corsadao = new CorsaDAO();
-        List<ViaggioProgrammato> viaggi = viaggiodao.selectViaggioProgrammatoByAutista(autista.getUsername());
-        List<Corsa> corse= corsadao.selectCorseByAutista(autista.getUsername());
+        //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        //CorsaDAO corsadao = new CorsaDAO();
+        List<ViaggioProgrammato> viaggi = Facade.getInstance().selezionaViaggioProgrammatoByAutista(autista.getUsername());
+        //viaggiodao.selectViaggioProgrammatoByAutista(autista.getUsername());
+        List<Corsa> corse= Facade.getInstance().selezionaCorseByAutista(autista.getUsername());
+                //corsadao.selectCorseByAutista(autista.getUsername());
         List<CorsaViaggio> corseviaggi = new ArrayList<>();
         corseviaggi.addAll(corse);
         corseviaggi.addAll(viaggi);
@@ -157,15 +167,17 @@ public class CorseController {
     }
 
     public void cancellaCorsa(Corsa corsa,Utente user) {
-        CorsaDAO corsadao = new CorsaDAO();
-        corsadao.deleteCorsa(corsa);
+        //CorsaDAO corsadao = new CorsaDAO();
+        //corsadao.deleteCorsa(corsa);
+        Facade.getInstance().cancCorsa(corsa);
         caricaCorseViaggiByUtente(user);
 
     }
 
     public void cancellaViaggio(ViaggioProgrammato viaggio, Utente user) {
-        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
-        viaggiodao.deleteViaggio(viaggio,user);
+        //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        //viaggiodao.deleteViaggio(viaggio,user);
+        Facade.getInstance().eliminaViaggio(viaggio,user);
         caricaCorseViaggiByUtente(user);
 
     }

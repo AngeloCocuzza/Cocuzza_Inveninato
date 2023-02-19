@@ -54,8 +54,9 @@ public class ShuttleLive {
     }
 
     public void caricaDati(Autista autista) {
+        PatenteDao patedao = new PatenteDao();
         VeicoloDao veicdao = new VeicoloDao();
-
+        DisponibilitaDAO dispdao = new DisponibilitaDAO();
         if(!veicdao.allVeicoloAutista(autista.getUsername()).isEmpty()) {
             autista.setVeicoli(veicdao.allVeicoloAutista(autista.getUsername()));
             System.out.println(autista);
@@ -134,7 +135,7 @@ public class ShuttleLive {
              ViaggioProgrammatoDAO viaggiodao=new ViaggioProgrammatoDAO();
              ViaggioProgrammato viag = new ViaggioProgrammato();
              viag=corsa;
-             viaggiodao.insertViaggio(viag);
+             Facade.getInstance().inserisciViaggioPro(viag);
              return viag;
 
 
@@ -146,19 +147,18 @@ public class ShuttleLive {
         if (corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza() == null || corsa.getOra_partenza() == null) {
             throw new Exception("riempire tutti i campi");
     }
-        CorsaDAO corsadao = new CorsaDAO();
+        //CorsaDAO corsadao = new CorsaDAO();
         Corsa cr = new Corsa();
         cr=corsa;
-        corsadao.insertCorsa(cr);
-
+        Facade.getInstance().insCorsa(cr);
+        //corsadao.insertCorsa(cr);
         return corsa;
     }
 
     public Map<String,Veicolo> veicoliAutista(String autista){
-        VeicoloDao daoveicoli=new VeicoloDao();
-
-        veicoliAutistaCorrente=daoveicoli.allVeicoloAutista(autista);
-
+        //VeicoloDao daoveicoli=new VeicoloDao();
+        veicoliAutistaCorrente=Facade.getInstance().tuttiVeicoloAutista(autista);
+                //daoveicoli.allVeicoloAutista(autista);
         return veicoliAutistaCorrente;
 
     }
@@ -213,10 +213,11 @@ public class ShuttleLive {
 
     public Veicolo verificaCampiVeicolo(Veicolo veicolo) throws Exception {
 
-        VeicoloDao daoveicol = new VeicoloDao();
+        //VeicoloDao daoveicol = new VeicoloDao();
 
         Map<String,Veicolo> allveicolo = new HashMap<>();
-        allveicolo = daoveicol.allVeicolo();
+        allveicolo = Facade.getInstance().tuttiVeicoloAutista();
+                //daoveicol.allVeicolo();
         if(veicolo.getMarca().equals("") || veicolo.getModello().equals("") || veicolo.getColore().equals("") || veicolo.getN_posti()==null) {
             throw new Exception("riempire tutti i campi");
         }
@@ -235,7 +236,8 @@ public class ShuttleLive {
             }
             Veicolo veicol = veicolo;
             System.out.println(veicol);
-            daoveicol.insertVeicolo(veicol);
+            Facade.getInstance().inserisciVeicolo(veicol);
+            //aoveicol.insertVeicolo(veicol);
             return veicol;
         }
     }

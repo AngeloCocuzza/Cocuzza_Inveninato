@@ -92,7 +92,7 @@ public class VeicoloDao {
         return veicoliauti;
     }
 
-    public Veicolo allvVeicoloTarga(String targa) {
+    public Veicolo allVeicoloTarga(String targa) {
         Veicolo veicolitarga = new Veicolo();
         String sql = "select * from veicolo where targa = ?";
 

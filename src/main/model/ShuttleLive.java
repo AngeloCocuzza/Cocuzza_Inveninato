@@ -5,6 +5,8 @@ import SL_db.*;
 import java.time.LocalTime;
 import java.util.*;
 
+import static SL_db.Facade.facade;
+
 public class ShuttleLive {
     public static ShuttleLive shuttlelive;
 
@@ -78,7 +80,6 @@ public class ShuttleLive {
     public Patente inserisciPatente(Patente patente) throws Exception {
         Patente patent = new Patente(patente.getCodice(),patente.getAutista(),patente.getData_conseguimento(),patente.getData_scadenza(), patente.getLivello());
         System.out.println(patent);
-        PatenteDao daopatent = new PatenteDao();
         patenteCorrente = verificaPatente(patent);
         return patenteCorrente;
 
@@ -87,8 +88,9 @@ public class ShuttleLive {
         if(patente.getCodice().equals((""))||patente.getData_conseguimento()==null||patente.getData_scadenza()==null||patente.getLivello().equals(""))
             throw new Exception("riempire tutti i campi");
             PatenteDao daopatent = new PatenteDao();
-            patenteCorrente=patente;
-            daopatent.insertPatente(patenteCorrente);
+
+            facade.getInstance().salvaPatente(patente);
+           patenteCorrente=patente;
             return patenteCorrente;
 
     }
@@ -188,9 +190,9 @@ public class ShuttleLive {
     }
 
     public Autista verificaCampiAutista(Autista autista) throws Exception {
-        AutistaDAO daoautista = new AutistaDAO();
+
         List<Autista> allAutisti = new ArrayList<>();
-        allAutisti = daoautista.allAutisti();
+        allAutisti = facade.getInstance().caricaAutisti();
         if(autista.getUsername().equals("") || autista.getEmail().equals("") || autista.getPassword().equals("") || autista.getNome().equals("") || autista.getCognome().equals("") || autista.getTelefono().equals("") || autista.getData_nascita()==null) {
             throw new Exception("riempire tutti i campi");
         }

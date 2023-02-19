@@ -1,6 +1,7 @@
 package ui;
 
 import model.Autista;
+import model.CorseController;
 import model.ShuttleLive;
 
 import javax.swing.*;
@@ -8,15 +9,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuAutista extends javax.swing.JFrame {
+    private final Autista autista;
     private ShuttleLive shuttlelive;
+    private CorseController controller;
     private JButton renditiDisponibileButton;
     private JButton aggiungiVeicoloButton;
     private JButton inserisciViaggioProgrammatoButton;
     private JPanel menuautistaPanel;
-    private JButton button1;
+    private JButton visualizzaStoricoViaggiButton;
 
-    public MenuAutista(ShuttleLive sl, Autista autista) {
+    public MenuAutista(ShuttleLive sl, Autista auti){
+    controller = CorseController.getInstance();
     this.shuttlelive=sl;
+    this.autista=auti;
     setTitle("Menù autista");
     setContentPane(menuautistaPanel);
     setSize(550,400);
@@ -43,6 +48,13 @@ public class MenuAutista extends javax.swing.JFrame {
                 new InserisciViaggio(shuttlelive,autista);
                 setVisible(false);
                 //System.out.println(utente);
+            }
+        });
+        visualizzaStoricoViaggiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VisualizzaCorseViaggiAutista(shuttlelive, controller, autista);
+                setVisible(false);
             }
         });
     }

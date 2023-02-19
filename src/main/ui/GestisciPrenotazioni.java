@@ -96,8 +96,8 @@ public class GestisciPrenotazioni {
 
                     JLabel ad = new JLabel(" Citta Partenza : " + v.getAddress().getCitta_partenza() + " Citta Destinazione : " + v.getAddress().getCitta_destinazione() + " Indirizzo Partenza : " + v.getAddress().getInidirizzo_partenza() + " Indirizzo destinazione : " + v.getAddress().getIndirizzo_destinazione() + " Km viaggio : " + v.getAddress().getKm_corsa());
                     JLabel info = new JLabel(" Autista :  " + v.getAutista().getUsername() + " Data Partenza : " + v.getData_partenza() + " Ora Partenza : " + v.getOra_partenza() + " Evento : " + ((ViaggioProgrammato) v).getEvento() + " Prezzo : " + v.getPrezzo());
-                    v1.add(ad);
-                    v2.add(info);
+                    v1.add(info);
+                    v2.add(ad);
                     panel.add(v1);
                     panel.add(v2);
                     if(v.getData_partenza().before(new Date())) {

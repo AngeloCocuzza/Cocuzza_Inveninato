@@ -143,7 +143,17 @@ public class CorseController {
         corseviaggi.addAll(corse);
         corseviaggi.addAll(viaggi);
         return corseviaggi;
+    }
 
+    public List<CorsaViaggio> caricaCorseViaggiByAutista(Autista autista) {
+        ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
+        CorsaDAO corsadao = new CorsaDAO();
+        List<ViaggioProgrammato> viaggi = viaggiodao.selectViaggioProgrammatoByAutista(autista.getUsername());
+        List<Corsa> corse= corsadao.selectCorseByAutista(autista.getUsername());
+        List<CorsaViaggio> corseviaggi = new ArrayList<>();
+        corseviaggi.addAll(corse);
+        corseviaggi.addAll(viaggi);
+        return corseviaggi;
     }
 
     public void cancellaCorsa(Corsa corsa,Utente user) {

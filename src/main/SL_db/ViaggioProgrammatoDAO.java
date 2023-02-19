@@ -116,6 +116,30 @@ public class ViaggioProgrammatoDAO {
 
     }
 
+    public List<ViaggioProgrammato> selectViaggioProgrammatoByAutista(String autista) {
+        String sql = "SELECT * FROM viaggi_programmati where autista = ?";
+        List<ViaggioProgrammato> viaggi = new ArrayList<>();
+        corsacontr = CorseController.getInstance();
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1,autista);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
+                    ViaggioProgrammato viaggio = new ViaggioProgrammato(rs.getInt("ID"),corsacontr.autistaSingoloByName(rs.getString("autista")),corsacontr.veicoloSingoloByName(rs.getString("veicolo")),rs.getDate("data_partenza"),LocalTime.parse(rs.getString("ora_partenza")),address, rs.getFloat("prezzo"), rs.getString("evento"),rs.getInt("n_posti_disp"));
+                    viaggi.add(viaggio);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return viaggi;
+
+    }
+
     public void updatePostiDisponibili(Integer id) {
         String sql = "UPDATE viaggi_programmati SET n_posti_disp = (n_posti_disp-1) WHERE ID = ?";
 

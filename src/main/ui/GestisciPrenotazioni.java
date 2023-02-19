@@ -48,7 +48,7 @@ public class GestisciPrenotazioni {
 
         corseviaggi = corsecontroller.caricaCorseViaggiByUtente(utente);
         for(CorsaViaggio corsa : corseviaggi) {
-            System.out.println(corsa);
+            //System.out.println(corsa);
         }
 
         if(corseviaggi.isEmpty()) {

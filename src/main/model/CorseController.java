@@ -1,6 +1,7 @@
 package model;
 
 import SL_db.*;
+import ui.GestisciPrenotazioni;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -76,14 +77,23 @@ public class CorseController {
         System.out.println("Lista" + utenti);
         viaggiodao.insertCorsaProgrammata(viaggio.getID(),user.getUsername());
     }
-    public void inserisciRecensione(CorsaViaggio viaggio) {
-        if(viaggio instanceof Corsa){
-        RecensioneCorsaDAO recensionedao = new RecensioneCorsaDAO();
-        recensionedao.insertRecensione(viaggio);}
-        else if(viaggio instanceof ViaggioProgrammato){
+    public void inserisciRecensione(CorsaViaggio viaggio) throws Exception {
+        //Recensione vuota = new Recensione(null,"");
+        if (viaggio instanceof Corsa) {
+            RecensioneCorsaDAO recensionedao = new RecensioneCorsaDAO();
+            if (recensionedao.recensioneCorsa((Corsa) viaggio) != null){
+                System.out.println("sono qui");
+                throw new Exception("recensione già inserita");
+            } else if(recensionedao.recensioneCorsa((Corsa) viaggio) == null) {
+                recensionedao.insertRecensione(viaggio);
+            }
+        } else if(viaggio instanceof ViaggioProgrammato){
             RecensioneViaggioDAO recensionedao = new RecensioneViaggioDAO();
-            recensionedao.insertRecensione(viaggio);
-
+            if(recensionedao.recensioneViaggio((ViaggioProgrammato) viaggio) != null) {
+               throw new Exception("recensione già inserita");
+            } else if(recensionedao.recensioneViaggio((ViaggioProgrammato) viaggio) == null){
+                recensionedao.insertRecensione(viaggio);
+            }
         }
 
     }

@@ -64,4 +64,27 @@ public class RecensioneCorsaDAO {
         }
         return listaRecen;
     }
+
+    public Recensione recensioneCorsa(Corsa corsa) {
+
+        String sql = "select * from recensioni_corsa join corsa on recensioni_corsa.corsa=corsa.ID where ID= ?";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setInt(1,corsa.getID());
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()) {
+                    Recensione review = new Recensione(rs.getInt("voto"), rs.getString("commento"));
+                    return review;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

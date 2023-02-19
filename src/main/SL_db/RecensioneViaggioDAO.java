@@ -1,9 +1,6 @@
 package SL_db;
 
-import model.Autista;
-import model.CorsaViaggio;
-import model.Recensione;
-import model.Veicolo;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,5 +58,28 @@ public class RecensioneViaggioDAO {
             throw new RuntimeException(e);
         }
         return listaRecen;
+    }
+
+    public Recensione recensioneViaggio(ViaggioProgrammato viaggio) {
+
+        String sql = "select * from recensioni_viaggi join corsa_programmati on recensioni_viaggi.viaggio=corsa_programmati.ID_viaggio where ID_viaggio= ? limit 1";
+
+        try {
+            Connection conn = DBConnect.getConnection();
+            if(conn!=null) {
+                System.out.println("connessione con successo");
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setInt(1,viaggio.getID());
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()) {
+                    Recensione review = new Recensione(rs.getInt("voto"), rs.getString("commento"));
+                    return review;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

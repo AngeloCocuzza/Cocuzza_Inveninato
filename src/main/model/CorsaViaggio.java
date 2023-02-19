@@ -13,14 +13,6 @@ public abstract class CorsaViaggio {
     private float prezzo;
     private Recensione recensione;
 
-    public Recensione getRecensione() {
-        return recensione;
-    }
-
-    public void setRecensione(Recensione recensione) {
-        this.recensione = recensione;
-    }
-
     public CorsaViaggio(Integer ID, Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo) {
         this.ID = ID;
         this.autista = autista;
@@ -121,6 +113,14 @@ public abstract class CorsaViaggio {
         this.prezzo = prezzo;
     }
 
+    public Recensione getRecensione() {
+        return recensione;
+    }
+
+    public void setRecensione(Recensione recensione) {
+        this.recensione = recensione;
+    }
+
     @Override
     public String toString() {
         return "CorsaViaggio{" +
@@ -131,6 +131,7 @@ public abstract class CorsaViaggio {
                 ", ora_partenza=" + ora_partenza +
                 ", address=" + address +
                 ", prezzo=" + prezzo +
+                ", recensione=" + recensione +
                 '}';
     }
 

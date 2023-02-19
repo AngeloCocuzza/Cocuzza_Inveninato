@@ -27,7 +27,7 @@ public class InserisciRecensione extends javax.swing.JFrame{
         this.shuttlelive = sl;
 
 
-        setTitle("InserisciViaggio");
+        setTitle("InserisciRecensione");
         setContentPane(inserisciRecensione);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -38,19 +38,14 @@ public class InserisciRecensione extends javax.swing.JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Recensione review=new Recensione(Integer.parseInt(voto.getText()), recensione.getText());
-                    viaggio.getRecensione();
+                    Recensione review=new Recensione(Integer.parseInt(inseriscivoto.getText()), inseriscicommento.getText());
                     viaggio.setRecensione(review);
-                    System.out.println(viaggio.getRecensione());
+                    System.out.println(viaggio);
                     controller.inserisciRecensione(viaggio);
-
-
+                    new MenuUtente(shuttlelive,utente);
                 } catch (Exception ex) {
                     new InserisciRecensione(shuttlelive,controller,viaggio, utente);
                 }
-
-
-
                 setVisible(false);
             }
         });

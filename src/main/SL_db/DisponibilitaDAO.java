@@ -10,6 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisponibilitaDAO {
+
+    public static DisponibilitaDAO dispdao;
+
+    public static DisponibilitaDAO getInstance() {
+        if (dispdao == null)
+            dispdao = new DisponibilitaDAO();
+        else
+            System.out.println("Istanza già creata");
+        return dispdao;
+    }
     public void insertDisponibilita(Disponibilita disp,Autista autista) {
         String sql = "insert into disponibilita values (?,?,?,?,?)";
 

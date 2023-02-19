@@ -7,6 +7,16 @@ import model.Veicolo;
 import java.sql.*;
 
 public class PatenteDao {
+
+    public static PatenteDao patentedao;
+
+    public static PatenteDao getInstance() {
+        if (patentedao == null)
+            patentedao = new PatenteDao();
+        else
+            System.out.println("Istanza già creata");
+        return patentedao;
+    }
     public Patente insertPatente(Patente patent) {
         //Utente user = new Utente();
         String sql = "insert into patente values (?,?,?,?,?)";

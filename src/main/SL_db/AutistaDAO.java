@@ -9,6 +9,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AutistaDAO {
+
+    public static AutistaDAO autistadao;
+
+    public static AutistaDAO getInstance() {
+        if (autistadao == null)
+            autistadao = new AutistaDAO();
+        else
+            System.out.println("Istanza già creata");
+        return autistadao;
+    }
     public void insertAutista(Autista user) {
         //Utente user = new Utente();
         String sql = "insert into autisti values (?,?,?,?,?,?,?)";

@@ -9,6 +9,16 @@ import java.util.List;
 
 public class CorsaDAO {
 
+    public static CorsaDAO corsadao;
+
+    public static CorsaDAO getInstance() {
+        if (corsadao == null)
+            corsadao = new CorsaDAO();
+        else
+            System.out.println("Istanza già creata");
+        return corsadao;
+    }
+
     private CorseController corsacontr;
     private ShuttleLive shuttlelive;
     public void insertCorsa(Corsa corsa) {

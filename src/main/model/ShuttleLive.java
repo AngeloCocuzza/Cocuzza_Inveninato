@@ -87,7 +87,7 @@ public class ShuttleLive {
     public Patente verificaPatente(Patente patente) throws Exception {
         if(patente.getCodice().equals((""))||patente.getData_conseguimento()==null||patente.getData_scadenza()==null||patente.getLivello().equals(""))
             throw new Exception("riempire tutti i campi");
-            PatenteDao daopatent = new PatenteDao();
+            //PatenteDao daopatent = new PatenteDao();
 
             Facade.getInstance().salvaPatente(patente);
             patenteCorrente=patente;

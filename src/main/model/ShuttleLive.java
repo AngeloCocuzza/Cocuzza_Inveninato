@@ -90,7 +90,7 @@ public class ShuttleLive {
             PatenteDao daopatent = new PatenteDao();
 
             Facade.getInstance().salvaPatente(patente);
-           patenteCorrente=patente;
+            patenteCorrente=patente;
             return patenteCorrente;
 
     }

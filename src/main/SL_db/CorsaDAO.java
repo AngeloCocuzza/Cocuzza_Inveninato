@@ -105,6 +105,7 @@ public class CorsaDAO {
                     veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
                     Corsa corsa = new Corsa(rs.getInt("ID"),auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")), address, rs.getFloat("prezzo"), user);
+                    System.out.println(corsa);
                     allcorsa.add(corsa);
                 }
             }

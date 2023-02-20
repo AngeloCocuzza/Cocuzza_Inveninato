@@ -256,18 +256,19 @@ public class Facade {
     public List<Corsa> selezionaCorseByUtente(String utente) {
         List<Corsa> allcorsa = new ArrayList<>();
         try {
-            CorsaDAO.getInstance().selectCorseByUtente(utente);
+            allcorsa=CorsaDAO.getInstance().selectCorseByUtente(utente);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(" Operazione non andata a buon fine");
         }
+        System.out.println(allcorsa);
         return allcorsa;
     }
 
     public List<Corsa> selezionaCorseByAutista(String autista) {
         List<Corsa> allcorsa = new ArrayList<>();
         try {
-            CorsaDAO.getInstance().selectCorseByAutista(autista);
+            allcorsa=CorsaDAO.getInstance().selectCorseByAutista(autista);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(" Operazione non andata a buon fine");

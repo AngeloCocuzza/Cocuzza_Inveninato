@@ -50,13 +50,11 @@ public class CorseController {
     }
 
     public Autista autistaSingoloByName(String autista) {
-        AutistaDAO autidao = new AutistaDAO();
         autistacorrente= Facade.getInstance().trovaAutistaDalNome(autista);
         return autistacorrente;
     }
 
     public Utente utenteSingoloByName(String utente) {
-
         utentecorrente= Facade.getInstance().trovaUtenteDalNome(utente);
         return utentecorrente;
     }
@@ -106,16 +104,16 @@ public class CorseController {
     public List<Recensione> selezionaRecensioniAutista(String autista) {
         List<Recensione> recensioni=new ArrayList<>();
 
-            //RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
-            recensioni=Facade.getInstance().tuttiRecensioniAutistaC(autista);
-            //recensionecorsadao.allRecensioniAutista(autista);
+        //RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
+        recensioni=Facade.getInstance().tuttiRecensioniAutistaC(autista);
+        //recensionecorsadao.allRecensioniAutista(autista);
 
-           // RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
-            recensioni.addAll(Facade.getInstance().tuttiRecensioniAutista(autista));
-                    //recensioneviaggiodao.allRecensioniAutista(autista));
-            return recensioni;
+       // RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
+        recensioni.addAll(Facade.getInstance().tuttiRecensioniAutista(autista));
+                //recensioneviaggiodao.allRecensioniAutista(autista));
+        return recensioni;
 
-        }
+    }
 
 
     public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) throws Exception {
@@ -143,9 +141,10 @@ public class CorseController {
     public List<CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
         //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         //CorsaDAO corsadao = new CorsaDAO();
+        System.out.println(user.getUsername());
         List<ViaggioProgrammato> viaggi = Facade.getInstance().selezionaViaggioProgrammatoByUtente(user.getUsername());
         //viaggiodao.selectViaggioProgrammatoByUtente(user.getUsername());
-        List<Corsa> corse= Facade.getInstance().selezionaCorseByUtente(utentecorrente.getUsername());
+        List<Corsa> corse= Facade.getInstance().selezionaCorseByUtente(user.getUsername());
         //corsadao.selectCorseByUtente(user.getUsername());
         List<CorsaViaggio> corseviaggi = new ArrayList<>();
         corseviaggi.addAll(corse);
@@ -171,7 +170,6 @@ public class CorseController {
         //corsadao.deleteCorsa(corsa);
         Facade.getInstance().cancCorsa(corsa);
         caricaCorseViaggiByUtente(user);
-
     }
 
     public void cancellaViaggio(ViaggioProgrammato viaggio, Utente user) {

@@ -77,7 +77,7 @@ public class VisualizzaCorseViaggiAutista {
         t.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MenuUtente(shuttlelive,autista);
+                new MenuAutista(shuttlelive,autista);
                 f.setVisible(false);
             }
         });

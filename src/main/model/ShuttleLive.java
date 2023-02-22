@@ -109,37 +109,7 @@ public class ShuttleLive {
 
     }
 
-    public Corsa inserisciCorsa(Corsa corsa) throws Exception {
-        corsaCorrente=verificaCampiCorsa(corsa);
-        return corsaCorrente;
-    }
-    public ViaggioProgrammato inserisciViaggio(Autista autista,String targa,String evento,Float prezzo,LocalTime ora_partenza, Date data_partenza, String citta_partenza, String citta_arrivo, String ind_partenza,String ind_arrivo, Integer km_corsa) throws Exception {
-        Address address = new Address(citta_partenza,citta_arrivo,ind_partenza,ind_arrivo,km_corsa);
-        Veicolo veicolo = autista.getVeicoli().get(targa);
-        ViaggioProgrammato viaggio = new ViaggioProgrammato(autista,veicolo,data_partenza,ora_partenza,address,prezzo,evento);
-        viaggio.setPostiDisponibili(veicolo.getN_posti());
-        viaggioCorrente = verificaCampiViaggio(viaggio);
-        return viaggioCorrente;
-    }
 
-    public ViaggioProgrammato verificaCampiViaggio(ViaggioProgrammato corsa) throws Exception {
-             if (corsa.getEvento()==("")||corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || (corsa.getData_partenza() == null) || (corsa.getOra_partenza() == null) || (corsa.getAddress().getKm_corsa() == null)) {
-                throw new Exception("riempire tutti i campi");
-             }
-             //ViaggioProgrammatoDAO viaggiodao=new ViaggioProgrammatoDAO();
-             Facade.getInstance().inserisciViaggioPro(corsa);
-             return corsa;
-        }
-
-
-
-    public Corsa verificaCampiCorsa(Corsa corsa) throws Exception {
-        if (corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza() == null || corsa.getOra_partenza() == null) {
-            throw new Exception("riempire tutti i campi");
-    }
-        Facade.getInstance().insCorsa(corsa);;
-        return corsa;
-    }
 
     public Map<String,Veicolo> veicoliAutista(String autista){
         //VeicoloDao daoveicoli=new VeicoloDao();
@@ -298,13 +268,7 @@ public class ShuttleLive {
         }
     }
 
-    public Corsa creaCorsa(Veicolo veicolo,Autista autista, Utente utente, String c_partenza, String c_arrivo, Date data_partenza, LocalTime ora_partenza, String indirizzopart, String indirizzodest) {
-        int km = (int) Math.floor(Math.random() * (100) + 1);
-        Address address = new Address(c_partenza,c_arrivo,indirizzodest,indirizzopart,km);
-        Corsa corsa = new Corsa(autista,veicolo, data_partenza, ora_partenza, address, utente);
-        corsa.setPrezzo(corsa.getFee());
-        return corsa;
-    }
+
 
 
     public Utente getUtenteCorrente() {return utenteCorrente;}

@@ -35,8 +35,6 @@ public class CercaCorsa extends javax.swing.JFrame {
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
-                ///sistemare la corsa e farla in shuttle live e clcolare anche li sia km che prezzo
-                ///cambiare anche utente,autista ecc
                     System.out.println(autistiDisponibili);
 
 

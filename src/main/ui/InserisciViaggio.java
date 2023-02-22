@@ -44,7 +44,7 @@ public class InserisciViaggio extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    shuttlelive.inserisciViaggio(autista,veicolo.getText(),evento.getText(),Float.parseFloat(prezzo.getText()),LocalTime.parse(oraPartenza.getText()),Date.valueOf(dataViaggio.getText()),cittaPartenza.getText(),luogoEvento.getText(),indPartenza.getText(),indDest.getText(), Integer.parseInt(km.getText()));
+                    controller.inserisciViaggio(autista,veicolo.getText(),evento.getText(),Float.parseFloat(prezzo.getText()),LocalTime.parse(oraPartenza.getText()),Date.valueOf(dataViaggio.getText()),cittaPartenza.getText(),luogoEvento.getText(),indPartenza.getText(),indDest.getText(), Integer.parseInt(km.getText()));
                     new MenuAutista(shuttlelive,autista);
                 } catch (Exception ex) {
                     new InserisciViaggio(shuttlelive,autista);

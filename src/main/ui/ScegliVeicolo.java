@@ -17,9 +17,13 @@ public class ScegliVeicolo {
     private Corsa corsa;
     private JPanel elencoautistiPanel;
 
+    private CorseController controller;
+
     public ScegliVeicolo(ShuttleLive sl, Map<String,Veicolo> veicoli,Autista autista, Utente utente, String c_partenza, String c_arrivo, Date data_partenza, LocalTime ora_partenza, String indirizzopart, String indirizzodest) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
         this.shuttlelive=sl;
         this.veicoliDisp = veicoli;
+        controller = CorseController.getInstance();
+
 
         //JTable tbautisti = new JTable(0,5);
         //DefaultTableModel modelautisti = (DefaultTableModel) tbautisti.getModel();
@@ -68,8 +72,8 @@ public class ScegliVeicolo {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Corsa corsa;
-                    corsa = shuttlelive.creaCorsa(veicolo,autista,utente,c_partenza,c_arrivo,data_partenza,ora_partenza,indirizzopart,indirizzodest);
-                    new MostraCorsaFinale(shuttlelive,corsa);
+                    corsa = controller.creaCorsa(veicolo,autista,utente,c_partenza,c_arrivo,data_partenza,ora_partenza,indirizzopart,indirizzodest);
+                    new MostraCorsaFinale(shuttlelive,corsa,controller);
                     f.setVisible(false);
                 }
             });

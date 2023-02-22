@@ -16,12 +16,9 @@ public class InserisciRecensione extends javax.swing.JFrame{
     private JTextField inseriscivoto;
     private JButton inviaRecensioneButton;
     private JButton tornaIndietroButton;
-    private CorseController controller;
-
     private Utente utente;
     private CorsaViaggio viaggio;
-    public InserisciRecensione(ShuttleLive sl,CorseController cl,CorsaViaggio viag,Utente utent) {
-        this.controller=cl;
+    public InserisciRecensione(ShuttleLive sl,CorsaViaggio viag,Utente utent) {
         this.utente=utent;
         this.viaggio=viag;
         this.shuttlelive = sl;
@@ -38,10 +35,10 @@ public class InserisciRecensione extends javax.swing.JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controller.inserisciRecensione(viaggio,Integer.valueOf(inseriscivoto.getText()), inseriscicommento.getText());
+                    shuttlelive.inserisciRecensione(viaggio,Integer.valueOf(inseriscivoto.getText()), inseriscicommento.getText());
                     new MenuUtente(shuttlelive,utente);
                 } catch (Exception ex) {
-                    new InserisciRecensione(shuttlelive,controller,viaggio, utente);
+                    new InserisciRecensione(shuttlelive,viaggio, utente);
                 }
                 setVisible(false);
             }
@@ -51,7 +48,7 @@ public class InserisciRecensione extends javax.swing.JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new GestisciPrenotazioni(shuttlelive,controller,utente);
+                new GestisciPrenotazioni(shuttlelive,utente);
                 setVisible(false);
 
             }

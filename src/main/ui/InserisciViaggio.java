@@ -10,8 +10,6 @@ import java.time.LocalTime;
 
 public class InserisciViaggio extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
-    private CorseController controller;
-
     private Autista autista;
     private ViaggioProgrammato viaggio;
     private JTextField dataViaggio;
@@ -31,7 +29,6 @@ public class InserisciViaggio extends javax.swing.JFrame {
     public InserisciViaggio(ShuttleLive sl,Autista user) {
         this.shuttlelive=sl;
         this.autista=user;
-        controller=CorseController.getInstance();
         viaggio = new ViaggioProgrammato();
 
         setTitle("InserisciViaggio");
@@ -44,7 +41,7 @@ public class InserisciViaggio extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controller.inserisciViaggio(autista,veicolo.getText(),evento.getText(),Float.parseFloat(prezzo.getText()),LocalTime.parse(oraPartenza.getText()),Date.valueOf(dataViaggio.getText()),cittaPartenza.getText(),luogoEvento.getText(),indPartenza.getText(),indDest.getText(), Integer.parseInt(km.getText()));
+                    shuttlelive.inserisciViaggio(autista,veicolo.getText(),evento.getText(),Float.parseFloat(prezzo.getText()),LocalTime.parse(oraPartenza.getText()),Date.valueOf(dataViaggio.getText()),cittaPartenza.getText(),luogoEvento.getText(),indPartenza.getText(),indDest.getText(), Integer.parseInt(km.getText()));
                     new MenuAutista(shuttlelive,autista);
                 } catch (Exception ex) {
                     new InserisciViaggio(shuttlelive,autista);

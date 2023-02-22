@@ -16,10 +16,9 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
     private Corsa corsa;
     private CorseController controller;
 
-    public MostraCorsaFinale(ShuttleLive sl, Corsa cr, CorseController contr) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
+    public MostraCorsaFinale(ShuttleLive sl, Corsa cr) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
         this.shuttlelive=sl;
         this.corsa = cr;
-        this.controller=contr;
 
         //JTable tbautisti = new JTable(0,5);
         //DefaultTableModel modelautisti = (DefaultTableModel) tbautisti.getModel();
@@ -69,7 +68,7 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        controller.inserisciCorsa(corsa);
+                        shuttlelive.inserisciCorsa(corsa);
                         new MenuUtente(shuttlelive,corsa.getUtente());
                     } catch (Exception ex) {
                         new CercaCorsa(shuttlelive,corsa.getUtente());

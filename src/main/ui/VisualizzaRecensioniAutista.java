@@ -16,10 +16,9 @@ public class VisualizzaRecensioniAutista extends javax.swing.JFrame{
     private JPanel elencoautistiPanel;
     private String autista;
 
-    public VisualizzaRecensioniAutista(ShuttleLive sl, CorseController cl,Utente user, List<Recensione> recen,String autist) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
+    public VisualizzaRecensioniAutista(ShuttleLive sl,Utente user, List<Recensione> recen,String autist) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
         this.shuttlelive=sl;
         this.recensioni = recen;
-        this.controller=cl;
         this.utente=user;
         this.autista=autist;
 

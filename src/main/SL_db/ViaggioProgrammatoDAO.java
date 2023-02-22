@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ViaggioProgrammatoDAO {
-    private CorseController corsacontr;
+
+    private ShuttleLive shuttlelive;
 
     public static ViaggioProgrammatoDAO viaggiodao;
 
@@ -55,7 +56,7 @@ public class ViaggioProgrammatoDAO {
     public List<ViaggioProgrammato> selectViaggiByEventoOrData(String evento, Date data_partenza) {
         List<ViaggioProgrammato> viaggi = new ArrayList();
         String sql = "select * from viaggi_programmati where evento = ? and data_partenza = ?";
-        corsacontr = CorseController.getInstance();
+        shuttlelive = ShuttleLive.getInstance();
         try {
             Connection conn = DBConnect.getConnection();
             if(conn!=null) {
@@ -68,8 +69,8 @@ public class ViaggioProgrammatoDAO {
                 while (rs.next()) {
                     Autista auti = new Autista();
                     Veicolo veic = new Veicolo();
-                    auti = corsacontr.autistaSingoloByName(rs.getString("autista"));
-                    veic=corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
+                    auti = shuttlelive.autistaSingoloByName(rs.getString("autista"));
+                    veic=shuttlelive.veicoloSingoloByName(rs.getString("veicolo"));
                     //veic = auti.getVeicoli().get(rs.getString("veicolo"));
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
                     ViaggioProgrammato viaggio = new ViaggioProgrammato(rs.getInt("ID"),auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")),address,rs.getFloat("prezzo"),rs.getString("evento"), rs.getInt("n_posti_disp"));
@@ -105,7 +106,7 @@ public class ViaggioProgrammatoDAO {
     public List<ViaggioProgrammato> selectViaggioProgrammatoByUtente(String user) {
         String sql = "SELECT * FROM viaggi_programmati join corsa_programmati on viaggi_programmati.ID=corsa_programmati.ID_viaggio where corsa_programmati.utente = ?";
         List<ViaggioProgrammato> viaggi = new ArrayList<>();
-        corsacontr = CorseController.getInstance();
+        shuttlelive = ShuttleLive.getInstance();
         try {
             Connection conn = DBConnect.getConnection();
             if(conn!=null) {
@@ -115,7 +116,7 @@ public class ViaggioProgrammatoDAO {
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
-                    ViaggioProgrammato viaggio = new ViaggioProgrammato(rs.getInt("ID"),corsacontr.autistaSingoloByName(rs.getString("autista")),corsacontr.veicoloSingoloByName(rs.getString("veicolo")),rs.getDate("data_partenza"),LocalTime.parse(rs.getString("ora_partenza")),address, rs.getFloat("prezzo"), rs.getString("evento"),rs.getInt("n_posti_disp"));
+                    ViaggioProgrammato viaggio = new ViaggioProgrammato(rs.getInt("ID"),shuttlelive.autistaSingoloByName(rs.getString("autista")),shuttlelive.veicoloSingoloByName(rs.getString("veicolo")),rs.getDate("data_partenza"),LocalTime.parse(rs.getString("ora_partenza")),address, rs.getFloat("prezzo"), rs.getString("evento"),rs.getInt("n_posti_disp"));
                     viaggi.add(viaggio);
                 }
             }
@@ -129,7 +130,7 @@ public class ViaggioProgrammatoDAO {
     public List<ViaggioProgrammato> selectViaggioProgrammatoByAutista(String autista) {
         String sql = "SELECT * FROM viaggi_programmati where autista = ?";
         List<ViaggioProgrammato> viaggi = new ArrayList<>();
-        corsacontr = CorseController.getInstance();
+        shuttlelive = ShuttleLive.getInstance();
         try {
             Connection conn = DBConnect.getConnection();
             if(conn!=null) {
@@ -139,7 +140,7 @@ public class ViaggioProgrammatoDAO {
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
-                    ViaggioProgrammato viaggio = new ViaggioProgrammato(rs.getInt("ID"),corsacontr.autistaSingoloByName(rs.getString("autista")),corsacontr.veicoloSingoloByName(rs.getString("veicolo")),rs.getDate("data_partenza"),LocalTime.parse(rs.getString("ora_partenza")),address, rs.getFloat("prezzo"), rs.getString("evento"),rs.getInt("n_posti_disp"));
+                    ViaggioProgrammato viaggio = new ViaggioProgrammato(rs.getInt("ID"),shuttlelive.autistaSingoloByName(rs.getString("autista")),shuttlelive.veicoloSingoloByName(rs.getString("veicolo")),rs.getDate("data_partenza"),LocalTime.parse(rs.getString("ora_partenza")),address, rs.getFloat("prezzo"), rs.getString("evento"),rs.getInt("n_posti_disp"));
                     viaggi.add(viaggio);
                 }
             }

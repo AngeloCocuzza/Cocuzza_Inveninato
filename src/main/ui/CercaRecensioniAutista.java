@@ -15,14 +15,12 @@ public class CercaRecensioniAutista extends javax.swing.JFrame {
 
     private Utente utente;
     private List<Recensione> recensioniAutista;
-    private CorseController controller;
     private JButton cercaRecensioni;
     private JTextField autista;
     private JPanel cerca;
     private JButton cercaRecensioniButton;
 
-    public CercaRecensioniAutista(ShuttleLive sl, Utente user, CorseController cl) {
-        this.controller=cl;
+    public CercaRecensioniAutista(ShuttleLive sl, Utente user) {
 
         this.shuttlelive=sl;
         this.utente=user;
@@ -38,10 +36,10 @@ List<Recensione> recensioni;
             public void actionPerformed(ActionEvent e) {
                 try {
                     String autist=autista.getText();
-                     recensioniAutista= controller.selezionaRecensioniAutista(autist);
-                    new VisualizzaRecensioniAutista(shuttlelive,controller,utente,recensioniAutista,autist);
+                     recensioniAutista= shuttlelive.selezionaRecensioniAutista(autist);
+                    new VisualizzaRecensioniAutista(shuttlelive,utente,recensioniAutista,autist);
                 } catch (Exception ex) {
-                    new CercaRecensioniAutista(shuttlelive,utente,controller);
+                    new CercaRecensioniAutista(shuttlelive,utente);
                 }
                 setVisible(false);
 

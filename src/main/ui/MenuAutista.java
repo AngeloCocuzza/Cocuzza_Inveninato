@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 public class MenuAutista extends javax.swing.JFrame {
     private final Autista autista;
     private ShuttleLive shuttlelive;
-    private CorseController controller;
     private JButton renditiDisponibileButton;
     private JButton aggiungiVeicoloButton;
     private JButton inserisciViaggioProgrammatoButton;
@@ -19,7 +18,6 @@ public class MenuAutista extends javax.swing.JFrame {
     private JButton visualizzaStoricoViaggiButton;
 
     public MenuAutista(ShuttleLive sl, Autista auti){
-    controller = CorseController.getInstance();
     this.shuttlelive=sl;
     this.autista=auti;
     setTitle("Menù autista");
@@ -53,7 +51,7 @@ public class MenuAutista extends javax.swing.JFrame {
         visualizzaStoricoViaggiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new VisualizzaCorseViaggiAutista(shuttlelive, controller, autista);
+                new VisualizzaCorseViaggiAutista(shuttlelive, autista);
                 setVisible(false);
             }
         });

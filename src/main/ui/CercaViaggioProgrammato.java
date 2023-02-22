@@ -16,8 +16,6 @@ public class CercaViaggioProgrammato extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
     private Utente utente;
 
-    private CorseController controller;
-
     private List<ViaggioProgrammato> viaggi;
     private JPanel viaggioprogrammato;
     private JTextField evento;
@@ -26,8 +24,6 @@ public class CercaViaggioProgrammato extends javax.swing.JFrame {
     private JLabel eventoLabel;
 
     public CercaViaggioProgrammato(ShuttleLive sl, Utente user) {
-
-        controller = CorseController.getInstance();
         this.shuttlelive = sl;
         this.utente = user;
 
@@ -42,8 +38,8 @@ public class CercaViaggioProgrammato extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    viaggi = controller.selezionaViaggioProgrammato(evento.getText(), Date.valueOf(dataviaggio.getText()));
-                    new ScegliViaggio(shuttlelive,controller,utente,viaggi);
+                    viaggi = shuttlelive.selezionaViaggioProgrammato(evento.getText(), Date.valueOf(dataviaggio.getText()));
+                    new ScegliViaggio(shuttlelive,utente,viaggi);
                 } catch (Exception ex) {
                     new CercaViaggioProgrammato(shuttlelive,utente);
                 }

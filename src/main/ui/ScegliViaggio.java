@@ -18,8 +18,7 @@ public class ScegliViaggio {
 
     private Utente utente;
 
-    public ScegliViaggio(ShuttleLive sl,CorseController ctrl, Utente user, List<ViaggioProgrammato> viag) {
-        this.controller = ctrl;
+    public ScegliViaggio(ShuttleLive sl, Utente user, List<ViaggioProgrammato> viag) {
         this.shuttlelive = sl;
         this.viaggi = viag;
         this.utente = user;
@@ -76,8 +75,8 @@ public class ScegliViaggio {
                     j.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            controller.inserisciCorsaProgrammata(viaggio, utente);
-                            controller.diminuisciPostiDisponibili(viaggio);
+                            shuttlelive.inserisciCorsaProgrammata(viaggio, utente);
+                            shuttlelive.diminuisciPostiDisponibili(viaggio);
                             new MenuUtente(shuttlelive, utente);
                             f.setVisible(false);
                         }

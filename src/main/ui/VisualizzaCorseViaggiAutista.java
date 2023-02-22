@@ -17,8 +17,7 @@ public class VisualizzaCorseViaggiAutista {
     private Autista autista;
 
     private ShuttleLive shuttelive;
-    public VisualizzaCorseViaggiAutista(ShuttleLive sl,CorseController cc, Autista auti) {
-        this.corsecontroller=cc;
+    public VisualizzaCorseViaggiAutista(ShuttleLive sl, Autista auti) {
         this.shuttelive=sl;
         this.autista=auti;
 
@@ -46,7 +45,7 @@ public class VisualizzaCorseViaggiAutista {
 
         List<CorsaViaggio> corseviaggi = new ArrayList<>();
 
-        corseviaggi = corsecontroller.caricaCorseViaggiByAutista(autista);
+        corseviaggi = shuttelive.caricaCorseViaggiByAutista(autista);
 
         if(corseviaggi.isEmpty()) {
             JLabel vuoto = new JLabel("Non ci sono corse");

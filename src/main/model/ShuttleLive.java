@@ -26,6 +26,10 @@ public class ShuttleLive {
     Disponibilita disponibilitaCorrente;
     List<Autista> autistiDisponibiliCorrente;
     Map<String,Veicolo> veicoliAutistaCorrente;
+    List<ViaggioProgrammato> viaggicorrente;
+    Veicolo veicolocorrente;
+    Utente utentecorrente;
+    Autista autistacorrente;
 
     public static ShuttleLive getInstance() {
         if(shuttlelive == null)
@@ -50,7 +54,6 @@ public class ShuttleLive {
 
     public Autista loginAutista(String email,String password) throws Exception {
         autistaCorrente = verificaLoginAutista(email,password);
-        System.out.println(autistaCorrente);
         caricaDati(autistaCorrente);
         return autistaCorrente;
     }
@@ -108,8 +111,6 @@ public class ShuttleLive {
         return autistiDisponibiliCorrente;
 
     }
-
-
 
     public Map<String,Veicolo> veicoliAutista(String autista){
         //VeicoloDao daoveicoli=new VeicoloDao();
@@ -269,7 +270,77 @@ public class ShuttleLive {
     }
 
 
+    public Autista autistaSingoloByName(String autista) {
+        autistacorrente= CorseController.getInstance().autistaSingoloByName(autista);
+        return autistacorrente;
+    }
 
+    public Utente utenteSingoloByName(String utente) {
+        utentecorrente= CorseController.getInstance().utenteSingoloByName(utente);
+        return utentecorrente;
+    }
+
+    public Veicolo veicoloSingoloByName(String veicolo) {
+        veicolocorrente= CorseController.getInstance().veicoloSingoloByName(veicolo);
+        return veicolocorrente;
+    }
+
+    public List<ViaggioProgrammato> selezionaViaggioProgrammato(String evento, java.sql.Date data_partenza) throws Exception {
+        viaggicorrente = CorseController.getInstance().selezionaViaggioProgrammato(evento,data_partenza);
+        return viaggicorrente;
+    }
+
+    public void inserisciCorsaProgrammata(ViaggioProgrammato viaggio,Utente user) {
+        CorseController.getInstance().inserisciCorsaProgrammata(viaggio,user);
+    }
+    public void inserisciRecensione(CorsaViaggio viaggio,Integer voto, String commento) throws Exception {
+        CorseController.getInstance().inserisciRecensione(viaggio,voto,commento);
+
+    }
+    public List<Recensione> selezionaRecensioniAutista(String autista) {
+        List<Recensione> recensioni=CorseController.getInstance().selezionaRecensioniAutista(autista);
+        return recensioni;
+
+    }
+
+    public void diminuisciPostiDisponibili(ViaggioProgrammato viaggio){
+        CorseController.getInstance().diminuisciPostiDisponibili(viaggio);
+    }
+
+    public void aumentaPostiDisponibili(ViaggioProgrammato viaggio){
+        CorseController.getInstance().aumentaPostiDisponibili(viaggio);
+    }
+    public List<CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
+        List<CorsaViaggio> corseviaggi = CorseController.getInstance().caricaCorseViaggiByUtente(user);
+        return corseviaggi;
+    }
+
+    public List<CorsaViaggio> caricaCorseViaggiByAutista(Autista autista) {
+        List<CorsaViaggio> corseviaggi = CorseController.getInstance().caricaCorseViaggiByAutista(autista);
+        return corseviaggi;
+    }
+
+    public void cancellaCorsa(Corsa corsa,Utente user) {
+        CorseController.getInstance().cancellaCorsa(corsa,user);
+    }
+
+    public void cancellaViaggio(ViaggioProgrammato viaggio, Utente user) {
+        CorseController.getInstance().cancellaViaggio(viaggio,user);
+    }
+
+    public Corsa creaCorsa(Veicolo veicolo, Autista autista, Utente utente, String c_partenza, String c_arrivo, java.util.Date data_partenza, LocalTime ora_partenza, String indirizzopart, String indirizzodest) {
+        Corsa corsa = CorseController.getInstance().creaCorsa(veicolo,autista,utente,c_partenza,c_arrivo,data_partenza,ora_partenza,indirizzopart,indirizzodest);
+        return corsa;
+    }
+
+    public Corsa inserisciCorsa(Corsa corsa) throws Exception {
+        corsaCorrente=CorseController.getInstance().inserisciCorsa(corsa);
+        return corsaCorrente;
+    }
+    public ViaggioProgrammato inserisciViaggio(Autista autista, String targa, String evento, Float prezzo, LocalTime ora_partenza, java.util.Date data_partenza, String citta_partenza, String citta_arrivo, String ind_partenza, String ind_arrivo, Integer km_corsa) throws Exception {
+        viaggioCorrente = CorseController.getInstance().inserisciViaggio(autista,targa,evento,prezzo,ora_partenza,data_partenza,citta_partenza,citta_arrivo,ind_partenza,ind_arrivo,km_corsa);
+        return viaggioCorrente;
+    }
 
     public Utente getUtenteCorrente() {return utenteCorrente;}
     public Autista getAutistaCorrente() {return autistaCorrente;}

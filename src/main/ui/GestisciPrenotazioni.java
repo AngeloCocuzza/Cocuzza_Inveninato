@@ -13,12 +13,10 @@ import static model.ShuttleLive.shuttlelive;
 
 public class GestisciPrenotazioni {
 
-    private CorseController corsecontroller;
     private Utente utente;
 
     private ShuttleLive shuttelive;
-    public GestisciPrenotazioni(ShuttleLive sl,CorseController cc, Utente user) {
-        this.corsecontroller=cc;
+    public GestisciPrenotazioni(ShuttleLive sl, Utente user) {
         this.shuttelive=sl;
         this.utente=user;
 
@@ -46,7 +44,7 @@ public class GestisciPrenotazioni {
 
         List<CorsaViaggio> corseviaggi = new ArrayList<>();
 
-        corseviaggi = corsecontroller.caricaCorseViaggiByUtente(utente);
+        corseviaggi = shuttelive.caricaCorseViaggiByUtente(utente);
         for(CorsaViaggio corsa : corseviaggi) {
             //System.out.println(corsa);
         }
@@ -74,7 +72,7 @@ public class GestisciPrenotazioni {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 //RECENSIONE
-                                new InserisciRecensione(shuttlelive,corsecontroller,v,utente);
+                                new InserisciRecensione(shuttlelive,v,utente);
                                 f.setVisible(false);
                             }
                         });
@@ -86,7 +84,7 @@ public class GestisciPrenotazioni {
                         y.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                corsecontroller.cancellaCorsa((Corsa) v,utente);
+                                shuttlelive.cancellaCorsa((Corsa) v,utente);
                                 new MenuUtente(shuttlelive, utente);
                                 f.setVisible(false);
                             }
@@ -109,7 +107,7 @@ public class GestisciPrenotazioni {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 //RECENSIONE
-                                new InserisciRecensione(shuttlelive,corsecontroller,v,utente);
+                                new InserisciRecensione(shuttlelive,v,utente);
                                 f.setVisible(false);
                             }
                         });
@@ -121,8 +119,8 @@ public class GestisciPrenotazioni {
                         g.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                corsecontroller.aumentaPostiDisponibili((ViaggioProgrammato) v);
-                                corsecontroller.cancellaViaggio((ViaggioProgrammato) v,utente);
+                                shuttlelive.aumentaPostiDisponibili((ViaggioProgrammato) v);
+                                shuttlelive.cancellaViaggio((ViaggioProgrammato) v,utente);
                                 new MenuUtente(shuttlelive, utente);
                                 f.setVisible(false);
                             }

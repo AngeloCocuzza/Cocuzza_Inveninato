@@ -18,8 +18,6 @@ public class CorsaDAO {
             System.out.println("Istanza già creata");
         return corsadao;
     }
-
-    private CorseController corsacontr;
     private ShuttleLive shuttlelive;
     public void insertCorsa(Corsa corsa) {
 
@@ -54,7 +52,7 @@ public class CorsaDAO {
     }
 
     public List<Corsa> allCorsa() {
-        corsacontr = CorseController.getInstance();
+        shuttlelive = ShuttleLive.getInstance();
         List<Corsa> allcorsa = new ArrayList<>();
         String sql = "select * from corsa";
 
@@ -68,8 +66,8 @@ public class CorsaDAO {
                     Utente user = new Utente();
                     Autista auti = new Autista();
                     Veicolo veic = new Veicolo();
-                    auti = corsacontr.autistaSingoloByName(rs.getString("autista"));
-                    user = corsacontr.utenteSingoloByName(rs.getString("utente"));
+                    auti = shuttlelive.autistaSingoloByName(rs.getString("autista"));
+                    user = shuttlelive.utenteSingoloByName(rs.getString("utente"));
                     //veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
                     veic = auti.getVeicoli().get(rs.getString("veicolo"));
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
@@ -84,7 +82,7 @@ public class CorsaDAO {
     }
 
     public List<Corsa> selectCorseByUtente(String utente) {
-        corsacontr = CorseController.getInstance();
+        shuttlelive = ShuttleLive.getInstance();
         List<Corsa> allcorsa = new ArrayList<>();
         String sql = "select * from corsa where utente = ?";
 
@@ -99,10 +97,10 @@ public class CorsaDAO {
                     Utente user = new Utente();
                     Autista auti = new Autista();
                     Veicolo veic = new Veicolo();
-                    auti = corsacontr.autistaSingoloByName(rs.getString("autista"));
-                    user = corsacontr.utenteSingoloByName(rs.getString("utente"));
+                    auti = shuttlelive.autistaSingoloByName(rs.getString("autista"));
+                    user = shuttlelive.utenteSingoloByName(rs.getString("utente"));
                     //veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
-                    veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
+                    veic = shuttlelive.veicoloSingoloByName(rs.getString("veicolo"));
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
                     Corsa corsa = new Corsa(rs.getInt("ID"),auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")), address, rs.getFloat("prezzo"), user);
                     System.out.println(corsa);
@@ -116,7 +114,7 @@ public class CorsaDAO {
     }
 
     public List<Corsa> selectCorseByAutista(String autista) {
-        corsacontr = CorseController.getInstance();
+        shuttlelive = ShuttleLive.getInstance();
         List<Corsa> allcorsa = new ArrayList<>();
         String sql = "select * from corsa where autista = ?";
 
@@ -131,10 +129,10 @@ public class CorsaDAO {
                     Utente user = new Utente();
                     Autista auti = new Autista();
                     Veicolo veic = new Veicolo();
-                    auti = corsacontr.autistaSingoloByName(rs.getString("autista"));
-                    user = corsacontr.utenteSingoloByName(rs.getString("utente"));
+                    auti = shuttlelive.autistaSingoloByName(rs.getString("autista"));
+                    user = shuttlelive.utenteSingoloByName(rs.getString("utente"));
                     //veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
-                    veic = corsacontr.veicoloSingoloByName(rs.getString("veicolo"));
+                    veic = shuttlelive.veicoloSingoloByName(rs.getString("veicolo"));
                     Address address = new Address(rs.getString("citta_partenza"),rs.getString("citta_destinazione"),rs.getString("indirizzo_partenza"),rs.getString("indirizzo_destinazione"),rs.getInt("km_corsa"));
                     Corsa corsa = new Corsa(rs.getInt("ID"),auti, veic, rs.getDate("data_partenza"), LocalTime.parse(rs.getString("ora_partenza")), address, rs.getFloat("prezzo"), user);
                     allcorsa.add(corsa);

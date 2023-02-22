@@ -362,16 +362,16 @@ public class Facade {
     }
 
     public List<Disponibilita> caricaDisponibilita() {
-        List<Disponibilita> disp=new ArrayList<>();
+        List<Disponibilita> alldisp=new ArrayList<>();
         try {
-            disp=DisponibilitaDAO.getInstance().allDisponibilita();
+            alldisp=DisponibilitaDAO.getInstance().allDisponibilita();
 
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(" Operazione non andata a buon fine");
         }
-        return disp;
+        return alldisp;
     }
 
     public void salvaDisponibilita(Disponibilita dispo, Autista autista) {

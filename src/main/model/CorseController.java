@@ -95,16 +95,18 @@ public class CorseController {
                 System.out.println("sono qui");
                 throw new Exception("recensione già inserita");
             } else if(Facade.getInstance().recenCorsa((Corsa) viaggio) == null) {
-                Facade.getInstance().insRecensioneC(viaggio);
                 viaggio.setRecensione(review);
+                Facade.getInstance().insRecensioneC(viaggio);
+
             }
         } else if(viaggio instanceof ViaggioProgrammato){
             //RecensioneViaggioDAO recensionedao = new RecensioneViaggioDAO();
             if(Facade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) != null) {
                throw new Exception("recensione già inserita");
             } else if(Facade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) == null){
-                Facade.getInstance().insRecensione(viaggio);
                 viaggio.setRecensione(review);
+                Facade.getInstance().insRecensione(viaggio);
+
             }
         }
 

@@ -76,6 +76,10 @@ public ViaggioProgrammato(){}
         super.setPrezzo(getDiscount(getPrezzo()));
     }
 
+    public void setUtente(Utente utente) {
+        this.utentiPrenotati.add(utente);
+    }
+
     @Override
     public float getDiscount(float prezzo) {
         float discount=0;

@@ -21,7 +21,7 @@ public class VeicoloDao {
             System.out.println("Istanza già creata");
         return veicolodao;
     }
-    public void insertVeicolo(Veicolo veicol) {
+    public void insertVeicolo(Veicolo veicol, Autista autista) {
         //Utente user = new Utente();
         String sql = "insert into veicolo values (?,?,?,?,?,?)";
 
@@ -31,7 +31,7 @@ public class VeicoloDao {
                 System.out.println("connessione con successo");
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setString(1, veicol.getTarga());
-                statement.setString(2, veicol.getAutista());
+                statement.setString(2, autista.getUsername());
                 statement.setString(3, veicol.getMarca());
                 statement.setString(4, veicol.getModello());
                 statement.setString(5, veicol.getColore());

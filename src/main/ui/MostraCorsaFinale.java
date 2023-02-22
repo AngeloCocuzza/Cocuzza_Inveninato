@@ -1,25 +1,23 @@
 package ui;
 
-import model.Corsa;
-import model.ShuttleLive;
-import model.Veicolo;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 public class MostraCorsaFinale extends javax.swing.JFrame {
     private ShuttleLive shuttlelive;
-
-    private Corsa corsa;
     private JPanel elencoautistiPanel;
+    private Corsa corsa;
 
-    public MostraCorsaFinale(ShuttleLive sl, Corsa cor) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
+    public MostraCorsaFinale(ShuttleLive sl, Corsa cr) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
         this.shuttlelive=sl;
-
-        this.corsa = cor;
+        this.corsa = cr;
 
         //JTable tbautisti = new JTable(0,5);
         //DefaultTableModel modelautisti = (DefaultTableModel) tbautisti.getModel();
@@ -30,7 +28,7 @@ public class MostraCorsaFinale extends javax.swing.JFrame {
         JPanel torna = new JPanel();
         JPanel scegli = new JPanel();
         JLabel s = new JLabel("Ecco i dati della tua corsa");
-        JLabel l = new JLabel( "Autista : " + corsa.getAutista().getUsername() + " Utente : " + corsa.getUtente().getUsername() + " Veicolo : " + corsa.getVeicolo().getTarga() +   " Prezzo : " + corsa.getFee() + "");
+        JLabel l = new JLabel( "Autista : " + corsa.getAutista().getUsername() + " Utente : " + corsa.getUtente().getUsername() + " Veicolo : " + corsa.getVeicolo().getTarga() +   " Prezzo : " + corsa.getPrezzo());
         JLabel d = new JLabel(" Data partenza = " + corsa.getData_partenza() + " Tratta : " + corsa.getAddress() + " Ora partenza : " + corsa.getOra_partenza());
         JButton t = new JButton("Torna Indietro");
       torna.add(t);

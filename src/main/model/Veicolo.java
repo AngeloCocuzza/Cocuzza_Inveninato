@@ -17,6 +17,14 @@ public class Veicolo {
         this.n_posti = n_posti;
     }
 
+    public Veicolo(String targa, String marca, String modello, String colore, Integer n_posti) {
+        this.targa = targa;
+        this.marca = marca;
+        this.modello = modello;
+        this.colore = colore;
+        this.n_posti = n_posti;
+    }
+
     public Veicolo() {
     }
 

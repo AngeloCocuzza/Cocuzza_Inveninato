@@ -1,14 +1,13 @@
 package ui;
 
-import model.Autista;
-import model.Corsa;
-import model.ShuttleLive;
-import model.Veicolo;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,10 +17,9 @@ public class ScegliVeicolo {
     private Corsa corsa;
     private JPanel elencoautistiPanel;
 
-    public ScegliVeicolo(ShuttleLive sl, Map<String,Veicolo> veicoli, Corsa cor) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
+    public ScegliVeicolo(ShuttleLive sl, Map<String,Veicolo> veicoli,Autista autista, Utente utente, String c_partenza, String c_arrivo, Date data_partenza, LocalTime ora_partenza, String indirizzopart, String indirizzodest) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
         this.shuttlelive=sl;
         this.veicoliDisp = veicoli;
-        this.corsa = cor;
 
         //JTable tbautisti = new JTable(0,5);
         //DefaultTableModel modelautisti = (DefaultTableModel) tbautisti.getModel();
@@ -34,7 +32,7 @@ public class ScegliVeicolo {
         torna.add(t);
 
         JLabel s = new JLabel("Scegli veicolo");
-        JLabel l = new JLabel("partenza = " + corsa.getAddress().getCitta_partenza() + " arrivo = " + corsa.getAddress().getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + " ora partenza = " + corsa.getOra_partenza());
+        JLabel l = new JLabel("partenza = " + c_partenza + " arrivo = " + c_arrivo + " data partenza = " + data_partenza + " ora partenza = " + ora_partenza);
         //JButton j = new JButton("Scegli");
 
         //bottoni.setSize(10,5);
@@ -69,8 +67,8 @@ public class ScegliVeicolo {
             j.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    corsa.setVeicolo(veicolo);
-                    corsa.setPrezzo(corsa.getFee());
+                    Corsa corsa;
+                    corsa = shuttlelive.creaCorsa(veicolo,autista,utente,c_partenza,c_arrivo,data_partenza,ora_partenza,indirizzopart,indirizzodest);
                     new MostraCorsaFinale(shuttlelive,corsa);
                     f.setVisible(false);
                 }

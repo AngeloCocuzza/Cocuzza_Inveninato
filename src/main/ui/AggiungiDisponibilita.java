@@ -34,9 +34,7 @@ public class AggiungiDisponibilita extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                Disponibilita disp =new Disponibilita(Date.valueOf(datadispo.getText()),LocalTime.parse(orainizio.getText()), LocalTime.parse(orafine.getText()),cittapart.getText()) ;
-
-                shuttlelive.inserisciNuovaDisponibilita(autista, disp);
+                shuttlelive.inserisciNuovaDisponibilita(autista, Date.valueOf(datadispo.getText()),LocalTime.parse(orainizio.getText()), LocalTime.parse(orafine.getText()),cittapart.getText());
                 new MenuAutista(shuttlelive,autista);
             } catch (Exception ex) {
                 new AggiungiDisponibilita(shuttlelive,autista);

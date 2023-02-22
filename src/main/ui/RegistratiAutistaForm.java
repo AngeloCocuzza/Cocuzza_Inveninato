@@ -27,8 +27,8 @@ public class RegistratiAutistaForm extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                try {
-                   Autista autista = new Autista(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
-                   shuttlelive.inserisciNuovoAutista(autista);
+                   Autista autista;
+                   autista = shuttlelive.inserisciNuovoAutista(username.getText(),email.getText(),String.copyValueOf(password.getPassword()),nome.getText(),cognome.getText(),telefono.getText(), Date.valueOf(data.getText()));
                    new RegistraPatente(shuttlelive,autista);
                } catch (Exception ex) {
                    System.out.println(ex.getMessage());

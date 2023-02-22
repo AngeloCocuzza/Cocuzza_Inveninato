@@ -18,6 +18,13 @@ public class Patente {
         this.livello = livello;
     }
 
+    public Patente(String codice, Date data_conseguimento, Date data_scadenza, String livello) {
+        this.codice = codice;
+        this.data_conseguimento = data_conseguimento;
+        this.data_scadenza = data_scadenza;
+        this.livello = livello;
+    }
+
     public Patente() {
 
     }

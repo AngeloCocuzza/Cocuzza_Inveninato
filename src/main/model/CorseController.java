@@ -72,16 +72,18 @@ public class CorseController {
     }
 
     public void inserisciCorsaProgrammata(ViaggioProgrammato viaggio,Utente user) {
-        //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
-        List<Utente> utenti = viaggio.getUtentiPrenotati();
-        utenti.add(user);
-        viaggio.setUtentiPrenotati(utenti);
-        System.out.println("Lista" + utenti);
+        viaggio.setUtente(user);
         Facade.getInstance().inserisciCProgrammata(viaggio.getID(),user.getUsername());
-        //viaggiodao.insertCorsaProgrammata(viaggio.getID(),user.getUsername());
     }
-    public void inserisciRecensione(CorsaViaggio viaggio) throws Exception {
+    public void inserisciRecensione(CorsaViaggio viaggio,Integer voto, String commento) throws Exception {
         //Recensione vuota = new Recensione(null,"");
+        if(commento.equals("") || voto==null) {
+            throw new Exception("riempire tutti i campi");
+        }
+        if(voto>5 || voto<0) {
+            throw new Exception("il voto deve essere compreso tra 1 e 5");
+        }
+        Recensione review = new Recensione(voto,commento);
         if (viaggio instanceof Corsa) {
             //RecensioneCorsaDAO recensionedao = new RecensioneCorsaDAO();
             if (Facade.getInstance().recenCorsa((Corsa) viaggio) != null){
@@ -89,6 +91,7 @@ public class CorseController {
                 throw new Exception("recensione già inserita");
             } else if(Facade.getInstance().recenCorsa((Corsa) viaggio) == null) {
                 Facade.getInstance().insRecensioneC(viaggio);
+                viaggio.setRecensione(review);
             }
         } else if(viaggio instanceof ViaggioProgrammato){
             //RecensioneViaggioDAO recensionedao = new RecensioneViaggioDAO();
@@ -96,7 +99,7 @@ public class CorseController {
                throw new Exception("recensione già inserita");
             } else if(Facade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) == null){
                 Facade.getInstance().insRecensione(viaggio);
-                //recensionedao.insertRecensione(viaggio);
+                viaggio.setRecensione(review);
             }
         }
 
@@ -117,7 +120,6 @@ public class CorseController {
 
 
     public List<ViaggioProgrammato> verificaCampiViaggiProgrammato(String evento, java.sql.Date data_partenza) throws Exception {
-        //ViaggioProgrammatoDAO viaggidao = new ViaggioProgrammatoDAO();
         List<ViaggioProgrammato> viaggi = new ArrayList();
 
         if(evento.equals("") || data_partenza==null) {
@@ -132,12 +134,14 @@ public class CorseController {
     }
 
     public void diminuisciPostiDisponibili(ViaggioProgrammato viaggio){
-        //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         viaggio.setPostiDisponibili(viaggio.getVeicolo().getN_posti()-1);
-        Facade.getInstance().aggiornaPostiDisponibili(viaggio.getID());
-        //viaggiodao.updatePostiDisponibili(viaggio.getID());
+        Facade.getInstance().aggiornaDimPostiDisponibili(viaggio.getID());
     }
 
+    public void aumentaPostiDisponibili(ViaggioProgrammato viaggio){
+        viaggio.setPostiDisponibili(viaggio.getVeicolo().getN_posti()+1);
+        Facade.getInstance().aggiornaAumPostiDisponibili(viaggio.getID());
+    }
     public List<CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
         //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         //CorsaDAO corsadao = new CorsaDAO();

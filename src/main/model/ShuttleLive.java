@@ -36,12 +36,14 @@ public class ShuttleLive {
     }
 
 
-    public Autista inserisciNuovoAutista(Autista autista) throws Exception {
+    public Autista inserisciNuovoAutista(String username, String email, String password,String nome,String cognome,String telefono,Date data_nascita) throws Exception {
+        Autista autista = new Autista(username,email,password,nome,cognome,telefono,data_nascita);
         autistaCorrente = verificaCampiAutista(autista);
-        System.out.println(autistaCorrente);
+        //System.out.println(autistaCorrente);
         return autistaCorrente;
     }
-    public Utente inserisciNuovoUtente(Utente utente) throws Exception {
+    public Utente inserisciNuovoUtente(String username, String email, String password,String nome,String cognome,String telefono,Date data_nascita) throws Exception {
+        Utente utente = new Utente(username,email,password,nome,cognome,telefono,data_nascita);
         utenteCorrente = verificaCampiUtente(utente);
         return utenteCorrente;
     }
@@ -54,52 +56,44 @@ public class ShuttleLive {
     }
 
     public void caricaDati(Autista autista) {
-        PatenteDao patedao = new PatenteDao();
-        VeicoloDao veicdao = new VeicoloDao();
-        DisponibilitaDAO dispdao = new DisponibilitaDAO();
-        if(!veicdao.allVeicoloAutista(autista.getUsername()).isEmpty()) {
-            autista.setVeicoli(veicdao.allVeicoloAutista(autista.getUsername()));
-            System.out.println(autista);
-
+        if(!Facade.getInstance().tuttiVeicoloAutista(autista.getUsername()).isEmpty()) {
+            autista.setVeicoli(Facade.getInstance().tuttiVeicoloAutista(autista.getUsername()));
         }
         if(Facade.getInstance().trovaPatenteDaAutista(autista.getUsername()) != null) {
             autista.setPatente(Facade.getInstance().trovaPatenteDaAutista(autista.getUsername()));
-            System.out.println(autista);
         }
         if(!Facade.getInstance().caricaDisponibilitaAutista(autista.getUsername()).isEmpty()) {
             autista.setDisponibilita(Facade.getInstance().caricaDisponibilitaAutista(autista.getUsername()));
-            System.out.println(autista);
         }
-        System.out.println(autista);
     }
 
     public Utente loginUtente(String email,String password) throws Exception {
         utenteCorrente = verificaLoginUtente(email, password);
         return utenteCorrente;
     }
-    public Patente inserisciPatente(Patente patente) throws Exception {
-        Patente patent = new Patente(patente.getCodice(),patente.getAutista(),patente.getData_conseguimento(),patente.getData_scadenza(), patente.getLivello());
-        System.out.println(patent);
-        patenteCorrente = verificaPatente(patent);
+    public Patente inserisciPatente(String codice,Date data_condeguimento, Date data_scadenza,String livello,Autista autista) throws Exception {
+        Patente patente = new Patente(codice,data_condeguimento,data_scadenza,livello);
+        patenteCorrente = verificaPatente(patente,autista);
         return patenteCorrente;
 
     }
-    public Patente verificaPatente(Patente patente) throws Exception {
+    public Patente verificaPatente(Patente patente,Autista autista) throws Exception {
         if(patente.getCodice().equals((""))||patente.getData_conseguimento()==null||patente.getData_scadenza()==null||patente.getLivello().equals(""))
             throw new Exception("riempire tutti i campi");
-            //PatenteDao daopatent = new PatenteDao();
 
-            Facade.getInstance().salvaPatente(patente);
+            Facade.getInstance().salvaPatente(patente,autista);
+            autista.setPatente(patente);
             patenteCorrente=patente;
             return patenteCorrente;
-
     }
-    public Veicolo inserisciVeicolo(Veicolo veicolo) throws Exception {
-        veicoloCorrente= verificaCampiVeicolo(veicolo);
+    public Veicolo inserisciVeicolo(String targa,String marca, String modello, String colore, Integer n_posti,Autista autista) throws Exception {
+        Veicolo veicolo = new Veicolo(targa,marca,modello,colore,n_posti);
+        veicoloCorrente= verificaCampiVeicolo(veicolo,autista);
         return veicoloCorrente;
     }
 
-    public Disponibilita inserisciNuovaDisponibilita(Autista autista,Disponibilita disp) throws Exception {
+    public Disponibilita inserisciNuovaDisponibilita(Autista autista,Date giorno_disp, LocalTime ora_inizio,LocalTime ora_fine,String citta_partenza) throws Exception {
+        Disponibilita disp = new Disponibilita(giorno_disp,ora_inizio,ora_fine,citta_partenza);
         disponibilitaCorrente = verificaDisponibilita(autista, disp);
         return disponibilitaCorrente;
     }
@@ -117,28 +111,24 @@ public class ShuttleLive {
 
     public Corsa inserisciCorsa(Corsa corsa) throws Exception {
         corsaCorrente=verificaCampiCorsa(corsa);
-
         return corsaCorrente;
     }
-    public ViaggioProgrammato inserisciViaggio(ViaggioProgrammato viaggio) throws Exception {
+    public ViaggioProgrammato inserisciViaggio(Autista autista,String targa,String evento,Float prezzo,LocalTime ora_partenza, Date data_partenza, String citta_partenza, String citta_arrivo, String ind_partenza,String ind_arrivo, Integer km_corsa) throws Exception {
+        Address address = new Address(citta_partenza,citta_arrivo,ind_partenza,ind_arrivo,km_corsa);
+        Veicolo veicolo = autista.getVeicoli().get(targa);
+        ViaggioProgrammato viaggio = new ViaggioProgrammato(autista,veicolo,data_partenza,ora_partenza,address,prezzo,evento);
+        viaggio.setPostiDisponibili(veicolo.getN_posti());
         viaggioCorrente = verificaCampiViaggio(viaggio);
         return viaggioCorrente;
     }
 
     public ViaggioProgrammato verificaCampiViaggio(ViaggioProgrammato corsa) throws Exception {
-
-
              if (corsa.getEvento()==("")||corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || (corsa.getData_partenza() == null) || (corsa.getOra_partenza() == null) || (corsa.getAddress().getKm_corsa() == null)) {
                 throw new Exception("riempire tutti i campi");
              }
-
-             ViaggioProgrammatoDAO viaggiodao=new ViaggioProgrammatoDAO();
-             ViaggioProgrammato viag = new ViaggioProgrammato();
-             viag=corsa;
-             Facade.getInstance().inserisciViaggioPro(viag);
-             return viag;
-
-
+             //ViaggioProgrammatoDAO viaggiodao=new ViaggioProgrammatoDAO();
+             Facade.getInstance().inserisciViaggioPro(corsa);
+             return corsa;
         }
 
 
@@ -147,11 +137,7 @@ public class ShuttleLive {
         if (corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza() == null || corsa.getOra_partenza() == null) {
             throw new Exception("riempire tutti i campi");
     }
-        //CorsaDAO corsadao = new CorsaDAO();
-        Corsa cr = new Corsa();
-        cr=corsa;
-        Facade.getInstance().insCorsa(cr);
-        //corsadao.insertCorsa(cr);
+        Facade.getInstance().insCorsa(corsa);;
         return corsa;
     }
 
@@ -211,35 +197,44 @@ public class ShuttleLive {
         }
     }
 
-    public Veicolo verificaCampiVeicolo(Veicolo veicolo) throws Exception {
+    public Veicolo verificaCampiVeicolo(Veicolo veicolo,Autista autista) throws Exception {
 
-        //VeicoloDao daoveicol = new VeicoloDao();
-
+        ////passare sia veicolo che autista e farle come disponibilita
         Map<String,Veicolo> allveicolo = new HashMap<>();
-        allveicolo = Facade.getInstance().tuttiVeicoloAutista();
-                //daoveicol.allVeicolo();
+        allveicolo = Facade.getInstance().tuttiVeicolo();
+
         if(veicolo.getMarca().equals("") || veicolo.getModello().equals("") || veicolo.getColore().equals("") || veicolo.getN_posti()==null) {
+            System.out.println("riempire");
             throw new Exception("riempire tutti i campi");
         }
         if(veicolo.getN_posti()<0) {
+            System.out.println("posti negativi");
             throw new Exception("il numero dei posti non può essere negativo");
         }
         if (veicolo.getTarga().length() != 7) {
             System.out.println("la targa deve essere di 7 caratteri");
             throw new Exception("targa non valida");
         } else {
-            for (Veicolo veico : allveicolo.values()) {
-                if (veico.getTarga().equals(veicolo.getTarga()) == true) {
-                    System.out.println("targa già presente");
-                    throw new Exception("veicolo già registrato");
+            if(!allveicolo.isEmpty()) {
+                for (Veicolo veico : allveicolo.values()) {
+                    if (veico.getTarga().equals(veicolo.getTarga()) == true) {
+                        System.out.println("targa già presente");
+                        throw new Exception("veicolo già registrato");
+                    }
                 }
             }
-            Veicolo veicol = veicolo;
-            System.out.println(veicol);
-            Facade.getInstance().inserisciVeicolo(veicol);
-            //aoveicol.insertVeicolo(veicol);
-            return veicol;
+            Map<String,Veicolo> veicoli = new HashMap<>();
+            if(autista.getVeicoli()==null){
+                veicoli.put(veicolo.getTarga(),veicolo);
+                autista.setVeicoli(veicoli);
+                Facade.getInstance().inserisciVeicolo(veicolo, autista);
+            } else {
+                autista.setVeicolo(veicolo);
+                System.out.println(autista.getVeicoli());
+                Facade.getInstance().inserisciVeicolo(veicolo, autista);
+            }
         }
+        return veicolo;
     }
 
     public Autista verificaLoginAutista(String email, String password) throws Exception {
@@ -297,11 +292,20 @@ public class ShuttleLive {
                     throw new Exception("data già occupata");
                 }
             }
-            Disponibilita dispo = disp;
-            Facade.getInstance().salvaDisponibilita(dispo, autista);
-            return dispo;
+            autista.setDisponibilitaS(disp);
+            Facade.getInstance().salvaDisponibilita(disp, autista);
+            return disp;
         }
     }
+
+    public Corsa creaCorsa(Veicolo veicolo,Autista autista, Utente utente, String c_partenza, String c_arrivo, Date data_partenza, LocalTime ora_partenza, String indirizzopart, String indirizzodest) {
+        int km = (int) Math.floor(Math.random() * (100) + 1);
+        Address address = new Address(c_partenza,c_arrivo,indirizzodest,indirizzopart,km);
+        Corsa corsa = new Corsa(autista,veicolo, data_partenza, ora_partenza, address, utente);
+        corsa.setPrezzo(corsa.getFee());
+        return corsa;
+    }
+
 
     public Utente getUtenteCorrente() {return utenteCorrente;}
     public Autista getAutistaCorrente() {return autistaCorrente;}

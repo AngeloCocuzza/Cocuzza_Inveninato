@@ -20,10 +20,9 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
     private Corsa corsa;
     private JPanel elencoautistiPanel;
 
-    public AutistiDispCorsaCorrente(ShuttleLive sl, List<Autista> autisti, Corsa cor) {//String partenza, String arrivo, Date data_partenza, LocalTime ora_partenza) {
+    public AutistiDispCorsaCorrente(ShuttleLive sl, List<Autista> autisti, Utente utente, String c_partenza,String c_arrivo,Date data_partenza,LocalTime ora_partenza,String indirizzopart, String indirizzodest ) {
         this.shuttlelive=sl;
         this.autistiDisponibili = autisti;
-        this.corsa = cor;
 
         JFrame f = new JFrame();
         //JLabel l = new JLabel();
@@ -46,7 +45,7 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
         JPanel scegli = new JPanel();
         JPanel torna = new JPanel();
         JLabel s = new JLabel("Scegli autista");
-        JLabel l = new JLabel("partenza = " + corsa.getAddress().getCitta_partenza() + " arrivo = " + corsa.getAddress().getCitta_destinazione() + " data partenza = " + corsa.getData_partenza() + " ora partenza = " + corsa.getOra_partenza());
+        JLabel l = new JLabel("partenza = " + c_partenza + " arrivo = " + c_arrivo + " data partenza = " + data_partenza + " ora partenza = " + ora_partenza);
         JButton t = new JButton("Torna Indietro");
 
         //bottoni.setSize(10,5);
@@ -73,9 +72,8 @@ public class AutistiDispCorsaCorrente extends javax.swing.JFrame {
                 j.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        corsa.setAutista(autista);
                         veicoli = shuttlelive.veicoliAutista(autista.getUsername());
-                        new ScegliVeicolo(shuttlelive, veicoli, corsa);
+                        new ScegliVeicolo(shuttlelive, veicoli, autista,utente, c_partenza, c_arrivo, data_partenza, ora_partenza, indirizzopart, indirizzodest);
                         f.setVisible(false);
                     }
                 });

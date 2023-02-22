@@ -24,9 +24,9 @@ public class Facade {
             System.out.println("Istanza già creata");
         return facade;
     }
-    public void salvaPatente(Patente patente) {
+    public void salvaPatente(Patente patente, Autista autista) {
         try {
-            PatenteDao.getInstance().insertPatente(patente);
+            PatenteDao.getInstance().insertPatente(patente,autista);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(" Operazione non andata a buon fine");
@@ -116,9 +116,18 @@ public class Facade {
         return viaggi;
     }
 
-    public void aggiornaPostiDisponibili(Integer id) {
+    public void aggiornaDimPostiDisponibili(Integer id) {
         try {
-            ViaggioProgrammatoDAO.getInstance().updatePostiDisponibili(id);
+            ViaggioProgrammatoDAO.getInstance().updateDimPostiDisponibili(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(" Operazione non andata a buon fine");
+        }
+    }
+
+    public void aggiornaAumPostiDisponibili(Integer id) {
+        try {
+            ViaggioProgrammatoDAO.getInstance().updateAumPostiDisponibili(id);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(" Operazione non andata a buon fine");
@@ -136,9 +145,9 @@ public class Facade {
 
     /////veicolo/////
 
-    public void inserisciVeicolo(Veicolo veicol) {
+    public void inserisciVeicolo(Veicolo veicol,Autista autista) {
         try {
-            VeicoloDao.getInstance().insertVeicolo(veicol);
+            VeicoloDao.getInstance().insertVeicolo(veicol,autista);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(" Operazione non andata a buon fine");
@@ -156,7 +165,7 @@ public class Facade {
         return veicoli;
     }
 
-    public Map<String,Veicolo> tuttiVeicoloAutista() {
+    public Map<String,Veicolo> tuttiVeicolo() {
         Map<String, Veicolo> veicoli = new HashMap<>();
         try {
             veicoli=VeicoloDao.getInstance().allVeicolo();

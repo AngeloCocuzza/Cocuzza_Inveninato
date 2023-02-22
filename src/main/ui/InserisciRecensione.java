@@ -38,10 +38,7 @@ public class InserisciRecensione extends javax.swing.JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Recensione review=new Recensione(Integer.parseInt(inseriscivoto.getText()), inseriscicommento.getText());
-                    viaggio.setRecensione(review);
-                    System.out.println(viaggio);
-                    controller.inserisciRecensione(viaggio);
+                    controller.inserisciRecensione(viaggio,Integer.valueOf(inseriscivoto.getText()), inseriscicommento.getText());
                     new MenuUtente(shuttlelive,utente);
                 } catch (Exception ex) {
                     new InserisciRecensione(shuttlelive,controller,viaggio, utente);

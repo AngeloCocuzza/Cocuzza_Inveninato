@@ -1,7 +1,7 @@
 package model;
 
 public class Recensione {
-    private int voto;
+    private Integer voto;
     private String commento;
 
     public Recensione(Integer voto, String commento) {
@@ -12,11 +12,11 @@ public class Recensione {
     public Recensione() {
     }
 
-    public int getVoto() {
+    public Integer getVoto() {
         return voto;
     }
 
-    public void setVoto(int voto) {
+    public void setVoto(Integer voto) {
         this.voto = voto;
     }
 

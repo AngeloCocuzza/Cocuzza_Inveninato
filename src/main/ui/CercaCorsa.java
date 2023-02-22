@@ -20,7 +20,6 @@ public class CercaCorsa extends javax.swing.JFrame {
     public CercaCorsa(ShuttleLive sl,Utente user) {
         this.shuttlelive=sl;
         this.utente=user;
-         corsa=new Corsa();
 
         setTitle("CercaCorsa");
         setContentPane(cercaCorsaPanel);
@@ -36,14 +35,12 @@ public class CercaCorsa extends javax.swing.JFrame {
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
-                    corsa.setUtente(shuttlelive.getUtenteCorrente());
+                ///sistemare la corsa e farla in shuttle live e clcolare anche li sia km che prezzo
+                ///cambiare anche utente,autista ecc
                     System.out.println(autistiDisponibili);
-                    int km = (int) Math.floor(Math.random() * (100) + 1);
-                    corsa.setAddress(new Address(partenza.getText(), arrivo.getText(), indirizzopart.getText(), indirizzodest.getText(), km));
-                    corsa.setData_partenza(Date.valueOf(dataPartenza.getText()));
-                    corsa.setOra_partenza(LocalTime.parse(oraPartenza.getText()));
 
-                    new AutistiDispCorsaCorrente(shuttlelive, autistiDisponibili, corsa);//partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()));
+
+                    new AutistiDispCorsaCorrente(shuttlelive, autistiDisponibili,utente,partenza.getText(),arrivo.getText(),Date.valueOf(dataPartenza.getText()),LocalTime.parse(oraPartenza.getText()),indirizzopart.getText(), indirizzodest.getText());
                     setVisible(false);
             }
         });

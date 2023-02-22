@@ -19,8 +19,8 @@ public class Corsa extends CorsaViaggio implements Discount {
         this.utente = utente;
     }
 
-    public Corsa(Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo, Utente utente) {
-        super(autista, veicolo, data_partenza, ora_partenza, address, prezzo);
+    public Corsa(Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, Utente utente) {
+        super(autista, veicolo, data_partenza, ora_partenza, address);
         this.utente = utente;
     }
 
@@ -32,11 +32,18 @@ public class Corsa extends CorsaViaggio implements Discount {
 
 
 
+
+
     public Corsa(Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address) {
         super(veicolo,data_partenza,ora_partenza,address);
     }
 
     public Corsa() {
+    }
+
+    public Corsa(Autista autista, Veicolo veicolo, Date data_partenza, LocalTime ora_partenza, Address address, float prezzo, Utente utente) {
+        super(autista, veicolo, data_partenza, ora_partenza, address, prezzo);
+        this.utente = utente;
     }
 
     public Utente getUtente() {

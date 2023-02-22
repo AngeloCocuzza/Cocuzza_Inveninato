@@ -121,6 +121,7 @@ public class GestisciPrenotazioni {
                         g.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                corsecontroller.aumentaPostiDisponibili((ViaggioProgrammato) v);
                                 corsecontroller.cancellaViaggio((ViaggioProgrammato) v,utente);
                                 new MenuUtente(shuttlelive, utente);
                                 f.setVisible(false);

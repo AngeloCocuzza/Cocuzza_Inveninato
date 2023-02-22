@@ -73,6 +73,10 @@ public class Autista extends Utente{
         this.veicoli.putIfAbsent(veicolo.getTarga(),veicolo);
     }
 
+    public void setDisponibilitaS(Disponibilita disp) {
+        this.disponibilita.add(disp);
+    }
+
     @Override
     public String toString() {
         return "Autista{" +
@@ -81,4 +85,6 @@ public class Autista extends Utente{
                 ", disponibilita=" + disponibilita +
                 '}';
     }
+
+
 }

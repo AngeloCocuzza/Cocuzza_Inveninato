@@ -39,13 +39,7 @@ public class RegistraPatente extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Patente patente=new Patente(codice.getText(),autista.getUsername(),Date.valueOf(data_conseguimento.getText()),Date.valueOf(data_scadenza.getText()), livello.getText());
-                    Map<String, Veicolo> veic = new HashMap<>();
-                    autista.setVeicoli(veic);
-
-                    shuttlelive.inserisciPatente(patente);
-                    autista.setPatente(patente);
-
+                    shuttlelive.inserisciPatente(codice.getText(),Date.valueOf(data_conseguimento.getText()),Date.valueOf(data_scadenza.getText()), livello.getText(),autista);
                     new RegistraVeicolo(shuttlelive,autista);
                 } catch (Exception ex) {
                     new RegistraPatente(shuttlelive,autista);

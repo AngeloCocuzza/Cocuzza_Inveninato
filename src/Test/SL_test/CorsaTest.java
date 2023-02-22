@@ -136,25 +136,25 @@ class CorsaTest {
         corsa.setRecensione(recensione);
         viaggio.setRecensione(recensione);
         try {
-            controller.inserisciRecensione(corsa);
+            controller.inserisciRecensione(corsa,recensione);
         } catch (Exception e) {
             fail("Unexpected exception");
         }
         try {
-            controller.inserisciRecensione(viaggio);
+            controller.inserisciRecensione(viaggio,recensione);
         } catch (Exception e) {
             fail("Unexpected exception");
         }
 
         ///errore inserimento
         try {
-            controller.inserisciRecensione(corsa);
+            controller.inserisciRecensione(corsa,recensione);
             fail("Expected exception");
         } catch (Exception e) {
             assertEquals(e.getMessage(),"recensione già inserita");
         }
         try {
-            controller.inserisciRecensione(viaggio);
+            controller.inserisciRecensione(viaggio,recensione);
             fail("Expected exception");
         } catch (Exception e) {
             assertEquals(e.getMessage(),"recensione già inserita");

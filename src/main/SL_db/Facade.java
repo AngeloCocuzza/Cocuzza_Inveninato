@@ -197,7 +197,7 @@ public class Facade {
         }
     }
 
-    public List<Recensione> tuttiRecensioniAutista(String autista) {
+    public List<Recensione> tuttiRecensioniAutistaViaggio(String autista) {
         List<Recensione> listaRecen = new ArrayList<>();
         try {
             listaRecen=RecensioneViaggioDAO.getInstance().allRecensioniAutista(autista);
@@ -230,7 +230,7 @@ public class Facade {
         }
     }
 
-    public List<Recensione> tuttiRecensioniAutistaC(String autista) {
+    public List<Recensione> tuttiRecensioniAutistaCorsa(String autista) {
         List<Recensione> listaRecen = new ArrayList<>();
         try {
             listaRecen=RecensioneCorsaDAO.getInstance().allRecensioniAutista(autista);

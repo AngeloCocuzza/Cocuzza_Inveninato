@@ -28,6 +28,10 @@ public class CorseController {
 
     Map<String,CorsaViaggio> allviaggi;
 
+    Corsa corsacorrente;
+
+    public Corsa getCorsaCorrente() {return corsaCorrente;}
+
 
     public Utente getUtentecorrente() {
         return utentecorrente;
@@ -39,6 +43,10 @@ public class CorseController {
 
     public Veicolo getVeicolocorrente() {
         return veicolocorrente;
+    }
+
+    public ViaggioProgrammato getViaggioCorrente() {
+        return viaggioCorrente;
     }
 
     public List<ViaggioProgrammato> getViaggicorrente() {
@@ -115,11 +123,11 @@ public class CorseController {
         List<Recensione> recensioni=new ArrayList<>();
 
         //RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
-        recensioni=Facade.getInstance().tuttiRecensioniAutistaC(autista);
+        recensioni=Facade.getInstance().tuttiRecensioniAutistaCorsa(autista);
         //recensionecorsadao.allRecensioniAutista(autista);
 
        // RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
-        recensioni.addAll(Facade.getInstance().tuttiRecensioniAutista(autista));
+        recensioni.addAll(Facade.getInstance().tuttiRecensioniAutistaViaggio(autista));
                 //recensioneviaggiodao.allRecensioniAutista(autista));
         return recensioni;
 
@@ -141,12 +149,12 @@ public class CorseController {
     }
 
     public void diminuisciPostiDisponibili(ViaggioProgrammato viaggio){
-        viaggio.setPostiDisponibili(viaggio.getVeicolo().getN_posti()-1);
+        viaggio.setPostiDisponibili(viaggio.getPostiDisponibili()-1);
         Facade.getInstance().aggiornaDimPostiDisponibili(viaggio.getID());
     }
 
     public void aumentaPostiDisponibili(ViaggioProgrammato viaggio){
-        viaggio.setPostiDisponibili(viaggio.getVeicolo().getN_posti()+1);
+        viaggio.setPostiDisponibili(viaggio.getPostiDisponibili()+1);
         Facade.getInstance().aggiornaAumPostiDisponibili(viaggio.getID());
     }
     public List<CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
@@ -196,7 +204,7 @@ public class CorseController {
         Address address = new Address(c_partenza,c_arrivo,indirizzodest,indirizzopart,getKm());
         Corsa corsa = new Corsa(autista,veicolo, data_partenza, ora_partenza, address, utente);
         corsa.setPrezzo(corsa.getFee());
-        return corsa;
+        return corsacorrente=corsa;
     }
 
     public Integer getKm() {

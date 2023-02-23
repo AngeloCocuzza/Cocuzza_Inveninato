@@ -11,7 +11,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -128,36 +130,45 @@ class CorsaTest {
     @Test
     void testinserisciRecensione() {
         CorseController controller=CorseController.getInstance();
-        Recensione recensione = new Recensione(5,"buona");
         Utente user=new Utente("antonio","antonio@hotmail.it","antonio99","antonio","inveninato","3288323456",java.sql.Date.valueOf("1999-05-30"));
         Address indirizzo=new Address("Catania","Pisa","via Gabriele d'annunzio","via ortdegli ulivi 7",300);
         CorsaViaggio viaggio=new ViaggioProgrammato(1,controller.autistaSingoloByName("antonio"),controller.veicoloSingoloByName("xy325fj"),java.sql.Date.valueOf("2023-04-04"), LocalTime.parse("16:00:00"),indirizzo,10,"concerto Ligabue",50);
         CorsaViaggio corsa=new Corsa(1,controller.autistaSingoloByName("antonio"),controller.veicoloSingoloByName("xy325fj"), java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"), indirizzo, 300, user);
-        corsa.setRecensione(recensione);
-        viaggio.setRecensione(recensione);
         try {
-            controller.inserisciRecensione(corsa,recensione);
+            controller.inserisciRecensione(corsa,5,"buono");
         } catch (Exception e) {
             fail("Unexpected exception");
         }
         try {
-            controller.inserisciRecensione(viaggio,recensione);
+            controller.inserisciRecensione(viaggio,5,"buono");
         } catch (Exception e) {
             fail("Unexpected exception");
         }
 
         ///errore inserimento
         try {
-            controller.inserisciRecensione(corsa,recensione);
+            controller.inserisciRecensione(corsa,10,"buono");
             fail("Expected exception");
         } catch (Exception e) {
-            assertEquals(e.getMessage(),"recensione già inserita");
+            assertEquals(e.getMessage(),"il voto deve essere compreso tra 1 e 5");
         }
         try {
-            controller.inserisciRecensione(viaggio,recensione);
+            controller.inserisciRecensione(viaggio,10,"buono");
             fail("Expected exception");
         } catch (Exception e) {
-            assertEquals(e.getMessage(),"recensione già inserita");
+            assertEquals(e.getMessage(),"il voto deve essere compreso tra 1 e 5");
+        }
+        try {
+            controller.inserisciRecensione(corsa,10,"");
+            fail("Expected exception");
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
+        }
+        try {
+            controller.inserisciRecensione(viaggio,10,"");
+            fail("Expected exception");
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
         }
 
     }
@@ -168,6 +179,78 @@ class CorsaTest {
         System.out.println(controller.selezionaRecensioniAutista("antonio"));
     }
 
+    @Test
+    void creaCorsa() {
+        CorseController controller = CorseController.getInstance();
+        Utente utente = new Utente("antonio", "antonio@hotmail.it", "antonio99", "antonio", "inveninato", "3288323456", java.sql.Date.valueOf("1999-05-30"));
+        Autista autista = new Autista("antonio", "antonio@hotmail.it", "antonio99", "antonio", "inveninato", "3288323456", java.sql.Date.valueOf("1999-05-30"));
+        Veicolo veicolo = new Veicolo("xy325fj", "bmw", "x3", "nero", Integer.valueOf("50"));
+        Corsa corsa;
+        try{
+            corsa = controller.creaCorsa(veicolo,autista,utente,"Catania","Pisa",java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"),"via Gabriele d'annunzio","via ortdegli ulivi 7");
+            assertNotNull(corsa);
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+    }
+
+    @Test
+    void testInserisciCorsa() {
+        CorseController controller = CorseController.getInstance();
+        Utente utente = new Utente("antonio", "antonio@hotmail.it", "antonio99", "antonio", "inveninato", "3288323456", java.sql.Date.valueOf("1999-05-30"));
+        Autista autista = new Autista("antonio", "antonio@hotmail.it", "antonio99", "antonio", "inveninato", "3288323456", java.sql.Date.valueOf("1999-05-30"));
+        Veicolo veicolo = new Veicolo("xy325fj", "bmw", "x3", "nero", Integer.valueOf("50"));
+        Address address = new Address("Catania","Pisa","via","corso",20);
+        Corsa corsa = new Corsa(autista,veicolo,java.sql.Date.valueOf("2022-04-04"), LocalTime.parse("16:00:00"),address,utente);
+        try {
+
+            assertNotNull(controller.inserisciCorsa(corsa));
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+        corsa.setData_partenza(null);
+        try {
+            assertNull(controller.inserisciCorsa(corsa));
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
+        }
 
 
+    }
+    @Test
+    void testInserisciViaggio() {
+        CorseController controller=CorseController.getInstance();
+        Autista autista = new Autista("antonio", "antonio@hotmail.it", "antonio99", "antonio", "inveninato", "3288323456", java.sql.Date.valueOf("1999-05-30"));
+        Map<String,Veicolo> veicoli = new HashMap<>();
+
+        Veicolo veicolo = new Veicolo("xy325fj", "bmw", "x3", "nero", Integer.valueOf("50"));
+        veicoli.put(veicolo.getTarga(),veicolo);
+        autista.setVeicoli(veicoli);
+        try {
+            controller.inserisciViaggio(autista,veicolo.getTarga(),"concerto Ligabue", Float.valueOf(50),LocalTime.parse("16:00:00"),java.sql.Date.valueOf("2023-04-04"), "Catania","Pisa","via Gabriele d'annunzio","via ortdegli ulivi 7",300);
+            assertNotNull(controller.inserisciViaggio(autista,veicolo.getTarga(),"concerto Ligabue", Float.valueOf(50),LocalTime.parse("16:00:00"),java.sql.Date.valueOf("2023-04-04"), "Catania","Pisa","via Gabriele d'annunzio","via ortdegli ulivi 7",300));
+        } catch (Exception e) {
+            fail("Unexpected exception");
+        }
+        try {
+            controller.inserisciViaggio(autista,veicolo.getTarga(),"", Float.valueOf(50),LocalTime.parse("16:00:00"),java.sql.Date.valueOf("2023-04-04"), "Catania","Pisa","via Gabriele d'annunzio","via ortdegli ulivi 7",300);
+            assertNull(controller.getViaggioCorrente());
+            fail("Expected exception");
+
+        } catch (Exception e) {
+            assertEquals(e.getMessage(),"riempire tutti i campi");
+        }
+    }
+
+    @Test
+    void testGetDiscount() {
+        CorseController controller=CorseController.getInstance();
+        Address address = new Address("Catania","Pisa","via","corso",80);
+        Veicolo veicolo = new Veicolo("xy325fj","antonio","fiat","fiesta","blu",6);
+
+        Corsa corsa = new Corsa(veicolo,java.sql.Date.valueOf("2023-04-04"),LocalTime.parse("16:00:00"),address);
+        corsa.setPrezzo(corsa.getFee());
+    }
 }

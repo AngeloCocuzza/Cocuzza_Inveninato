@@ -263,11 +263,22 @@ public class ShuttleLive {
                     throw new Exception("data già occupata");
                 }
             }
-            autista.setDisponibilitaS(disp);
+            List<Disponibilita> disponibilities=new ArrayList<>();
+            if(autista.getDisponibilita()==null){
+                disponibilities.add(disp);
+                autista.setDisponibilita(disponibilities);
+
+            } else {
+                autista.setDisponibilitaS(disp);
+
+
+            }
+        }
+
             Facade.getInstance().salvaDisponibilita(disp, autista);
             return disp;
         }
-    }
+
 
 
     public Autista autistaSingoloByName(String autista) {

@@ -1,7 +1,6 @@
 package ui;
 
 import model.Autista;
-import model.CorseController;
 import model.ShuttleLive;
 
 import javax.swing.*;
@@ -16,6 +15,7 @@ public class MenuAutista extends javax.swing.JFrame {
     private JButton inserisciViaggioProgrammatoButton;
     private JPanel menuautistaPanel;
     private JButton visualizzaStoricoViaggiButton;
+    private JButton tornaAlLoginButton;
 
     public MenuAutista(ShuttleLive sl, Autista auti){
     this.shuttlelive=sl;
@@ -52,6 +52,13 @@ public class MenuAutista extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new VisualizzaCorseViaggiAutista(shuttlelive, autista);
+                setVisible(false);
+            }
+        });
+        tornaAlLoginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MainForm();
                 setVisible(false);
             }
         });

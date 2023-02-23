@@ -1,5 +1,4 @@
 package ui;
-import model.CorseController;
 import model.ShuttleLive;
 import model.Utente;
 
@@ -17,6 +16,7 @@ public class MenuUtente extends javax.swing.JFrame{
     private JButton cercaViaggioProgrammatoButton;
     private JButton gestisciPrenotazioniButton;
     private JButton visualizzaRecensioniButton;
+    private JButton tornaAlLoginButton;
 
     public MenuUtente(ShuttleLive sl,Utente user) {
 
@@ -58,4 +58,12 @@ public class MenuUtente extends javax.swing.JFrame{
                 setVisible(false);
             }
         });
+        tornaAlLoginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MainForm();
+                setVisible(false);
+            }
+        });
+
     }}

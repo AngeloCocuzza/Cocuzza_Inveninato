@@ -5,8 +5,6 @@ import SL_db.*;
 import java.time.LocalTime;
 import java.util.*;
 
-import static SL_db.Facade.facade;
-
 public class ShuttleLive {
     public static ShuttleLive shuttlelive;
 
@@ -59,14 +57,14 @@ public class ShuttleLive {
     }
 
     public void caricaDati(Autista autista) {
-        if(!Facade.getInstance().tuttiVeicoloAutista(autista.getUsername()).isEmpty()) {
-            autista.setVeicoli(Facade.getInstance().tuttiVeicoloAutista(autista.getUsername()));
+        if(!PercistenceFacade.getInstance().tuttiVeicoloAutista(autista.getUsername()).isEmpty()) {
+            autista.setVeicoli(PercistenceFacade.getInstance().tuttiVeicoloAutista(autista.getUsername()));
         }
-        if(Facade.getInstance().trovaPatenteDaAutista(autista.getUsername()) != null) {
-            autista.setPatente(Facade.getInstance().trovaPatenteDaAutista(autista.getUsername()));
+        if(PercistenceFacade.getInstance().trovaPatenteDaAutista(autista.getUsername()) != null) {
+            autista.setPatente(PercistenceFacade.getInstance().trovaPatenteDaAutista(autista.getUsername()));
         }
-        if(!Facade.getInstance().caricaDisponibilitaAutista(autista.getUsername()).isEmpty()) {
-            autista.setDisponibilita(Facade.getInstance().caricaDisponibilitaAutista(autista.getUsername()));
+        if(!PercistenceFacade.getInstance().caricaDisponibilitaAutista(autista.getUsername()).isEmpty()) {
+            autista.setDisponibilita(PercistenceFacade.getInstance().caricaDisponibilitaAutista(autista.getUsername()));
         }
     }
 
@@ -84,7 +82,7 @@ public class ShuttleLive {
         if(patente.getCodice().equals((""))||patente.getData_conseguimento()==null||patente.getData_scadenza()==null||patente.getLivello().equals(""))
             throw new Exception("riempire tutti i campi");
 
-            Facade.getInstance().salvaPatente(patente,autista);
+            PercistenceFacade.getInstance().salvaPatente(patente,autista);
             autista.setPatente(patente);
             patenteCorrente=patente;
             return patenteCorrente;
@@ -106,7 +104,7 @@ public class ShuttleLive {
         if(data_partenza.before(new Date())) {
             throw new Exception("data non valida");
         }
-        autisti=Facade.getInstance().caricaAutistiDisponibili(partenza,data_partenza,ora);
+        autisti= PercistenceFacade.getInstance().caricaAutistiDisponibili(partenza,data_partenza,ora);
         autistiDisponibiliCorrente=autisti;
         return autistiDisponibiliCorrente;
 
@@ -114,7 +112,7 @@ public class ShuttleLive {
 
     public Map<String,Veicolo> veicoliAutista(String autista){
         //VeicoloDao daoveicoli=new VeicoloDao();
-        veicoliAutistaCorrente=Facade.getInstance().tuttiVeicoloAutista(autista);
+        veicoliAutistaCorrente= PercistenceFacade.getInstance().tuttiVeicoloAutista(autista);
                 //daoveicoli.allVeicoloAutista(autista);
         return veicoliAutistaCorrente;
 
@@ -123,7 +121,7 @@ public class ShuttleLive {
     public Utente verificaCampiUtente(Utente user) throws Exception {
 
         List<Utente> allUsers = new ArrayList<>();
-        allUsers = Facade.getInstance().caricaUtenti();
+        allUsers = PercistenceFacade.getInstance().caricaUtenti();
         if(user.getUsername().equals("") || user.getEmail().equals("") || user.getPassword().equals("") || user.getNome().equals("") || user.getCognome().equals("") || user.getTelefono().equals("") || user.getData_nascita()==null) {
             throw new Exception("riempire tutti i campi");
         }
@@ -138,7 +136,7 @@ public class ShuttleLive {
                 }
             }
             System.out.println(user);
-            Facade.getInstance().salvaUtente(user);
+            PercistenceFacade.getInstance().salvaUtente(user);
             return user;
 
         }
@@ -147,7 +145,7 @@ public class ShuttleLive {
     public Autista verificaCampiAutista(Autista autista) throws Exception {
 
         List<Autista> allAutisti = new ArrayList<>();
-        allAutisti = Facade.getInstance().caricaAutisti();
+        allAutisti = PercistenceFacade.getInstance().caricaAutisti();
         if(autista.getUsername().equals("") || autista.getEmail().equals("") || autista.getPassword().equals("") || autista.getNome().equals("") || autista.getCognome().equals("") || autista.getTelefono().equals("") || autista.getData_nascita()==null) {
             throw new Exception("riempire tutti i campi");
         }
@@ -163,7 +161,7 @@ public class ShuttleLive {
                 }
             }
             System.out.println(autista);
-            Facade.getInstance().salvaAutista(autista);
+            PercistenceFacade.getInstance().salvaAutista(autista);
             return autista;
         }
     }
@@ -172,7 +170,7 @@ public class ShuttleLive {
 
         ////passare sia veicolo che autista e farle come disponibilita
         Map<String,Veicolo> allveicolo = new HashMap<>();
-        allveicolo = Facade.getInstance().tuttiVeicolo();
+        allveicolo = PercistenceFacade.getInstance().tuttiVeicolo();
 
         if(veicolo.getMarca().equals("") || veicolo.getModello().equals("") || veicolo.getColore().equals("") || veicolo.getN_posti()==null) {
             System.out.println("riempire");
@@ -198,11 +196,11 @@ public class ShuttleLive {
             if(autista.getVeicoli()==null){
                 veicoli.put(veicolo.getTarga(),veicolo);
                 autista.setVeicoli(veicoli);
-                Facade.getInstance().inserisciVeicolo(veicolo, autista);
+                PercistenceFacade.getInstance().inserisciVeicolo(veicolo, autista);
             } else {
                 autista.setVeicolo(veicolo);
                 System.out.println(autista.getVeicoli());
-                Facade.getInstance().inserisciVeicolo(veicolo, autista);
+                PercistenceFacade.getInstance().inserisciVeicolo(veicolo, autista);
             }
         }
         return veicolo;
@@ -210,7 +208,7 @@ public class ShuttleLive {
 
     public Autista verificaLoginAutista(String email, String password) throws Exception {
         Autista user = new Autista();
-        user = Facade.getInstance().trovaAutista(email, password);
+        user = PercistenceFacade.getInstance().trovaAutista(email, password);
         if(email.equals("") || password.equals("")) {
             throw new Exception("riempire tutti i campi");
         }
@@ -233,7 +231,7 @@ public class ShuttleLive {
         if (password.length() <= 7) {
             throw new Exception("password troppo breve");
         } else {
-            user = Facade.getInstance().trovaUtente(email, password);
+            user = PercistenceFacade.getInstance().trovaUtente(email, password);
             if (user.getPassword() == null || user.getEmail()==null) {
                 throw new Exception("utente non trovato");
             }
@@ -244,7 +242,7 @@ public class ShuttleLive {
     public Disponibilita verificaDisponibilita(Autista autista,Disponibilita disp) throws Exception {
 
         List<Disponibilita> alldisp = new ArrayList<>();
-        alldisp = Facade.getInstance().caricaDisponibilita();
+        alldisp = PercistenceFacade.getInstance().caricaDisponibilita();
         if(disp.getGiorno_disponibilita()==null || disp.getCitta_partenza().equals("") ) {
             throw new Exception("riempire tutti i campi");
         }
@@ -275,7 +273,7 @@ public class ShuttleLive {
             }
         }
 
-            Facade.getInstance().salvaDisponibilita(disp, autista);
+            PercistenceFacade.getInstance().salvaDisponibilita(disp, autista);
             return disp;
         }
 

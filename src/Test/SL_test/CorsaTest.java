@@ -1,18 +1,12 @@
 package SL_test;
 
-import SL_db.Facade;
 import model.*;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
-import java.sql.SQLOutput;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;

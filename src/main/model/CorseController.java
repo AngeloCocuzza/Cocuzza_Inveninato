@@ -1,16 +1,12 @@
 package model;
 
 import SL_db.*;
-import ui.GestisciPrenotazioni;
 
 import java.sql.Date;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static SL_db.Facade.facade;
 
 public class CorseController {
 
@@ -63,18 +59,18 @@ public class CorseController {
     }
 
     public Autista autistaSingoloByName(String autista) {
-        autistacorrente= Facade.getInstance().trovaAutistaDalNome(autista);
+        autistacorrente= PercistenceFacade.getInstance().trovaAutistaDalNome(autista);
         return autistacorrente;
     }
 
     public Utente utenteSingoloByName(String utente) {
-        utentecorrente= Facade.getInstance().trovaUtenteDalNome(utente);
+        utentecorrente= PercistenceFacade.getInstance().trovaUtenteDalNome(utente);
         return utentecorrente;
     }
 
     public Veicolo veicoloSingoloByName(String veicolo) {
         //VeicoloDao veicdao = new VeicoloDao();
-        veicolocorrente= Facade.getInstance().tuttiVeicoloTarga(veicolo);
+        veicolocorrente= PercistenceFacade.getInstance().tuttiVeicoloTarga(veicolo);
         //veicdao.allvVeicoloTarga(veicolo);
         return veicolocorrente;
     }
@@ -86,7 +82,7 @@ public class CorseController {
 
     public void inserisciCorsaProgrammata(ViaggioProgrammato viaggio,Utente user) {
         viaggio.setUtente(user);
-        Facade.getInstance().inserisciCProgrammata(viaggio.getID(),user.getUsername());
+        PercistenceFacade.getInstance().inserisciCProgrammata(viaggio.getID(),user.getUsername());
     }
     public void inserisciRecensione(CorsaViaggio viaggio,Integer voto, String commento) throws Exception {
         //Recensione vuota = new Recensione(null,"");
@@ -99,21 +95,21 @@ public class CorseController {
         Recensione review = new Recensione(voto,commento);
         if (viaggio instanceof Corsa) {
             //RecensioneCorsaDAO recensionedao = new RecensioneCorsaDAO();
-            if (Facade.getInstance().recenCorsa((Corsa) viaggio) != null){
+            if (PercistenceFacade.getInstance().recenCorsa((Corsa) viaggio) != null){
                 System.out.println("sono qui");
                 throw new Exception("recensione già inserita");
-            } else if(Facade.getInstance().recenCorsa((Corsa) viaggio) == null) {
+            } else if(PercistenceFacade.getInstance().recenCorsa((Corsa) viaggio) == null) {
                 viaggio.setRecensione(review);
-                Facade.getInstance().insRecensioneC(viaggio);
+                PercistenceFacade.getInstance().insRecensioneC(viaggio);
 
             }
         } else if(viaggio instanceof ViaggioProgrammato){
             //RecensioneViaggioDAO recensionedao = new RecensioneViaggioDAO();
-            if(Facade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) != null) {
+            if(PercistenceFacade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) != null) {
                throw new Exception("recensione già inserita");
-            } else if(Facade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) == null){
+            } else if(PercistenceFacade.getInstance().recenViaggio((ViaggioProgrammato) viaggio) == null){
                 viaggio.setRecensione(review);
-                Facade.getInstance().insRecensione(viaggio);
+                PercistenceFacade.getInstance().insRecensione(viaggio);
 
             }
         }
@@ -123,11 +119,11 @@ public class CorseController {
         List<Recensione> recensioni=new ArrayList<>();
 
         //RecensioneCorsaDAO recensionecorsadao = new RecensioneCorsaDAO();
-        recensioni=Facade.getInstance().tuttiRecensioniAutistaCorsa(autista);
+        recensioni= PercistenceFacade.getInstance().tuttiRecensioniAutistaCorsa(autista);
         //recensionecorsadao.allRecensioniAutista(autista);
 
        // RecensioneViaggioDAO recensioneviaggiodao = new RecensioneViaggioDAO();
-        recensioni.addAll(Facade.getInstance().tuttiRecensioniAutistaViaggio(autista));
+        recensioni.addAll(PercistenceFacade.getInstance().tuttiRecensioniAutistaViaggio(autista));
                 //recensioneviaggiodao.allRecensioniAutista(autista));
         return recensioni;
 
@@ -143,27 +139,27 @@ public class CorseController {
         if(data_partenza.before(new java.util.Date())) {
             throw new Exception("data non valida");
         }
-        viaggi = Facade.getInstance().selezioneViaggiByEventoOrData(evento,data_partenza);
+        viaggi = PercistenceFacade.getInstance().selezioneViaggiByEventoOrData(evento,data_partenza);
         return viaggi;
 
     }
 
     public void diminuisciPostiDisponibili(ViaggioProgrammato viaggio){
         viaggio.setPostiDisponibili(viaggio.getPostiDisponibili()-1);
-        Facade.getInstance().aggiornaDimPostiDisponibili(viaggio.getID());
+        PercistenceFacade.getInstance().aggiornaDimPostiDisponibili(viaggio.getID());
     }
 
     public void aumentaPostiDisponibili(ViaggioProgrammato viaggio){
         viaggio.setPostiDisponibili(viaggio.getPostiDisponibili()+1);
-        Facade.getInstance().aggiornaAumPostiDisponibili(viaggio.getID());
+        PercistenceFacade.getInstance().aggiornaAumPostiDisponibili(viaggio.getID());
     }
     public List<CorsaViaggio> caricaCorseViaggiByUtente(Utente user) {
         //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         //CorsaDAO corsadao = new CorsaDAO();
         System.out.println(user.getUsername());
-        List<ViaggioProgrammato> viaggi = Facade.getInstance().selezionaViaggioProgrammatoByUtente(user.getUsername());
+        List<ViaggioProgrammato> viaggi = PercistenceFacade.getInstance().selezionaViaggioProgrammatoByUtente(user.getUsername());
         //viaggiodao.selectViaggioProgrammatoByUtente(user.getUsername());
-        List<Corsa> corse= Facade.getInstance().selezionaCorseByUtente(user.getUsername());
+        List<Corsa> corse= PercistenceFacade.getInstance().selezionaCorseByUtente(user.getUsername());
         //corsadao.selectCorseByUtente(user.getUsername());
         List<CorsaViaggio> corseviaggi = new ArrayList<>();
         corseviaggi.addAll(corse);
@@ -174,9 +170,9 @@ public class CorseController {
     public List<CorsaViaggio> caricaCorseViaggiByAutista(Autista autista) {
         //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         //CorsaDAO corsadao = new CorsaDAO();
-        List<ViaggioProgrammato> viaggi = Facade.getInstance().selezionaViaggioProgrammatoByAutista(autista.getUsername());
+        List<ViaggioProgrammato> viaggi = PercistenceFacade.getInstance().selezionaViaggioProgrammatoByAutista(autista.getUsername());
         //viaggiodao.selectViaggioProgrammatoByAutista(autista.getUsername());
-        List<Corsa> corse= Facade.getInstance().selezionaCorseByAutista(autista.getUsername());
+        List<Corsa> corse= PercistenceFacade.getInstance().selezionaCorseByAutista(autista.getUsername());
                 //corsadao.selectCorseByAutista(autista.getUsername());
         List<CorsaViaggio> corseviaggi = new ArrayList<>();
         corseviaggi.addAll(corse);
@@ -187,14 +183,14 @@ public class CorseController {
     public void cancellaCorsa(Corsa corsa,Utente user) {
         //CorsaDAO corsadao = new CorsaDAO();
         //corsadao.deleteCorsa(corsa);
-        Facade.getInstance().cancCorsa(corsa);
+        PercistenceFacade.getInstance().cancCorsa(corsa);
         caricaCorseViaggiByUtente(user);
     }
 
     public void cancellaViaggio(ViaggioProgrammato viaggio, Utente user) {
         //ViaggioProgrammatoDAO viaggiodao = new ViaggioProgrammatoDAO();
         //viaggiodao.deleteViaggio(viaggio,user);
-        Facade.getInstance().eliminaViaggio(viaggio,user);
+        PercistenceFacade.getInstance().eliminaViaggio(viaggio,user);
         caricaCorseViaggiByUtente(user);
 
     }
@@ -230,7 +226,7 @@ public class CorseController {
             throw new Exception("riempire tutti i campi");
         }
         //ViaggioProgrammatoDAO viaggiodao=new ViaggioProgrammatoDAO();
-        Facade.getInstance().inserisciViaggioPro(corsa);
+        PercistenceFacade.getInstance().inserisciViaggioPro(corsa);
         return corsa;
     }
 
@@ -240,7 +236,7 @@ public class CorseController {
         if (corsa.getAddress().getCitta_destinazione().equals("") || corsa.getAddress().getCitta_partenza().equals("") || corsa.getAddress().getIndirizzo_destinazione().equals("") || corsa.getAddress().getInidirizzo_partenza().equals("") || corsa.getData_partenza() == null || corsa.getOra_partenza() == null) {
             throw new Exception("riempire tutti i campi");
         }
-        Facade.getInstance().insCorsa(corsa);;
+        PercistenceFacade.getInstance().insCorsa(corsa);;
         return corsa;
     }
 

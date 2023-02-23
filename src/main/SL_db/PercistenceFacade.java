@@ -1,28 +1,24 @@
 package SL_db;
 
 import model.*;
-import model.ShuttleLive;
 
 import java.sql.Date;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Facade {
-    public static Facade facade;
+public class PercistenceFacade {
+    public static PercistenceFacade percistenceFacade;
 
-    public static Facade getInstance() {
-        if(facade == null)
-            facade = new Facade();
+    public static PercistenceFacade getInstance() {
+        if(percistenceFacade == null)
+            percistenceFacade = new PercistenceFacade();
         else
             System.out.println("Istanza già creata");
-        return facade;
+        return percistenceFacade;
     }
     public void salvaPatente(Patente patente, Autista autista) {
         try {

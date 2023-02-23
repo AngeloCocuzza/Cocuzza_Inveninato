@@ -180,7 +180,7 @@ class CorsaTest {
     }
 
     @Test
-    void creaCorsa() {
+    void testcreaCorsa() {
         CorseController controller = CorseController.getInstance();
         Utente utente = new Utente("antonio", "antonio@hotmail.it", "antonio99", "antonio", "inveninato", "3288323456", java.sql.Date.valueOf("1999-05-30"));
         Autista autista = new Autista("antonio", "antonio@hotmail.it", "antonio99", "antonio", "inveninato", "3288323456", java.sql.Date.valueOf("1999-05-30"));
